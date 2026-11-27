@@ -28,7 +28,7 @@ WhatsApp Web. Everything happens in your browser. Nothing is uploaded anywhere e
 - **Trim with your eyes and ears.** A waveform and a live preview show exactly what you get.
 - **Always under 1 MB.** WhatsApp rejects bigger stickers, so size, frame rate and quality are picked for you.
 - **Send or forward.** To the open chat, or to your own chat and then to as many chats as you like.
-- **Arabic and English**, light and dark, following WhatsApp's theme.
+- **Six languages:** English, Arabic, Spanish, Portuguese, Indonesian and Hindi, light and dark.
 - **YouTube and TikTok links** in the GitHub version: paste a link, choose the part, done. Nothing opens in a new tab.
 
 ## 📦 Install
@@ -43,6 +43,18 @@ Works in Chrome, Edge, Brave, Arc, Dia and other Chromium browsers (version 120 
 
 **From the Chrome Web Store:** coming soon. That version leaves out YouTube and TikTok links, because the store doesn't
 allow saving media from other sites.
+
+## 🤖 Use it with AI
+
+Ask Claude or any AI assistant to make sound stickers for you, from files on your computer.
+
+- **Claude Desktop:** download `sound-sticker-maker.mcpb` from the [latest release](https://github.com/haythamasalama/sound-sticker-maker/releases/latest) and double-click it.
+- **Claude Code:** `claude mcp add sound-sticker-maker -- npx -y sound-sticker-maker-mcp`
+- **Cursor, Windsurf, Codex and others:** add `{"mcpServers":{"sound-sticker-maker":{"command":"npx","args":["-y","sound-sticker-maker-mcp"]}}}` to the MCP settings.
+- **Skill:** copy [`skills/sound-sticker-maker`](skills/sound-sticker-maker) into your agent's skills folder.
+
+Then ask: _"Make a sound sticker from ~/Downloads/goal.mp4, seconds 3 to 8."_ Ready-to-copy prompts are on the
+[Use with AI](https://haythamasalama.github.io/sound-sticker-maker/ai/) page.
 
 ## 🔊 Will my friends hear it?
 

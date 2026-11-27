@@ -1,7 +1,7 @@
 {
   "name": "sound-sticker-maker-workspace",
   "private": true,
-  "version": "0.1.1",
+  "version": "0.1.2",
   "type": "module",
   "description": "Make WhatsApp stickers that play sound: from a video, a GIF or a picture with any audio, in your browser.",
   "author": "Haytham A. Salama (https://haythamasalama.me/)",

@@ -1,7 +1,7 @@
 {
   "name": "@sound-sticker-maker/site",
   "private": true,
-  "version": "0.1.1",
+  "version": "0.1.2",
   "type": "module",
   "description": "The Sound Sticker Maker website and online sticker maker.",
   "author": "Haytham A. Salama (https://haythamasalama.me/)",

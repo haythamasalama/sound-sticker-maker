@@ -3,23 +3,9 @@
 Everything ships from one tag. Do these once, then every release is `pnpm release:version x.y.z`, a changelog entry and
 a `vx.y.z` tag (see [RELEASING.md](RELEASING.md)).
 
-## Chrome Web Store (the extension most people install)
+## GitHub
 
-1. Create a developer account at the [Chrome Web Store developer dashboard](https://chrome.google.com/webstore/devconsole)
-   (a one-time US$5 fee) and verify your email.
-2. **New item** → upload `sound-sticker-maker-<version>-store.zip` from the GitHub release.
-3. Fill in the listing from [STORE_LISTING.md](STORE_LISTING.md): name, descriptions in each language, category
-   Communication, icon, screenshots (1280×800) and the small promo tile (440×280).
-4. **Privacy practices**: single purpose, the `storage` and `web.whatsapp.com` justifications, no remote code, no data
-   collected (all in STORE_LISTING.md). Link the privacy policy page of the website.
-5. Submit for review. It usually takes a few days. After approval, put the store link in `apps/site` (the `STORE_URL`
-   constant) so the site shows an "Add to Chrome" button.
-
-Updates: upload the new store zip on the same item; Chrome updates everyone automatically.
-
-## GitHub (the full version, with YouTube and TikTok)
-
-Pushing a `v*` tag runs the **Release** workflow: it builds both zips and attaches them to a GitHub release. People install the GitHub zip with **Load unpacked**
+Pushing a `v*` tag runs the **Release** workflow: it builds the extension zip and attaches it to a GitHub release. People install it with **Load unpacked**
 (steps in the README and on the website).
 
 ## Website

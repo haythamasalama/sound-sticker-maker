@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { RECOMMENDED_SECONDS, type Shape } from '@sound-sticker-maker/core'
 import { ChevronDownIcon, LanguagesIcon, XIcon } from '@lucide/vue'
-import { computed, onBeforeUnmount, onMounted, ref, shallowRef, watch } from 'vue'
+import { computed, onBeforeUnmount, onMounted, ref, shallowRef, useTemplateRef, watch } from 'vue'
 import BrandMark from '@/components/BrandMark.vue'
 import { Button } from '@/components/ui/button'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
@@ -29,6 +29,36 @@ onMounted(async () => {
   publisher.value = (await storageGet<string>('publisher')) ?? ''
 })
 watch([packName, publisher], ([pack, author]) => storageSet({ packName: pack, publisher: author }))
+
+const MIN_WIDTH = 340
+const MAX_WIDTH = 760
+const width = shallowRef(360)
+const resizing = shallowRef(false)
+const panel = useTemplateRef<HTMLElement>('panel')
+const fitWidth = (value: number) => Math.round(Math.min(MAX_WIDTH, window.innerWidth - 32, Math.max(MIN_WIDTH, value)))
+onMounted(async () => {
+  width.value = fitWidth((await storageGet<number>('panelWidth')) ?? 360)
+})
+
+// The panel sits against the screen's end edge, so its width grows as its free (start) edge is pulled away.
+function onResizeMove(event: PointerEvent) {
+  const rect = panel.value?.getBoundingClientRect()
+  if (!resizing.value || !rect) return
+  width.value = fitWidth(dir.value === 'rtl' ? event.clientX - rect.left : rect.right - event.clientX)
+}
+function onResizeEnd() {
+  if (!resizing.value) return
+  resizing.value = false
+  storageSet({ panelWidth: width.value })
+}
+function onResizeKey(event: KeyboardEvent) {
+  const wider = dir.value === 'rtl' ? 'ArrowRight' : 'ArrowLeft'
+  const narrower = dir.value === 'rtl' ? 'ArrowLeft' : 'ArrowRight'
+  if (event.key !== wider && event.key !== narrower) return
+  event.preventDefault()
+  width.value = fitWidth(width.value + (event.key === wider ? 20 : -20))
+  storageSet({ panelWidth: width.value })
+}
 
 watch(sound, (next) => {
   range.value = { start: 0, end: next ? +Math.min(next.duration, RECOMMENDED_SECONDS).toFixed(2) : 0 }
@@ -73,17 +103,6 @@ function onKeydown(event: KeyboardEvent) {
 
 <template>
   <div class="ssm-root" :class="{ dark }" :dir="dir" :lang="locale" @keydown="onKeydown">
-    <button
-      v-if="!open"
-      type="button"
-      class="fixed end-5 bottom-24 z-[2147483000] size-12 overflow-hidden rounded-[14px] bg-transparent p-0 shadow-lg transition-transform hover:-translate-y-0.5 focus-visible:ring-3 focus-visible:ring-ring/50"
-      :title="t.title"
-      :aria-label="t.title"
-      @click="open = true"
-    >
-      <BrandMark bleed class="block size-full" />
-    </button>
-
     <Transition
       enter-active-class="transition duration-200 ease-out"
       enter-from-class="translate-y-2 opacity-0"
@@ -92,10 +111,36 @@ function onKeydown(event: KeyboardEvent) {
     >
       <aside
         v-if="open"
-        class="fixed end-4 top-4 z-[2147483000] flex max-h-[calc(100vh-2rem)] w-[360px] max-w-[calc(100vw-2rem)] flex-col overflow-hidden rounded-2xl bg-background text-foreground shadow-[0_24px_64px_-12px_rgb(0_0_0/0.35),0_0_0_1px_var(--border)]"
+        ref="panel"
+        class="fixed end-4 top-4 z-[2147483000] flex max-h-[calc(100vh-2rem)] max-w-[calc(100vw-2rem)] flex-col overflow-hidden rounded-2xl bg-background text-foreground shadow-[0_24px_64px_-12px_rgb(0_0_0/0.35),0_0_0_1px_var(--border)]"
+        :class="{ 'select-none': resizing }"
+        :style="{ width: `${width}px` }"
         role="dialog"
         :aria-label="t.title"
       >
+        <div
+          role="separator"
+          aria-orientation="vertical"
+          tabindex="0"
+          :aria-label="t.resize"
+          :title="t.resize"
+          :aria-valuenow="width"
+          :aria-valuemin="MIN_WIDTH"
+          :aria-valuemax="MAX_WIDTH"
+          class="group absolute inset-y-0 start-0 z-10 flex w-3 cursor-ew-resize touch-none items-center justify-center outline-none"
+          data-testid="panel-resize"
+          @pointerdown.prevent="(($event.currentTarget as HTMLElement).setPointerCapture($event.pointerId), (resizing = true))"
+          @pointermove="onResizeMove"
+          @pointerup="onResizeEnd"
+          @pointercancel="onResizeEnd"
+          @dblclick="((width = 360), storageSet({ panelWidth: 360 }))"
+          @keydown="onResizeKey"
+        >
+          <span
+            class="h-10 w-1 rounded-full bg-muted-foreground/30 transition-colors group-hover:bg-muted-foreground/60 group-focus-visible:bg-primary"
+            :class="{ 'bg-primary': resizing }"
+          />
+        </div>
         <header class="flex items-center gap-2 px-3 py-2.5">
           <BrandMark class="size-7 shrink-0" />
           <h2 class="min-w-0 flex-1 truncate text-sm font-semibold tracking-tight">{{ t.title }}</h2>

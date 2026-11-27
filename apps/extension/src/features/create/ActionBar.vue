@@ -115,6 +115,14 @@ function send() {
         {{ sending.step.value ? stepText : sending.sent.value ? (sending.sent.value.forwarding ? t.sentForward : t.sent) : t.send }}
       </Button>
       <p v-if="sending.error.value" class="text-xs text-destructive" role="alert">{{ errorText(sending.error.value) }}</p>
+      <p
+        v-if="sending.error.value && sending.detail.value"
+        dir="ltr"
+        class="text-[11px] break-words text-muted-foreground select-text"
+        data-testid="send-detail"
+      >
+        {{ sending.detail.value }}
+      </p>
       <p v-else-if="sending.status.value?.missing.length" class="text-xs text-destructive">{{ t.whatsappChanged }}</p>
     </template>
 

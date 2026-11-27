@@ -329,12 +329,6 @@
   }
 }
 
-.inst-store {
-  margin-top: 28px;
-  height: 52px;
-  padding: 0 28px;
-  font-size: 17px;
-}
 .inst-ai-act {
   display: grid;
   justify-items: start;

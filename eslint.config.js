@@ -22,7 +22,7 @@ export default tseslint.config(
   {
     files: ['**/*.{ts,vue}'],
     languageOptions: {
-      globals: { ...globals.browser, chrome: 'readonly', __LINKS__: 'readonly' },
+      globals: { ...globals.browser, chrome: 'readonly' },
       parserOptions: { parser: tseslint.parser },
     },
     rules: {

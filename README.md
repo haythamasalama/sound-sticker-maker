@@ -23,8 +23,8 @@ A free, open-source Chrome extension that turns any video, GIF or photo plus a s
 </p>
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="media/store-2@2x.png" />
-  <img src="media/store-1@2x.png" alt="The Sound Sticker Maker panel on WhatsApp Web with a video, its waveform and a ready sound sticker" />
+  <source media="(prefers-color-scheme: dark)" srcset="media/hero-dark@2x.png" />
+  <img src="media/hero-light@2x.png" alt="The Sound Sticker Maker panel on WhatsApp Web with a video, its waveform and a ready sound sticker" />
 </picture>
 
 ## ✨ What it does
@@ -32,9 +32,9 @@ A free, open-source Chrome extension that turns any video, GIF or photo plus a s
 - **Any picture, any sound.** A video with its own sound, a GIF with a song, or a photo with a voice note.
 - **See the sticker before you make it.** A square preview loops the part you chose, exactly as it will look.
 - **Trim on the waveform.** Drag the two handles, press play, keep 10 seconds or less.
-- **Always under WhatsApp's 1 MB limit.** Size, frame rate and quality are picked for you.
+- **Always under WhatsApp's 500 KB limit.** Size, frame rate and quality are picked for you.
 - **Send to one chat or many.** Straight to the open chat, or to your own chat and then forward it.
-- **From a link** (GitHub version): paste a YouTube or TikTok link and pick the seconds you want. Nothing opens in a new tab.
+- **From a link:** paste a YouTube or TikTok link and pick the seconds you want. Nothing opens in a new tab.
 - **Six languages:** English, العربية, Español, Português, Bahasa Indonesia and हिन्दी, in light and dark.
 - **Private.** Everything happens in your browser. No account, no servers, no tracking.
 
@@ -49,7 +49,7 @@ A free, open-source Chrome extension that turns any video, GIF or photo plus a s
 ## 🎯 How to make a WhatsApp sticker with sound
 
 1. Install the extension (below) and open [web.whatsapp.com](https://web.whatsapp.com).
-2. Click the round orange sticker button at the bottom right.
+2. Click the Sound Sticker Maker icon in the browser toolbar (pin it first from the puzzle-piece icon).
 3. Choose a video, GIF or photo from your device, or paste a link.
 4. Keep the video's sound or pick another one, then drag the handles to the part you want.
 5. Click **Create sticker**, hear it, and click **Send**.
@@ -59,19 +59,14 @@ same sticker files in your browser.
 
 ## 📦 Install
 
-**From GitHub (includes YouTube and TikTok links)**
-
-1. Download `sound-sticker-maker-<version>-github.zip` from the [latest release](https://github.com/haythamasalama/sound-sticker-maker/releases/latest) and unzip it.
+1. Download `sound-sticker-maker-<version>.zip` from the [latest release](https://github.com/haythamasalama/sound-sticker-maker/releases/latest) and unzip it.
 2. Open `chrome://extensions`, turn on **Developer mode**, click **Load unpacked** and choose the unzipped folder.
-3. Open [web.whatsapp.com](https://web.whatsapp.com) and click the orange sticker button.
+3. Pin the extension from the puzzle-piece icon, open [web.whatsapp.com](https://web.whatsapp.com) and click its icon in the toolbar.
 
 Not sure how? The [install guide](https://sound-sticker-maker.haythamasalama.me/install/) has a button that copies the steps
 for your AI assistant (ChatGPT, Claude, Gemini…), which then walks you through it.
 
 Works in Chrome, Edge, Brave, Arc, Dia, Opera and other Chromium browsers (version 120 or later).
-
-**Chrome Web Store:** coming soon. That version leaves out link import, because the store doesn't allow saving media
-from other sites.
 
 ## ❓ FAQ
 
@@ -101,13 +96,13 @@ No account, no analytics, no servers of ours. See [PRIVACY.md](PRIVACY.md).
 ```bash
 pnpm install
 pnpm check              # typecheck + lint + format check + tests
-pnpm build              # builds apps/extension/dist/store and apps/extension/dist/github
+pnpm build              # builds the extension into apps/extension/dist
 pnpm site               # runs the website locally
-node scripts/e2e.mjs    # loads the GitHub build into Chromium and walks through WhatsApp Web
+node scripts/e2e.mjs    # loads the extension into Chromium and walks through WhatsApp Web
 node scripts/capture.mjs  # regenerates the images in media/
 ```
 
-Load `apps/extension/dist/github` (or `dist/store`) with **Load unpacked**. How it fits together is in
+Load `apps/extension/dist` with **Load unpacked**. How it fits together is in
 [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md); releasing and publishing are in [docs/RELEASING.md](docs/RELEASING.md) and
 [docs/PUBLISHING.md](docs/PUBLISHING.md). Contributions are welcome: see [CONTRIBUTING.md](CONTRIBUTING.md).
 

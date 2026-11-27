@@ -3,9 +3,9 @@ import '../styles/drawn.css'
 import '../styles/maker.css'
 import Base from '../layouts/Base.astro'
 import Icon from './Icon.astro'
-import { EXTENSION_ID, RELEASES_URL, STORE_URL } from '../config'
+import { EXTENSION_ID } from '../config'
 import { UI } from '../i18n/ui'
-import { absolute, pageIn, useT, type Lang } from '../i18n'
+import { absolute, href, pageIn, useT, type Lang } from '../i18n'
 import { breadcrumbNode } from '../lib/seo'
 
 interface Props {
@@ -94,7 +94,7 @@ const graph = [
             </div>
             <p class="mk-linkneed" data-mk="link-need" hidden>
               {t('maker.link.need')}
-              <a href={RELEASES_URL}>{t('maker.link.get')}</a>
+              <a href={href(pageIn(lang, 'install/'))}>{t('maker.link.get')}</a>
             </p>
           </form>
           <p class="mk-error" data-mk="link-error" role="alert" hidden></p>
@@ -217,7 +217,7 @@ const graph = [
         <div class="mk-done" data-mk="downloads" hidden>
           <p class="mk-meta" data-mk="result-meta" dir="ltr"></p>
           <div class="mk-downloads">
-            <a class="btn btn-store mk-dl" data-mk="dl-webp" download="sound-sticker.webp"
+            <a class="btn btn-cta mk-dl" data-mk="dl-webp" download="sound-sticker.webp"
               ><Icon name="download" size={16} />{t('maker.dlWebp')}</a
             >
             <a class="btn btn-line mk-dl" data-mk="dl-ogg" download="sound-sticker.ogg"
@@ -226,7 +226,7 @@ const graph = [
           </div>
           <p class="mk-note">
             {t('maker.note')}
-            <a href={STORE_URL || RELEASES_URL}>{t('maker.getExt')}</a>
+            <a href={href(pageIn(lang, 'install/'))}>{t('maker.getExt')}</a>
           </p>
         </div>
       </div>

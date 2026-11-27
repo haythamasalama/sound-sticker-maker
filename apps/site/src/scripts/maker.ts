@@ -541,7 +541,7 @@ function listen() {
   player.play().catch(() => undefined)
 }
 
-// Links, through the GitHub build of the extension
+// Links, through the extension
 
 const importer = createLinkImporter(config.extensionId ?? '')
 

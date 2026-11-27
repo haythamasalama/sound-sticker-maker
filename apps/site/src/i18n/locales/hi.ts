@@ -14,7 +14,6 @@ export const hi: Record<Key, string> = {
   'nav.download': 'डाउनलोड',
 
   'cta.github': 'GitHub से डाउनलोड करें',
-  'cta.store': 'Chrome में जोड़ें',
   'cta.try': 'ऑनलाइन आज़माएँ',
   'hero.title': 'बोलने वाले स्टिकर।',
   'hero.lead': 'कोई क्लिप, GIF या फ़ोटो चुनें, कोई भी आवाज़ जोड़ें और WhatsApp पर साउंड स्टिकर की तरह भेजें। आपके ब्राउज़र में कुछ ही सेकंड में तैयार।',
@@ -30,11 +29,12 @@ export const hi: Record<Key, string> = {
   'how.2b': 'वीडियो की अपनी आवाज़ या कोई भी ऑडियो फ़ाइल। जो हिस्सा चाहिए, उसके लिए दोनों किनारे खींचें।',
   'how.3t': 'बनाएँ और भेजें',
   'how.3b': 'स्टिकर कुछ सेकंड में बनकर खुली हुई चैट में चला जाता है।',
+  'how.name': 'आवाज़ वाला WhatsApp स्टिकर कैसे बनाएँ',
 
   'feat.title': 'छोटी फ़ाइल, असली आवाज़',
-  'f.fit.t': 'हमेशा 1 MB से कम',
+  'f.fit.t': 'हमेशा 500 KB से कम',
   'f.fit.b':
-    'WhatsApp 1 MB से बड़े स्टिकर नहीं लेता। मेकर साइज़, फ़्रेम रेट और क्वालिटी बदल-बदलकर आज़माता है जब तक स्टिकर फ़िट न हो जाए, और सबसे साफ़ वाला रखता है।',
+    'WhatsApp 500 KB से बड़े स्टिकर नहीं लेता। मेकर साइज़, फ़्रेम रेट और क्वालिटी बदल-बदलकर आज़माता है जब तक स्टिकर फ़िट न हो जाए, और सबसे साफ़ वाला रखता है।',
   'f.any.t': 'कोई भी तस्वीर, कोई भी आवाज़',
   'f.any.b': 'वीडियो, GIF, PNG या JPG, साथ में MP3, M4A, WAV या किसी दूसरे वीडियो की आवाज़।',
   'f.lang.t': 'अरबी और अंग्रेज़ी में',
@@ -48,10 +48,8 @@ export const hi: Record<Key, string> = {
   'try.body':
     'ऑनलाइन मेकर इसी पेज पर वही स्टिकर और आवाज़ की फ़ाइलें बनाता है। रखने के लिए डाउनलोड करें, या साउंड स्टिकर की तरह भेजने के लिए एक्सटेंशन इंस्टॉल करें।',
   'try.cta': 'मेकर खोलें',
-  'links.title': 'YouTube और TikTok लिंक',
-  'links.tag': 'GitHub वर्ज़न',
-  'links.body':
-    'GitHub वर्ज़न YouTube या TikTok लिंक से भी शुरू हो सकता है: लिंक पेस्ट करें, हिस्सा चुनें, और उसी क्लिप से स्टिकर बन जाता है। Chrome Web Store वर्ज़न सिर्फ़ फ़ाइलों के साथ काम करता है।',
+  'links.title': 'YouTube या TikTok लिंक से शुरू करें',
+  'links.body': 'YouTube या TikTok लिंक पेस्ट करें, हिस्सा चुनें, और उसी क्लिप से स्टिकर बन जाता है, एक्सटेंशन में या ऑनलाइन मेकर में।',
 
   'faq.title': 'सवाल',
   'q.1': 'क्या मेरे दोस्त इसे सुन पाएँगे?',
@@ -63,15 +61,12 @@ export const hi: Record<Key, string> = {
   'q.3': 'क्या यह मेरी फ़ाइलें अपलोड करता है?',
   'a.3':
     'नहीं। तस्वीरें और आवाज़ें आपके कंप्यूटर पर ही पढ़ी और प्रोसेस होती हैं। एक्सटेंशन स्टिकर भेजने के लिए सिर्फ़ web.whatsapp.com से बात करता है, और ऑनलाइन मेकर आपकी फ़ाइलें कहीं नहीं भेजता।',
-  'q.4': 'Chrome Web Store की जगह GitHub क्यों?',
+  'q.4': 'इसे कैसे इंस्टॉल करूँ?',
   'a.4':
-    'स्टोर पेज अभी लाइव नहीं हुआ है। तब तक GitHub से नया रिलीज़ डाउनलोड करें, अनज़िप करें, chrome://extensions खोलें, Developer mode चालू करें और “Load unpacked” चुनें।',
-  'q.4Live': 'कौन-सा वर्ज़न इंस्टॉल करूँ?',
-  'a.4Live':
-    'Chrome Web Store वर्ज़न एक क्लिक में इंस्टॉल होता है और ख़ुद अपडेट होता रहता है। GitHub वर्ज़न YouTube और TikTok लिंक भी लेता है; उसे GitHub Releases से डाउनलोड करें और Developer mode चालू करके chrome://extensions से लोड करें।',
+    'GitHub से नई zip फ़ाइल डाउनलोड करें, अनज़िप करें, chrome://extensions खोलें, Developer mode चालू करें और Load unpacked चुनें। इंस्टॉल पेज हर कदम दिखाता है, और कदम कॉपी भी कर सकता है ताकि आपका AI असिस्टेंट साथ में कर दे।',
   'q.5': 'साउंड स्टिकर कितना लंबा हो सकता है?',
   'a.5':
-    '30 सेकंड तक, लेकिन 10 सेकंड या उससे कम सबसे अच्छा रहता है: WhatsApp के अपने साउंड स्टिकर इतने ही लंबे होते हैं, और छोटा हिस्सा 1 MB में ज़्यादा साफ़ तस्वीर के साथ फ़िट होता है।',
+    '30 सेकंड तक, लेकिन 10 सेकंड या उससे कम सबसे अच्छा रहता है: WhatsApp के अपने साउंड स्टिकर इतने ही लंबे होते हैं, और छोटा हिस्सा 500 KB में ज़्यादा साफ़ तस्वीर के साथ फ़िट होता है।',
   'q.6': 'यह किन ब्राउज़र में चलता है?',
   'a.6':
     'कंप्यूटर पर Chrome और Edge, Brave जैसे दूसरे Chromium ब्राउज़र में। ऑनलाइन मेकर के लिए भी नया Chrome या Edge चाहिए, क्योंकि यह ब्राउज़र के अपने वीडियो और ऑडियो एनकोडर इस्तेमाल करता है।',
@@ -173,8 +168,8 @@ export const hi: Record<Key, string> = {
   'maker.link.go': 'इम्पोर्ट करें',
   'maker.link.from': 'शुरुआत',
   'maker.link.length': 'अवधि',
-  'maker.link.need': 'लिंक इम्पोर्ट तब काम करता है जब एक्सटेंशन का GitHub वर्ज़न इंस्टॉल हो।',
-  'maker.link.get': 'GitHub से पाएँ',
+  'maker.link.need': 'लिंक इम्पोर्ट तब काम करता है जब एक्सटेंशन इंस्टॉल हो।',
+  'maker.link.get': 'इंस्टॉल करें',
   'maker.link.bad': 'यह YouTube या TikTok लिंक नहीं है।',
   'maker.link.recording': 'क्लिप रिकॉर्ड हो रही है…',
   'maker.link.fetching': 'वीडियो लाया जा रहा है…',
@@ -188,7 +183,7 @@ export const hi: Record<Key, string> = {
   'err.no-picture': 'इस फ़ाइल में कोई तस्वीर नहीं है। वीडियो, GIF या तस्वीर चुनें।',
   'err.audio-out-of-range': 'चुना गया हिस्सा आवाज़ के बाहर है। किनारों को अंदर लाएँ।',
   'err.too-long': 'छोटा हिस्सा चुनें: ज़्यादा से ज़्यादा 30 सेकंड।',
-  'err.too-large': 'यह WhatsApp की 1 MB सीमा में फ़िट नहीं होता। छोटा हिस्सा चुनें।',
+  'err.too-large': 'यह WhatsApp की 500 KB सीमा में फ़िट नहीं होता। छोटा हिस्सा चुनें।',
   'err.timeout': 'बहुत देर लग गई। फिर कोशिश करें या छोटा हिस्सा चुनें।',
   'err.aborted': 'रद्द किया गया।',
   'err.unknown': 'कुछ गड़बड़ हो गई। फिर कोशिश करें।',
@@ -198,6 +193,7 @@ export const hi: Record<Key, string> = {
   'nf.h1': 'पेज नहीं मिला',
   'nf.lead': 'यह पेज मौजूद नहीं है या कहीं और चला गया है। ये लिंक आपको साइट पर वापस ले जाएँगे।',
   'nf.home': 'होम',
+
   'install.nav': 'इंस्टॉल',
   'install.seo.title': 'Sound Sticker Maker को Chrome में कैसे इंस्टॉल करें, कदम दर कदम | Sound Sticker Maker',
   'install.seo.desc':
@@ -211,10 +207,10 @@ export const hi: Record<Key, string> = {
   'install.copied': 'कॉपी हो गया — अपने AI असिस्टेंट में पेस्ट करें',
   'install.honest': 'आपका AI इसे डाउनलोड और अनज़िप कर सकता है; आख़िरी क्लिक Chrome आपसे ख़ुद करवाता है।',
   'install.prompt':
-    "मेरे लिए Sound Sticker Maker Chrome एक्सटेंशन इंस्टॉल करो (यह आवाज़ वाले WhatsApp स्टिकर बनाता है)।\nअगर तुम मेरे कंप्यूटर पर कमांड चला सकते हो, तो कदम 1–3 ख़ुद करो:\n1. https://github.com/haythamasalama/sound-sticker-maker/releases/latest से सबसे नया रिलीज़ zip डाउनलोड करो जिसका नाम -github.zip पर ख़त्म होता है (macOS/Linux पर: curl -L -o ~/Downloads/sound-sticker-maker.zip \"$(curl -s https://api.github.com/repos/haythamasalama/sound-sticker-maker/releases/latest | grep -o 'https://[^\"]*-github.zip' | head -1)\"; Windows पर इसी तरह PowerShell Invoke-WebRequest इस्तेमाल करो)।\n2. इसे ऐसे फ़ोल्डर में अनज़िप करो जो अपनी जगह रहेगा: ~/SoundStickerMaker (Windows: %USERPROFILE%\\SoundStickerMaker)।\n3. मेरे ब्राउज़र (Chrome, Edge, Brave, Arc या Dia) में chrome://extensions खोलो।\nफिर आख़िरी दो क्लिक में मेरी मदद करो, एक-एक करके, आसान शब्दों में, और हर क्लिक के बाद मेरा इंतज़ार करो: ऊपर दाईं ओर 'Developer mode' चालू करो, 'Load unpacked' पर क्लिक करके SoundStickerMaker फ़ोल्डर चुनो। Chrome ये दो क्लिक सिर्फ़ इंसान को करने देता है; अगर तुम मेरा माउस और स्क्रीन चला सकते हो, तो तुम कर सकते हो।\nअगर तुम कमांड नहीं चला सकते, तो हर कदम इसी तरह एक-एक करके बताओ।\nआख़िर में मुझसे कहो कि https://web.whatsapp.com खोलूँ और नीचे दाईं ओर गोल नारंगी स्टिकर बटन पर क्लिक करूँ।\nमदद पेज: https://sound-sticker-maker.haythamasalama.me/hi/install/",
+    "मेरे लिए Sound Sticker Maker Chrome एक्सटेंशन इंस्टॉल करो (यह आवाज़ वाले WhatsApp स्टिकर बनाता है)।\nअगर तुम मेरे कंप्यूटर पर कमांड चला सकते हो, तो कदम 1–3 ख़ुद करो:\n1. https://github.com/haythamasalama/sound-sticker-maker/releases/latest से sound-sticker-maker-<version>.zip नाम की सबसे नई रिलीज़ फ़ाइल डाउनलोड करो (macOS/Linux पर: curl -L -o ~/Downloads/sound-sticker-maker.zip \"$(curl -s https://api.github.com/repos/haythamasalama/sound-sticker-maker/releases/latest | grep -o 'https://[^\"]*/sound-sticker-maker-[^\"]*\\.zip' | head -1)\"; Windows पर इसी तरह PowerShell Invoke-WebRequest इस्तेमाल करो)।\n2. इसे ऐसे फ़ोल्डर में अनज़िप करो जो अपनी जगह रहेगा: ~/SoundStickerMaker (Windows: %USERPROFILE%\\SoundStickerMaker)।\n3. मेरे ब्राउज़र (Chrome, Edge, Brave, Arc या Dia) में chrome://extensions खोलो।\nफिर आख़िरी दो क्लिक में मेरी मदद करो, एक-एक करके, आसान शब्दों में, और हर क्लिक के बाद मेरा इंतज़ार करो: ऊपर दाईं ओर 'Developer mode' चालू करो, 'Load unpacked' पर क्लिक करके SoundStickerMaker फ़ोल्डर चुनो। Chrome ये दो क्लिक सिर्फ़ इंसान को करने देता है; अगर तुम मेरा माउस और स्क्रीन चला सकते हो, तो तुम कर सकते हो।\nअगर तुम कमांड नहीं चला सकते, तो हर कदम इसी तरह एक-एक करके बताओ।\nआख़िर में मुझसे कहो कि एक्सटेंशन को टूलबार में पिन करूँ (पज़ल आइकन, फिर Sound Sticker Maker के पास पिन), https://web.whatsapp.com खोलूँ और टूलबार में Sound Sticker Maker आइकन पर क्लिक करूँ।\nमदद पेज: https://sound-sticker-maker.haythamasalama.me/hi/install/",
   'install.manual': 'या ख़ुद करें',
   'install.s1t': 'फ़ाइल डाउनलोड करें',
-  'install.s1b': 'Releases पेज पर वह फ़ाइल क्लिक करें जिसका नाम github.zip पर ख़त्म होता है।',
+  'install.s1b': 'Releases पेज पर sound-sticker-maker-<version>.zip नाम की फ़ाइल क्लिक करें।',
   'install.s2t': 'अनज़िप करें',
   'install.s2b': 'फ़ाइल पर डबल-क्लिक करें। उसी नाम का एक फ़ोल्डर बन जाएगा।',
   'install.s3t': 'एक्सटेंशन पेज खोलें',
@@ -224,12 +220,11 @@ export const hi: Record<Key, string> = {
   'install.s5t': 'Load unpacked पर क्लिक करें',
   'install.s5b': 'फिर अनज़िप किया हुआ फ़ोल्डर चुनें। एक्सटेंशन लिस्ट में दिखने लगेगा।',
   'install.s6t': 'WhatsApp Web खोलें',
-  'install.s6b': 'web.whatsapp.com पर जाएँ और नीचे दाईं ओर गोल नारंगी बटन पर क्लिक करें।',
+  'install.s6b': 'पज़ल आइकन से एक्सटेंशन पिन करें, web.whatsapp.com पर जाएँ और टूलबार में Sound Sticker Maker आइकन पर क्लिक करें।',
   'install.dev': 'Developer mode',
   'install.load': 'Load unpacked',
   'install.pack': 'Pack extension',
   'install.update': 'Update',
   'install.source': 'Source code (zip)',
   'install.ext': 'Extensions',
-  'how.name': 'आवाज़ वाला WhatsApp स्टिकर कैसे बनाएँ',
 }

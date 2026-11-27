@@ -5,8 +5,5 @@ export const LICENSE_URL = `${REPO_URL}/blob/main/LICENSE`
 export const AUTHOR_NAME = 'Haytham A. Salama'
 export const AUTHOR_URL = 'https://haythamasalama.me'
 
-// The Chrome Web Store listing. While it is empty the site offers the GitHub download only.
-export const STORE_URL = ''
-
-// The GitHub build of the extension, which lets the online maker import YouTube and TikTok links.
+// The extension, which lets the online maker import YouTube and TikTok links.
 export const EXTENSION_ID = 'bglooemegnkjkflgbckokeehhmhmjefk'

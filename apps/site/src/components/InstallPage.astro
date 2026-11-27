@@ -3,7 +3,7 @@ import '../styles/install.css'
 import Base from '../layouts/Base.astro'
 import Icon from './Icon.astro'
 import InstallPrompt from './InstallPrompt.astro'
-import { RELEASES_URL, STORE_URL } from '../config'
+import { RELEASES_URL } from '../config'
 import { absolute, pageIn, useT, type Key, type Lang } from '../i18n'
 import { breadcrumbNode } from '../lib/seo'
 
@@ -37,14 +37,6 @@ const graph = [
       <p class="reveal">{t('install.lead')}</p>
     </header>
 
-    {
-      STORE_URL && (
-        <a class="btn btn-store inst-store reveal" href={STORE_URL}>
-          <Icon name="plus" />
-          {t('cta.store')}
-        </a>
-      )
-    }
     <section class="inst-ai reveal" aria-labelledby="inst-ai-h">
       <div>
         <h2 id="inst-ai-h">{t('install.ai.t')}</h2>
@@ -61,8 +53,7 @@ const graph = [
       <li class="reveal">
         <div class="inst-art" aria-hidden="true">
           <div class="ia-win ia-assets" dir="ltr">
-            <p class="on"><Icon name="download" size={14} /><b>sound-sticker-maker-0.1.0-github.zip</b></p>
-            <p><Icon name="download" size={14} /><span>sound-sticker-maker-0.1.0-store.zip</span></p>
+            <p class="on"><Icon name="download" size={14} /><b>sound-sticker-maker-0.1.2.zip</b></p>
             <p><Icon name="code" size={14} /><span>{t('install.source')}</span></p>
           </div>
         </div>

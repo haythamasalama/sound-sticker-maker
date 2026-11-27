@@ -1,4 +1,4 @@
-import { AUTHOR_NAME, AUTHOR_URL, REPO_URL, RELEASES_URL, STORE_URL } from '../config'
+import { AUTHOR_NAME, AUTHOR_URL, REPO_URL, RELEASES_URL } from '../config'
 import { LANGS, SITE, absolute, pageIn, useT, type Lang } from '../i18n'
 
 export const authorNode = {
@@ -11,7 +11,6 @@ export const authorNode = {
 
 export function appNode(lang: Lang) {
   const t = useT(lang)
-  const download = STORE_URL || RELEASES_URL
   return {
     '@type': 'SoftwareApplication',
     '@id': `${SITE}/#app`,
@@ -28,7 +27,7 @@ export function appNode(lang: Lang) {
     url: absolute(),
     image: absolute('og.png'),
     inLanguage: [...LANGS],
-    downloadUrl: download,
+    downloadUrl: RELEASES_URL,
     offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
   }
 }

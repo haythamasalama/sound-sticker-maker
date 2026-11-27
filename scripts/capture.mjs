@@ -1,4 +1,4 @@
-// Captures the README and store images from the real extension on WhatsApp Web.
+// Captures the README and website images from the real extension on WhatsApp Web.
 // Usage: node scripts/capture.mjs  (needs `pnpm build` first; writes media/)
 import { execFileSync } from 'node:child_process'
 import { mkdirSync, mkdtempSync, writeFileSync } from 'node:fs'
@@ -6,7 +6,7 @@ import { tmpdir } from 'node:os'
 import { join, resolve } from 'node:path'
 import { chromium } from 'playwright'
 
-const extension = resolve('apps/extension/dist/github')
+const extension = resolve('apps/extension/dist')
 const out = resolve('media')
 const work = mkdtempSync(join(tmpdir(), 'ssm-capture-'))
 mkdirSync(out, { recursive: true })
@@ -54,7 +54,13 @@ await page.goto('https://web.whatsapp.com/', { waitUntil: 'domcontentloaded' })
 await page.addStyleTag({
   content: 'body > *:not(#sound-sticker-maker):not(#ssm-caption){visibility:hidden!important} body{background:#efeae2!important}',
 })
-await page.locator('#sound-sticker-maker button[aria-label="Sound Sticker Maker"]').click({ timeout: 30000 })
+// The panel opens from the extension's toolbar icon, which sends the tab this message.
+await page.locator('#sound-sticker-maker').waitFor({ state: 'attached', timeout: 30000 })
+const worker = context.serviceWorkers()[0] ?? (await context.waitForEvent('serviceworker'))
+await worker.evaluate(async () => {
+  const [tab] = await globalThis.chrome.tabs.query({ url: 'https://web.whatsapp.com/*' })
+  await globalThis.chrome.tabs.sendMessage(tab.id, { type: 'toggle-panel' })
+})
 const panel = page.locator('#sound-sticker-maker aside')
 await panel.waitFor()
 
@@ -68,6 +74,7 @@ async function setTheme(dark) {
 const shot = (name) => panel.screenshot({ path: join(out, `${name}.png`) })
 
 await shot('panel-empty')
+await panel.getByRole('tab', { name: 'From your device' }).click()
 await panel.locator('input[type=file]').first().setInputFiles(clip)
 await panel.locator('canvas').waitFor({ timeout: 30000 })
 await page.waitForTimeout(1500)
@@ -85,15 +92,15 @@ await setTheme(false)
 await shot('panel-ready-ar')
 await panel.locator('select').selectOption('en')
 
-// Chrome Web Store screenshots are 1280×800 at 1×.
+// Wide hero images for the README, 1280×800.
 await page.setViewportSize({ width: 1280, height: 800 })
 const captions = {
-  'store-1': ['Stickers that talk.', 'Turn any video, GIF or photo plus a sound into a WhatsApp sound sticker, right in WhatsApp Web.'],
-  'store-2': ['Pick the part. Hear it. Send.', 'Trim on the waveform, preview the square sticker, then send it to one chat or many.'],
+  'hero-light': ['Stickers that talk.', 'Turn any video, GIF or photo plus a sound into a WhatsApp sound sticker, right in WhatsApp Web.'],
+  'hero-dark': ['Pick the part. Hear it. Send.', 'Trim on the waveform, preview the square sticker, then send it to one chat or many.'],
 }
 for (const [name, dark] of [
-  ['store-1', false],
-  ['store-2', true],
+  ['hero-light', false],
+  ['hero-dark', true],
 ]) {
   await setTheme(dark)
   await page.evaluate(

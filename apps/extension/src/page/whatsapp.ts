@@ -204,7 +204,8 @@ async function uploadSound(audio: Blob, seconds: number, chat: Chat): Promise<Mo
     encFilehash: toBase64(result.encFilehash),
     size: bytes.length,
     mimetype: 'audio/ogg; codecs=opus',
-    duration: seconds,
+    // WhatsApp encodes this as whole seconds and fails the whole send (ERROR_UNKNOWN) on a fraction.
+    duration: Math.max(1, Math.round(seconds)),
   }
   if (!isCompleteSound(stickerAudio)) throw new WhatsAppError('upload-failed', 'WhatsApp did not accept the uploaded sound')
   return stickerAudio

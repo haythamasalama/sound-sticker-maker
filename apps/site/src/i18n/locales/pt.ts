@@ -14,7 +14,6 @@ export const pt: Record<Key, string> = {
   'nav.download': 'Baixar',
 
   'cta.github': 'Baixar no GitHub',
-  'cta.store': 'Adicionar ao Chrome',
   'cta.try': 'Testar online',
   'hero.title': 'Figurinhas que falam.',
   'hero.lead':
@@ -31,11 +30,12 @@ export const pt: Record<Key, string> = {
   'how.2b': 'O próprio som do vídeo ou qualquer arquivo de áudio. Arraste as pontas para ficar com o trecho que quiser.',
   'how.3t': 'Crie e envie',
   'how.3b': 'A figurinha fica pronta em poucos segundos e vai para a conversa aberta.',
+  'how.name': 'Como fazer uma figurinha de WhatsApp com som',
 
   'feat.title': 'Arquivo pequeno, som de verdade',
-  'f.fit.t': 'Sempre abaixo de 1 MB',
+  'f.fit.t': 'Sempre abaixo de 500 KB',
   'f.fit.b':
-    'O WhatsApp recusa figurinhas acima de 1 MB. O criador testa tamanhos, quadros por segundo e qualidade até a figurinha caber, e fica com a mais nítida.',
+    'O WhatsApp recusa figurinhas acima de 500 KB. O criador testa tamanhos, quadros por segundo e qualidade até a figurinha caber, e fica com a mais nítida.',
   'f.any.t': 'Qualquer imagem, qualquer som',
   'f.any.b': 'Vídeo, GIF, PNG ou JPG, com MP3, M4A, WAV ou o som de outro vídeo.',
   'f.lang.t': 'Em árabe e inglês',
@@ -49,10 +49,9 @@ export const pt: Record<Key, string> = {
   'try.body':
     'O criador online gera os mesmos arquivos de figurinha e de som nesta página. Baixe para guardar, ou instale a extensão para enviar como figurinha com som.',
   'try.cta': 'Abrir o criador',
-  'links.title': 'Links do YouTube e do TikTok',
-  'links.tag': 'Versão do GitHub',
+  'links.title': 'Comece por um link do YouTube ou do TikTok',
   'links.body':
-    'A versão do GitHub também começa de um link do YouTube ou do TikTok: cole o link, escolha o trecho e a figurinha é feita com esse vídeo. A versão da Chrome Web Store funciona só com arquivos.',
+    'Cole um link do YouTube ou do TikTok, escolha o trecho e a figurinha é feita com esse vídeo, na extensão ou no criador online.',
 
   'faq.title': 'Dúvidas',
   'q.1': 'Meus amigos vão ouvir?',
@@ -64,15 +63,12 @@ export const pt: Record<Key, string> = {
   'q.3': 'Ela envia meus arquivos para algum lugar?',
   'a.3':
     'Não. Imagens e sons são lidos e codificados no seu computador. A extensão só fala com web.whatsapp.com para enviar a figurinha, e o criador online não manda seus arquivos para lugar nenhum.',
-  'q.4': 'Por que GitHub e não a Chrome Web Store?',
+  'q.4': 'Como eu instalo?',
   'a.4':
-    'A página da loja ainda não foi publicada. Até lá, baixe a versão mais recente no GitHub, descompacte, abra chrome://extensions, ative o Modo do desenvolvedor e escolha “Carregar sem compactação”.',
-  'q.4Live': 'Qual versão eu instalo?',
-  'a.4Live':
-    'A versão da Chrome Web Store instala com um clique e se atualiza sozinha. A versão do GitHub também aceita links do YouTube e do TikTok; baixe no GitHub Releases e carregue em chrome://extensions com o Modo do desenvolvedor ativado.',
+    'Baixe o zip mais recente no GitHub, descompacte, abra chrome://extensions, ative o Modo do desenvolvedor e escolha “Carregar sem compactação”. A página de instalação mostra cada passo e pode copiar os passos para o seu assistente de IA fazer com você.',
   'q.5': 'Quanto tempo pode ter uma figurinha com som?',
   'a.5':
-    'Até 30 segundos, mas 10 ou menos funciona melhor: é a duração das figurinhas com som do próprio WhatsApp, e um trecho mais curto cabe em 1 MB com a imagem mais nítida.',
+    'Até 30 segundos, mas 10 ou menos funciona melhor: é a duração das figurinhas com som do próprio WhatsApp, e um trecho mais curto cabe em 500 KB com a imagem mais nítida.',
   'q.6': 'Em quais navegadores funciona?',
   'a.6':
     'No Chrome e em outros navegadores Chromium, como Edge e Brave, no computador. O criador online também precisa de um Chrome ou Edge recente, porque usa os codificadores de vídeo e áudio do próprio navegador.',
@@ -174,8 +170,8 @@ export const pt: Record<Key, string> = {
   'maker.link.go': 'Importar',
   'maker.link.from': 'A partir de',
   'maker.link.length': 'Duração',
-  'maker.link.need': 'A importação de links funciona com a versão do GitHub da extensão instalada.',
-  'maker.link.get': 'Baixe no GitHub',
+  'maker.link.need': 'A importação de links funciona com a extensão instalada.',
+  'maker.link.get': 'Instalar',
   'maker.link.bad': 'Isso não é um link do YouTube nem do TikTok.',
   'maker.link.recording': 'Gravando o trecho…',
   'maker.link.fetching': 'Buscando o vídeo…',
@@ -189,7 +185,7 @@ export const pt: Record<Key, string> = {
   'err.no-picture': 'Este arquivo não tem imagem. Escolha um vídeo, GIF ou imagem.',
   'err.audio-out-of-range': 'O trecho escolhido está fora do som. Puxe as pontas para dentro.',
   'err.too-long': 'Escolha um trecho mais curto: no máximo 30 segundos.',
-  'err.too-large': 'Não cabe no limite de 1 MB do WhatsApp. Escolha um trecho mais curto.',
+  'err.too-large': 'Não cabe no limite de 500 KB do WhatsApp. Escolha um trecho mais curto.',
   'err.timeout': 'Demorou demais. Tente de novo ou escolha um trecho mais curto.',
   'err.aborted': 'Cancelado.',
   'err.unknown': 'Algo deu errado. Tente de novo.',
@@ -199,6 +195,7 @@ export const pt: Record<Key, string> = {
   'nf.h1': 'Página não encontrada',
   'nf.lead': 'Esta página não existe ou mudou de endereço. Estes links levam de volta ao site.',
   'nf.home': 'Início',
+
   'install.nav': 'Instalar',
   'install.seo.title': 'Como instalar o Sound Sticker Maker no Chrome, passo a passo | Sound Sticker Maker',
   'install.seo.desc':
@@ -212,10 +209,10 @@ export const pt: Record<Key, string> = {
   'install.copied': 'Copiado — cole no seu assistente de IA',
   'install.honest': 'A sua IA pode baixar e descompactar para você; o Chrome pede que o último clique seja seu.',
   'install.prompt':
-    'Instale para mim a extensão do Chrome Sound Sticker Maker (ela faz figurinhas de WhatsApp com som).\nSe você puder executar comandos no meu computador, faça você mesmo os passos 1–3:\n1. Baixe o zip mais recente cujo nome termina em -github.zip em https://github.com/haythamasalama/sound-sticker-maker/releases/latest (no macOS/Linux: curl -L -o ~/Downloads/sound-sticker-maker.zip "$(curl -s https://api.github.com/repos/haythamasalama/sound-sticker-maker/releases/latest | grep -o \'https://[^"]*-github.zip\' | head -1)"; no Windows use o PowerShell Invoke-WebRequest do mesmo jeito).\n2. Descompacte numa pasta que vai ficar no lugar: ~/SoundStickerMaker (Windows: %USERPROFILE%\\SoundStickerMaker).\n3. Abra chrome://extensions no meu navegador (Chrome, Edge, Brave, Arc ou Dia).\nDepois me guie nos dois últimos cliques, um de cada vez, com palavras simples, esperando por mim depois de cada um: ative o “Modo do desenvolvedor” (Developer mode, no canto superior direito), clique em “Carregar sem compactação” (Load unpacked) e escolha a pasta SoundStickerMaker. O Chrome só deixa uma pessoa dar esses dois cliques; se você puder controlar meu mouse e minha tela, pode fazer isso.\nSe você não puder executar comandos, me guie em todos os passos do mesmo jeito, um de cada vez.\nNo fim, me diga para abrir https://web.whatsapp.com e clicar no botão redondo laranja da figurinha, no canto inferior direito.\nPágina de ajuda: https://sound-sticker-maker.haythamasalama.me/pt/install/',
+    'Instale para mim a extensão do Chrome Sound Sticker Maker (ela faz figurinhas de WhatsApp com som).\nSe você puder executar comandos no meu computador, faça você mesmo os passos 1–3:\n1. Baixe o arquivo mais recente chamado sound-sticker-maker-<versão>.zip em https://github.com/haythamasalama/sound-sticker-maker/releases/latest (no macOS/Linux: curl -L -o ~/Downloads/sound-sticker-maker.zip "$(curl -s https://api.github.com/repos/haythamasalama/sound-sticker-maker/releases/latest | grep -o \'https://[^"]*/sound-sticker-maker-[^"]*\\.zip\' | head -1)"; no Windows use o PowerShell Invoke-WebRequest do mesmo jeito).\n2. Descompacte numa pasta que vai ficar no lugar: ~/SoundStickerMaker (Windows: %USERPROFILE%\\SoundStickerMaker).\n3. Abra chrome://extensions no meu navegador (Chrome, Edge, Brave, Arc ou Dia).\nDepois me guie nos dois últimos cliques, um de cada vez, com palavras simples, esperando por mim depois de cada um: ative o “Modo do desenvolvedor” (Developer mode, no canto superior direito), clique em “Carregar sem compactação” (Load unpacked) e escolha a pasta SoundStickerMaker. O Chrome só deixa uma pessoa dar esses dois cliques; se você puder controlar meu mouse e minha tela, pode fazer isso.\nSe você não puder executar comandos, me guie em todos os passos do mesmo jeito, um de cada vez.\nNo fim, me diga para fixar a extensão (ícone de peça de quebra-cabeça na barra de ferramentas e depois o alfinete ao lado de Sound Sticker Maker), abrir https://web.whatsapp.com e clicar no ícone do Sound Sticker Maker na barra de ferramentas.\nPágina de ajuda: https://sound-sticker-maker.haythamasalama.me/pt/install/',
   'install.manual': 'Ou faça você mesmo',
   'install.s1t': 'Baixe o arquivo',
-  'install.s1b': 'Na página de versões, clique no arquivo cujo nome termina em github.zip.',
+  'install.s1b': 'Na página de versões, clique no arquivo sound-sticker-maker-<versão>.zip.',
   'install.s2t': 'Descompacte',
   'install.s2b': 'Clique duas vezes no arquivo. Aparece uma pasta com o mesmo nome.',
   'install.s3t': 'Abra a página de extensões',
@@ -225,12 +222,12 @@ export const pt: Record<Key, string> = {
   'install.s5t': 'Clique em “Carregar sem compactação”',
   'install.s5b': 'E escolha a pasta que você descompactou. A extensão aparece na lista.',
   'install.s6t': 'Abra o WhatsApp Web',
-  'install.s6b': 'Entre em web.whatsapp.com e clique no botão redondo laranja no canto inferior direito.',
+  'install.s6b':
+    'Fixe a extensão pelo ícone de peça de quebra-cabeça, entre em web.whatsapp.com e clique no ícone do Sound Sticker Maker na barra de ferramentas.',
   'install.dev': 'Modo do desenvolvedor',
   'install.load': 'Carregar sem compactação',
   'install.pack': 'Compactar extensão',
   'install.update': 'Atualizar',
   'install.source': 'Código-fonte (zip)',
   'install.ext': 'Extensões',
-  'how.name': 'Como fazer uma figurinha de WhatsApp com som',
 }

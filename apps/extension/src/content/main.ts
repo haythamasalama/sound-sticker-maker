@@ -1,7 +1,6 @@
 import { createApp, h, shallowRef } from 'vue'
 import App from './App.vue'
 import { ignoreInvalidatedContext } from '../lib/extension'
-import { isolateKeyboard } from '../lib/isolate'
 import type { RuntimeMessage } from '../lib/messages'
 import styles from './style.css?inline'
 
@@ -17,7 +16,6 @@ if (properties.length) {
 
 const host = document.createElement('div')
 host.id = 'sound-sticker-maker'
-isolateKeyboard(host)
 const shadow = host.attachShadow({ mode: 'open' })
 const style = document.createElement('style')
 style.textContent = styles

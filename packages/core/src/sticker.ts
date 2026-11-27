@@ -68,7 +68,7 @@ async function captureFrames(request: StickerRequest, seconds: number, fps: numb
 }
 
 /**
- * Builds a sound sticker: the picture as an animated WebP under WhatsApp's 1 MB limit, and the sound as Ogg Opus.
+ * Builds a sound sticker: the picture as an animated WebP under WhatsApp's 500 KB limit, and the sound as Ogg Opus.
  * The sticker lasts as long as the sound; a shorter picture loops or holds its last frame.
  */
 export async function createSoundSticker(request: StickerRequest): Promise<SoundSticker> {
@@ -159,7 +159,7 @@ export async function createSoundSticker(request: StickerRequest): Promise<Sound
         }
       }
     }
-    throw new StickerError('too-large', 'Nothing fits in 1 MB: choose a shorter part')
+    throw new StickerError('too-large', 'Nothing fits in 500 KB: choose a shorter part')
   } finally {
     releaseFrames(captured)
   }

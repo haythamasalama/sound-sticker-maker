@@ -14,7 +14,6 @@ export const id: Record<Key, string> = {
   'nav.download': 'Unduh',
 
   'cta.github': 'Unduh dari GitHub',
-  'cta.store': 'Tambahkan ke Chrome',
   'cta.try': 'Coba online',
   'hero.title': 'Stiker yang bisa bicara.',
   'hero.lead':
@@ -31,11 +30,12 @@ export const id: Record<Key, string> = {
   'how.2b': 'Suara asli videonya atau file audio apa pun. Geser kedua ujungnya untuk mengambil bagian yang kamu mau.',
   'how.3t': 'Buat dan kirim',
   'how.3b': 'Stiker jadi dalam beberapa detik dan langsung terkirim ke obrolan yang terbuka.',
+  'how.name': 'Cara membuat stiker WhatsApp bersuara',
 
   'feat.title': 'File kecil, suara sungguhan',
-  'f.fit.t': 'Selalu di bawah 1 MB',
+  'f.fit.t': 'Selalu di bawah 500 KB',
   'f.fit.b':
-    'WhatsApp menolak stiker di atas 1 MB. Pembuatnya mencoba berbagai ukuran, frame rate, dan kualitas sampai stiker muat, lalu memilih yang paling tajam.',
+    'WhatsApp menolak stiker di atas 500 KB. Pembuatnya mencoba berbagai ukuran, frame rate, dan kualitas sampai stiker muat, lalu memilih yang paling tajam.',
   'f.any.t': 'Gambar apa saja, suara apa saja',
   'f.any.b': 'Video, GIF, PNG, atau JPG, dengan MP3, M4A, WAV, atau suara dari video lain.',
   'f.lang.t': 'Bahasa Arab dan Inggris',
@@ -49,10 +49,8 @@ export const id: Record<Key, string> = {
   'try.body':
     'Pembuat online membuat file stiker dan file suara yang sama langsung di halaman ini. Unduh untuk disimpan, atau pasang ekstensinya untuk mengirim sebagai stiker bersuara.',
   'try.cta': 'Buka pembuatnya',
-  'links.title': 'Tautan YouTube dan TikTok',
-  'links.tag': 'Versi GitHub',
-  'links.body':
-    'Versi GitHub juga bisa dimulai dari tautan YouTube atau TikTok: tempel tautannya, pilih bagiannya, dan stiker dibuat dari klip itu. Versi Chrome Web Store hanya bekerja dengan file.',
+  'links.title': 'Mulai dari tautan YouTube atau TikTok',
+  'links.body': 'Tempel tautan YouTube atau TikTok, pilih bagiannya, dan stiker dibuat dari klip itu, di ekstensi atau di pembuat online.',
 
   'faq.title': 'Tanya jawab',
   'q.1': 'Apakah teman saya bisa mendengarnya?',
@@ -64,15 +62,12 @@ export const id: Record<Key, string> = {
   'q.3': 'Apakah file saya diunggah?',
   'a.3':
     'Tidak. Gambar dan suara dibaca dan diproses di komputer kamu. Ekstensi hanya terhubung ke web.whatsapp.com untuk mengirim stiker, dan pembuat online tidak mengirim file kamu ke mana pun.',
-  'q.4': 'Kenapa lewat GitHub, bukan Chrome Web Store?',
+  'q.4': 'Bagaimana cara memasangnya?',
   'a.4':
-    'Halaman tokonya belum tayang. Sementara itu, unduh rilis terbaru dari GitHub, ekstrak, buka chrome://extensions, nyalakan Mode developer, lalu pilih “Muat yang belum dibuka”.',
-  'q.4Live': 'Versi mana yang sebaiknya saya pasang?',
-  'a.4Live':
-    'Versi Chrome Web Store terpasang dengan sekali klik dan memperbarui dirinya sendiri. Versi GitHub juga bisa memakai tautan YouTube dan TikTok; unduh dari GitHub Releases dan muat dari chrome://extensions dengan Mode developer aktif.',
+    'Unduh zip terbaru dari GitHub, ekstrak, buka chrome://extensions, nyalakan Mode developer, lalu pilih “Muat yang belum dibuka”. Halaman pemasangan menunjukkan tiap langkah dan bisa menyalin langkahnya untuk dikerjakan asisten AI bersamamu.',
   'q.5': 'Berapa lama stiker bersuara bisa diputar?',
   'a.5':
-    'Sampai 30 detik, tapi 10 detik atau kurang paling bagus: segitulah durasi stiker bersuara milik WhatsApp sendiri, dan bagian yang lebih pendek muat dalam 1 MB dengan gambar yang lebih tajam.',
+    'Sampai 30 detik, tapi 10 detik atau kurang paling bagus: segitulah durasi stiker bersuara milik WhatsApp sendiri, dan bagian yang lebih pendek muat dalam 500 KB dengan gambar yang lebih tajam.',
   'q.6': 'Bisa dipakai di browser apa saja?',
   'a.6':
     'Chrome dan browser Chromium lain seperti Edge dan Brave, di komputer. Pembuat online juga butuh Chrome atau Edge versi terbaru, karena memakai encoder video dan audio bawaan browser.',
@@ -174,8 +169,8 @@ export const id: Record<Key, string> = {
   'maker.link.go': 'Impor',
   'maker.link.from': 'Dari',
   'maker.link.length': 'Durasi',
-  'maker.link.need': 'Impor tautan bisa dipakai kalau versi GitHub ekstensinya sudah terpasang.',
-  'maker.link.get': 'Unduh di GitHub',
+  'maker.link.need': 'Impor tautan bisa dipakai kalau ekstensinya sudah terpasang.',
+  'maker.link.get': 'Pasang',
   'maker.link.bad': 'Itu bukan tautan YouTube atau TikTok.',
   'maker.link.recording': 'Merekam klip…',
   'maker.link.fetching': 'Mengambil video…',
@@ -189,7 +184,7 @@ export const id: Record<Key, string> = {
   'err.no-picture': 'File ini tidak punya gambar. Pilih video, GIF, atau gambar.',
   'err.audio-out-of-range': 'Bagian yang dipilih di luar suaranya. Geser ujungnya ke dalam.',
   'err.too-long': 'Pilih bagian yang lebih pendek: maksimal 30 detik.',
-  'err.too-large': 'Tidak muat dalam batas 1 MB WhatsApp. Pilih bagian yang lebih pendek.',
+  'err.too-large': 'Tidak muat dalam batas 500 KB WhatsApp. Pilih bagian yang lebih pendek.',
   'err.timeout': 'Terlalu lama. Coba lagi atau pilih bagian yang lebih pendek.',
   'err.aborted': 'Dibatalkan.',
   'err.unknown': 'Ada yang salah. Coba lagi.',
@@ -199,6 +194,7 @@ export const id: Record<Key, string> = {
   'nf.h1': 'Halaman tidak ditemukan',
   'nf.lead': 'Halaman ini tidak ada atau sudah dipindah. Tautan berikut membawa kamu kembali ke situs.',
   'nf.home': 'Beranda',
+
   'install.nav': 'Pasang',
   'install.seo.title': 'Cara memasang Sound Sticker Maker di Chrome, langkah demi langkah | Sound Sticker Maker',
   'install.seo.desc':
@@ -212,10 +208,10 @@ export const id: Record<Key, string> = {
   'install.copied': 'Tersalin — tempel di asisten AI kamu',
   'install.honest': 'AI kamu bisa mengunduh dan mengekstraknya; Chrome meminta klik terakhir kamu lakukan sendiri.',
   'install.prompt':
-    'Pasangkan ekstensi Chrome Sound Sticker Maker untuk saya (ekstensi ini membuat stiker WhatsApp yang bersuara).\nKalau kamu bisa menjalankan perintah di komputer saya, kerjakan sendiri langkah 1–3:\n1. Unduh zip rilis terbaru yang namanya berakhiran -github.zip dari https://github.com/haythamasalama/sound-sticker-maker/releases/latest (di macOS/Linux: curl -L -o ~/Downloads/sound-sticker-maker.zip "$(curl -s https://api.github.com/repos/haythamasalama/sound-sticker-maker/releases/latest | grep -o \'https://[^"]*-github.zip\' | head -1)"; di Windows pakai PowerShell Invoke-WebRequest dengan cara yang sama).\n2. Ekstrak ke folder yang tidak akan dipindah: ~/SoundStickerMaker (Windows: %USERPROFILE%\\SoundStickerMaker).\n3. Buka chrome://extensions di browser saya (Chrome, Edge, Brave, Arc, atau Dia).\nLalu pandu saya untuk dua klik terakhir, satu per satu, dengan kata-kata sederhana, dan tunggu saya setelah tiap klik: nyalakan “Mode developer” (Developer mode, kanan atas), klik “Muat yang belum dibuka” (Load unpacked) dan pilih folder SoundStickerMaker. Chrome hanya mengizinkan manusia melakukan dua klik ini; kalau kamu bisa mengendalikan mouse dan layar saya, boleh kamu yang melakukannya.\nKalau kamu tidak bisa menjalankan perintah, pandu saya di semua langkah dengan cara yang sama, satu per satu.\nTerakhir, minta saya membuka https://web.whatsapp.com dan mengklik tombol stiker oranye bulat di kanan bawah.\nHalaman bantuan: https://sound-sticker-maker.haythamasalama.me/id/install/',
+    'Pasangkan ekstensi Chrome Sound Sticker Maker untuk saya (ekstensi ini membuat stiker WhatsApp yang bersuara).\nKalau kamu bisa menjalankan perintah di komputer saya, kerjakan sendiri langkah 1–3:\n1. Unduh file rilis terbaru bernama sound-sticker-maker-<versi>.zip dari https://github.com/haythamasalama/sound-sticker-maker/releases/latest (di macOS/Linux: curl -L -o ~/Downloads/sound-sticker-maker.zip "$(curl -s https://api.github.com/repos/haythamasalama/sound-sticker-maker/releases/latest | grep -o \'https://[^"]*/sound-sticker-maker-[^"]*\\.zip\' | head -1)"; di Windows pakai PowerShell Invoke-WebRequest dengan cara yang sama).\n2. Ekstrak ke folder yang tidak akan dipindah: ~/SoundStickerMaker (Windows: %USERPROFILE%\\SoundStickerMaker).\n3. Buka chrome://extensions di browser saya (Chrome, Edge, Brave, Arc, atau Dia).\nLalu pandu saya untuk dua klik terakhir, satu per satu, dengan kata-kata sederhana, dan tunggu saya setelah tiap klik: nyalakan “Mode developer” (Developer mode, kanan atas), klik “Muat yang belum dibuka” (Load unpacked) dan pilih folder SoundStickerMaker. Chrome hanya mengizinkan manusia melakukan dua klik ini; kalau kamu bisa mengendalikan mouse dan layar saya, boleh kamu yang melakukannya.\nKalau kamu tidak bisa menjalankan perintah, pandu saya di semua langkah dengan cara yang sama, satu per satu.\nTerakhir, minta saya menyematkan ekstensi (ikon kepingan puzzle di toolbar, lalu pin di samping Sound Sticker Maker), membuka https://web.whatsapp.com, dan mengklik ikon Sound Sticker Maker di toolbar.\nHalaman bantuan: https://sound-sticker-maker.haythamasalama.me/id/install/',
   'install.manual': 'Atau kerjakan sendiri',
   'install.s1t': 'Unduh filenya',
-  'install.s1b': 'Di halaman rilis, klik file yang namanya berakhiran github.zip.',
+  'install.s1b': 'Di halaman rilis, klik file sound-sticker-maker-<versi>.zip.',
   'install.s2t': 'Ekstrak',
   'install.s2b': 'Klik dua kali filenya. Akan muncul folder dengan nama yang sama.',
   'install.s3t': 'Buka halaman ekstensi',
@@ -225,12 +221,11 @@ export const id: Record<Key, string> = {
   'install.s5t': 'Klik “Muat yang belum dibuka”',
   'install.s5b': 'Lalu pilih folder hasil ekstrak tadi. Ekstensi muncul di daftar.',
   'install.s6t': 'Buka WhatsApp Web',
-  'install.s6b': 'Masuk ke web.whatsapp.com lalu klik tombol oranye bulat di kanan bawah.',
+  'install.s6b': 'Sematkan ekstensi dari ikon kepingan puzzle, masuk ke web.whatsapp.com, lalu klik ikon Sound Sticker Maker di toolbar.',
   'install.dev': 'Mode developer',
   'install.load': 'Muat yang belum dibuka',
   'install.pack': 'Kemas ekstensi',
   'install.update': 'Perbarui',
   'install.source': 'Kode sumber (zip)',
   'install.ext': 'Ekstensi',
-  'how.name': 'Cara membuat stiker WhatsApp bersuara',
 }

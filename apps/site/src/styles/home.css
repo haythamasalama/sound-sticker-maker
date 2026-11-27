@@ -278,7 +278,7 @@ main > section:not(.hero) {
   color: var(--on-sky2);
 }
 
-/* Try it online, and the GitHub version's links */
+/* Try it online, and starting from a link */
 .try {
   display: grid;
   grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
@@ -305,7 +305,7 @@ main > section:not(.hero) {
   background: var(--surface);
 }
 .try-links h3 {
-  margin: 16px 0 0;
+  margin: 0;
   font-size: 19px;
 }
 .try-links p {

@@ -1,5 +1,5 @@
 ---
-import { AUTHOR_NAME, AUTHOR_URL, ISSUES_URL, LICENSE_URL, RELEASES_URL, REPO_URL, STORE_URL } from '../config'
+import { AUTHOR_NAME, AUTHOR_URL, ISSUES_URL, LICENSE_URL, RELEASES_URL, REPO_URL } from '../config'
 import { HTML_LANG, LANGS, LANG_NAMES, href, pageIn, useT, type Lang } from '../i18n'
 import Icon from './Icon.astro'
 import { SIBLINGS_LABEL, SIBLING_APPS } from '../i18n/siblings'
@@ -29,9 +29,7 @@ const privacy = href(pageIn(lang, 'privacy/'))
       <a class="nav-2" href={home + '#faq'}>{t('nav.faq')}</a>
     </nav>
     <div class="tools">
-      <a class="btn btn-store" href={STORE_URL || href(pageIn(lang, 'install/'))}
-        ><Icon name={STORE_URL ? 'plus' : 'download'} />{t('nav.download')}</a
-      >
+      <a class="btn btn-cta" href={href(pageIn(lang, 'install/'))}><Icon name="download" />{t('nav.download')}</a>
     </div>
   </div>
 </header>
@@ -48,9 +46,7 @@ const privacy = href(pageIn(lang, 'privacy/'))
         >
         <p>{t('foot.about')}</p>
       </div>
-      <a class="btn btn-store" href={STORE_URL || href(pageIn(lang, 'install/'))}
-        ><Icon name={STORE_URL ? 'plus' : 'download'} />{t(STORE_URL ? 'cta.store' : 'nav.download')}</a
-      >
+      <a class="btn btn-cta" href={href(pageIn(lang, 'install/'))}><Icon name="download" />{t('nav.download')}</a>
     </div>
     <nav class="foot-cols" aria-label={t('foot.product')}>
       <div>

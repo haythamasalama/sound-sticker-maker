@@ -7,5 +7,5 @@ repository's **Security** tab, and include the steps to reproduce. You will get 
 
 ## What the extension can access
 
-It runs on `web.whatsapp.com` and stores a few settings in `chrome.storage.local`. The GitHub version can also reach
+It runs on `web.whatsapp.com` and stores a few settings in `chrome.storage.local`. It can also reach
 `www.youtube-nocookie.com` and `*.tiktok.com`, only to import a link you paste. See [PRIVACY.md](PRIVACY.md).

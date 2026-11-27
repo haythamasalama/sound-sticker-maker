@@ -18,7 +18,7 @@ Sound Sticker Maker has no account, no analytics and no servers. Last updated 20
 | `storage`          | Remember your language, pack name, author and destination. |
 | `web.whatsapp.com` | Show the panel and send stickers in WhatsApp Web.          |
 
-The GitHub version adds these, only for importing links you paste:
+These are used only when you import a link you paste:
 
 | Permission                            | Why                                                                                     |
 | ------------------------------------- | --------------------------------------------------------------------------------------- |

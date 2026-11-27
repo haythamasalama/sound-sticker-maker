@@ -1,4 +1,4 @@
-// A static page can't fetch YouTube or TikTok videos; the GitHub build of the extension does it and hands back the file.
+// A static page can't fetch YouTube or TikTok videos; the extension does it and hands back the file.
 
 interface Port {
   postMessage(message: unknown): void

@@ -1,7 +1,6 @@
 ---
 import '../styles/home.css'
 import '../styles/drawn.css'
-import { RELEASES_URL, STORE_URL } from '../config'
 import { href, pageIn, panelLang, useT, type Key, type Lang } from '../i18n'
 import Chat from './Chat.astro'
 import Icon from './Icon.astro'
@@ -35,9 +34,7 @@ const SOUNDS = ['MP3', 'M4A', 'WAV']
         <p class="hero-lead rise">{t('hero.lead')}</p>
         <div class="hero-act rise">
           <div class="hero-btns">
-            <a class="btn btn-store" href={STORE_URL || install}
-              ><Icon name={STORE_URL ? 'plus' : 'download'} />{t(STORE_URL ? 'cta.store' : 'nav.download')}</a
-            >
+            <a class="btn btn-cta" href={install}><Icon name="download" />{t('nav.download')}</a>
             <a class="btn btn-line btn-soft" href={maker}>{t('cta.try')}<Icon name="arrow" size={16} class="flip" /></a>
           </div>
           <p>{t('hero.meta')}</p>
@@ -112,7 +109,7 @@ const SOUNDS = ['MP3', 'M4A', 'WAV']
                 </div>
               ))
             }
-            <div class="fa-limit"><span>1 MB</span></div>
+            <div class="fa-limit"><span>500 KB</span></div>
           </div>
         </div>
         <h3>{t('f.fit.t')}</h3>
@@ -183,10 +180,9 @@ const SOUNDS = ['MP3', 'M4A', 'WAV']
       <a class="btn btn-dark" href={maker}>{t('try.cta')}<Icon name="arrow" class="flip" /></a>
     </div>
     <div class="try-links rise">
-      <span class="pill-tag"><Icon name="github" size={14} />{t('links.tag')}</span>
       <h3>{t('links.title')}</h3>
       <p>{t('links.body')}</p>
-      <a class="try-link" href={RELEASES_URL}>{t('foot.releases')}<Icon name="arrow" size={15} class="flip" /></a>
+      <a class="try-link" href={maker}>{t('try.cta')}<Icon name="arrow" size={15} class="flip" /></a>
     </div>
   </section>
 
@@ -211,9 +207,7 @@ const SOUNDS = ['MP3', 'M4A', 'WAV']
       <img class="rise" src={href('icon.svg')} width="84" height="84" alt="" loading="lazy" />
       <h2 class="h2 rise">{t('close.title')}</h2>
       <div class="hero-btns rise">
-        <a class="btn btn-store" href={STORE_URL || install}
-          ><Icon name={STORE_URL ? 'plus' : 'download'} />{t(STORE_URL ? 'cta.store' : 'nav.download')}</a
-        >
+        <a class="btn btn-cta" href={install}><Icon name="download" />{t('nav.download')}</a>
         <a class="btn btn-line btn-soft" href={maker}>{t('cta.try')}<Icon name="arrow" size={16} class="flip" /></a>
       </div>
       <p class="rise">{t('hero.meta')}</p>

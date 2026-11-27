@@ -32,7 +32,10 @@ listen<ToPage>('page', async (message) => {
     post<FromPage>('content', { kind: 'sent', id: message.id, forwarding: forward })
   } catch (error) {
     const code = error instanceof WhatsAppError ? error.code : 'send-failed'
-    post<FromPage>('content', { kind: 'failed', id: message.id, code, detail: String((error as Error)?.message ?? error) })
+    const detail = String((error as Error)?.message ?? error)
+    // WhatsApp's own reason, for anyone reporting a problem from the browser's console.
+    console.warn('[Sound Sticker Maker] sending failed:', code, detail, error)
+    post<FromPage>('content', { kind: 'failed', id: message.id, code, detail })
   } finally {
     busy = false
   }

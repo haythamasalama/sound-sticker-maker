@@ -6,6 +6,8 @@ export function useSend() {
   const status = shallowRef<PageStatus | null>(null)
   const step = shallowRef<SendStep | null>(null)
   const error = shallowRef<string | null>(null)
+  /** WhatsApp's own words for a failure, shown small so people can report it. */
+  const detail = shallowRef<string | null>(null)
   const sent = shallowRef<{ forwarding: boolean } | null>(null)
   const pending = new Map<string, (message: FromPage) => void>()
 
@@ -25,6 +27,7 @@ export function useSend() {
   async function send(sticker: SoundSticker, destination: Destination) {
     if (step.value) return
     error.value = null
+    detail.value = null
     sent.value = null
     step.value = 'finding-chat'
     const id = crypto.randomUUID()
@@ -34,7 +37,10 @@ export function useSend() {
         if (message.kind === 'progress') step.value = message.step
         if (message.kind !== 'sent' && message.kind !== 'failed') return
         if (message.kind === 'sent') sent.value = { forwarding: message.forwarding }
-        else error.value = message.code
+        else {
+          error.value = message.code
+          detail.value = message.detail ?? null
+        }
         pending.delete(id)
         resolve()
       })
@@ -46,7 +52,8 @@ export function useSend() {
   function reset() {
     sent.value = null
     error.value = null
+    detail.value = null
   }
 
-  return { status, step, error, sent, checkStatus, send, reset }
+  return { status, step, error, detail, sent, checkStatus, send, reset }
 }

@@ -1,15 +1,13 @@
 {
   "name": "@sound-sticker-maker/extension",
   "private": true,
-  "version": "0.1.1",
+  "version": "0.1.2",
   "type": "module",
   "description": "Make WhatsApp stickers that play sound, right inside WhatsApp Web.",
   "author": "Haytham A. Salama (https://haythamasalama.me/)",
   "license": "MIT",
   "scripts": {
-    "build": "node scripts/build.mjs store && node scripts/build.mjs github",
-    "build:store": "node scripts/build.mjs store",
-    "build:github": "node scripts/build.mjs github",
+    "build": "node scripts/build.mjs",
     "typecheck": "vue-tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",

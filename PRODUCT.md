@@ -20,7 +20,7 @@ note) into a sound sticker in under a minute. Casual users, not editors.
 ## Truths and constraints
 
 - Everything runs in the browser; nothing is uploaded except to WhatsApp on send.
-- WhatsApp caps stickers at 1 MB and shows them at 512×512, so the result is square.
+- WhatsApp caps stickers at 500 KB and shows them at 512×512, so the result is square.
 - The panel lives on top of WhatsApp Web, inside a shadow root, about 380 px wide. Arabic (RTL) and English, light and
   dark following WhatsApp's theme.
 - It must not resemble other sound-sticker extensions: no numbered step circles, no dashed upload box, no language pill.

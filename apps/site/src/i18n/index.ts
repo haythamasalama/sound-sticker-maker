@@ -1,4 +1,3 @@
-import { STORE_URL } from '../config'
 import { joinBase, swapLang } from '../lib/paths'
 import { UI, type Key } from './ui'
 
@@ -32,12 +31,7 @@ export const dirOf = (lang: Lang) => (lang === 'ar' ? 'rtl' : 'ltr')
 export const pageIn = (lang: Lang, page = '') => swapLang(page, lang, LANGS)
 
 export function useT(lang: Lang) {
-  const live = Boolean(STORE_URL)
-  return (key: Key): string => {
-    const liveKey = `${key}Live` as Key
-    const k = live && liveKey in UI.en ? liveKey : key
-    return UI[lang][k] ?? UI.en[k] ?? key
-  }
+  return (key: Key): string => UI[lang][key] ?? UI.en[key] ?? key
 }
 
 /** The extension itself speaks English and Arabic; drawings of it use one of those. */

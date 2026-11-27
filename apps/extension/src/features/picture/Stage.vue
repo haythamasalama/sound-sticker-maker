@@ -7,7 +7,8 @@ import { Button } from '@/components/ui/button'
 import { Spinner } from '@/components/ui/spinner'
 import { useI18n } from '@/lib/i18n'
 import { errorCode, readPicture, type Picture, type Range } from '@/lib/media'
-import LinkImport from './LinkImport.vue'
+import LinkImport, { type LinkStatus } from './LinkImport.vue'
+import { useLinkText } from './linkText'
 
 type Source = 'file' | 'link'
 
@@ -18,29 +19,32 @@ const { loop } = defineProps<{ loop: Range | null }>()
 const picture = defineModel<Picture | null>({ required: true })
 const shape = defineModel<Shape>('shape', { required: true })
 const { t, errorText } = useI18n()
+const linkText = useLinkText()
 
 const picker = useTemplateRef<InstanceType<typeof FilePicker>>('picker')
 const video = useTemplateRef<HTMLVideoElement>('video')
 const frameHost = useTemplateRef<HTMLDivElement>('frameHost')
-const links = __LINKS__
 
-const source = shallowRef<Source>('file')
+const source = shallowRef<Source>('link')
 // Each tab keeps its own picture, so switching tabs never mixes a file with a link.
 const chosen = { file: shallowRef<Picture | null>(null), link: shallowRef<Picture | null>(null) }
 const busy = shallowRef(false)
-/** Set while a link is being imported; `player` means the clip plays in the stage while it records. */
-const recording = shallowRef<{ player: boolean } | null>(null)
+const linkStatus = shallowRef<LinkStatus>('idle')
 const error = shallowRef<string | null>(null)
 const dragging = shallowRef(false)
 
+const onLink = computed(() => source.value === 'link')
+const showPlayer = computed(() => onLink.value && (linkStatus.value === 'watching' || linkStatus.value === 'recording'))
+const linkBusy = computed(() => linkStatus.value === 'recording' || linkStatus.value === 'downloading')
 const fit = computed(() => (shape.value === 'cover' ? 'object-cover' : 'object-contain'))
 const tabs = computed(() => [
-  { value: 'file' as const, label: t.value.tabFile, icon: MonitorSmartphoneIcon },
   { value: 'link' as const, label: t.value.tabLink, icon: LinkIcon },
+  { value: 'file' as const, label: t.value.tabFile, icon: MonitorSmartphoneIcon },
 ])
 
 watch(source, (next) => {
   error.value = null
+  linkStatus.value = 'idle'
   picture.value = chosen[next].value
 })
 
@@ -63,7 +67,7 @@ async function choose(file: File, from: Source) {
 function onDrop(event: DragEvent) {
   dragging.value = false
   const file = event.dataTransfer?.files?.[0]
-  if (!file || busy.value || recording.value) return
+  if (!file || busy.value || linkBusy.value) return
   source.value = 'file'
   choose(file, 'file')
 }
@@ -86,7 +90,7 @@ watch(
   <div class="flex flex-col gap-2.5">
     <FilePicker ref="picker" :accept="ACCEPT" @pick="(file) => choose(file, 'file')" />
 
-    <div v-if="links" class="grid grid-cols-2 gap-1 rounded-xl bg-muted p-1" role="tablist">
+    <div class="grid grid-cols-2 gap-1 rounded-xl bg-muted p-1" role="tablist">
       <button
         v-for="tab in tabs"
         :key="tab.value"
@@ -95,7 +99,7 @@ watch(
         :aria-selected="source === tab.value"
         class="flex h-10 items-center justify-center gap-2 rounded-lg text-sm font-medium transition-colors focus-visible:ring-3 focus-visible:ring-ring/40 focus-visible:outline-none"
         :class="source === tab.value ? 'bg-background text-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground'"
-        :disabled="!!recording"
+        :disabled="linkBusy"
         @click="source = tab.value"
       >
         <component :is="tab.icon" class="size-4" />
@@ -110,14 +114,22 @@ watch(
       @dragleave="dragging = false"
       @drop.prevent="onDrop"
     >
-      <div v-show="recording?.player" ref="frameHost" class="absolute inset-0 bg-black" />
+      <div
+        v-show="showPlayer"
+        ref="frameHost"
+        class="absolute inset-0 z-10 bg-black"
+        :class="{ 'pointer-events-none': linkStatus === 'recording' }"
+      />
 
-      <div v-if="recording" class="absolute inset-x-0 bottom-0 z-10 flex items-center gap-2 bg-black/60 px-3 py-2 text-xs text-white">
+      <div
+        v-if="onLink && linkBusy"
+        class="absolute inset-x-0 bottom-0 z-20 flex items-center gap-2 bg-black/60 px-3 py-2 text-xs text-white"
+      >
         <span class="size-2 animate-pulse rounded-full bg-red-500" />
-        {{ recording.player ? t.recording : t.reading }}
+        {{ linkStatus === 'recording' ? t.recording : t.reading }}
       </div>
 
-      <template v-if="picture && !recording">
+      <template v-if="picture && !showPlayer">
         <video
           v-if="picture.kind === 'video'"
           ref="video"
@@ -165,9 +177,15 @@ watch(
         </p>
       </template>
 
-      <!-- v-show, not v-if: the form must stay mounted while the clip it asked for is recording. -->
-      <div v-if="source === 'link' && !chosen.link.value" v-show="!recording" class="absolute inset-0 flex items-center p-5">
-        <LinkImport title :host="frameHost" @working="(state) => (recording = state)" @file="(file) => choose(file, 'link')" />
+      <div
+        v-if="onLink && !picture && !showPlayer"
+        class="absolute inset-0 flex flex-col items-center justify-center gap-3 p-6 text-center"
+      >
+        <span class="grid size-14 place-items-center rounded-full bg-background text-muted-foreground shadow-sm">
+          <LinkIcon class="size-6" />
+        </span>
+        <p class="text-[15px] font-semibold text-balance">{{ linkText.linkTitle }}</p>
+        <p class="text-xs text-balance text-muted-foreground">{{ linkText.linkHint }}</p>
       </div>
 
       <div
@@ -186,12 +204,7 @@ watch(
       </div>
     </div>
 
-    <LinkImport
-      v-if="source === 'link' && chosen.link.value"
-      :host="frameHost"
-      @working="(state) => (recording = state)"
-      @file="(file) => choose(file, 'link')"
-    />
+    <LinkImport v-if="onLink" :host="frameHost" @status="(next) => (linkStatus = next)" @file="(file) => choose(file, 'link')" />
     <p v-if="error" class="text-xs text-destructive" role="alert">{{ errorText(error) }}</p>
   </div>
 </template>

@@ -17,7 +17,6 @@ const en = {
   'nav.download': 'Download',
 
   'cta.github': 'Download from GitHub',
-  'cta.store': 'Add to Chrome',
   'cta.try': 'Try it online',
   'hero.title': 'Stickers that talk.',
   'hero.lead': 'Pick a clip, a GIF or a photo, add any sound, and send it as a WhatsApp sound sticker. Made in your browser in seconds.',
@@ -35,9 +34,9 @@ const en = {
   'how.3b': 'The sticker is built in a few seconds and sent to the open chat.',
 
   'feat.title': 'A small file with real sound',
-  'f.fit.t': 'Always under 1 MB',
+  'f.fit.t': 'Always under 500 KB',
   'f.fit.b':
-    'WhatsApp refuses stickers over 1 MB. The maker tries sizes, frame rates and quality until the sticker fits, and keeps the sharpest one that does.',
+    'WhatsApp refuses stickers over 500 KB. The maker tries sizes, frame rates and quality until the sticker fits, and keeps the sharpest one that does.',
   'f.any.t': 'Any picture, any sound',
   'f.any.b': 'Video, GIF, PNG or JPG, with MP3, M4A, WAV or the sound of another video.',
   'f.lang.t': 'Arabic and English',
@@ -51,10 +50,9 @@ const en = {
   'try.body':
     'The online maker builds the same sticker and sound files on this page. Download them to keep, or install the extension to send them as a sound sticker.',
   'try.cta': 'Open the maker',
-  'links.title': 'YouTube and TikTok links',
-  'links.tag': 'GitHub version',
+  'links.title': 'Start from a YouTube or TikTok link',
   'links.body':
-    'The GitHub version can start from a YouTube or TikTok link: paste it, pick the part, and the sticker is made from that clip. The Chrome Web Store version works with files only.',
+    'Paste a YouTube or TikTok link, pick the part, and the sticker is made from that clip, in the extension or in the online maker.',
 
   'faq.title': 'Questions',
   'q.1': 'Will my friends hear it?',
@@ -66,15 +64,12 @@ const en = {
   'q.3': 'Does it upload my files?',
   'a.3':
     'No. Pictures and sounds are read and encoded on your computer. The extension only talks to web.whatsapp.com to send the sticker, and the online maker doesn’t send your files anywhere.',
-  'q.4': 'Why GitHub and not the Chrome Web Store?',
+  'q.4': 'How do I install it?',
   'a.4':
-    'The store listing isn’t live yet. Until it is, download the latest release from GitHub, unzip it, open chrome://extensions, turn on Developer mode and choose Load unpacked.',
-  'q.4Live': 'Which version should I install?',
-  'a.4Live':
-    'The Chrome Web Store version installs in one click and updates itself. The GitHub version can also start from YouTube and TikTok links; download it from GitHub Releases and load it from chrome://extensions with Developer mode on.',
+    'Download the latest zip from GitHub, unzip it, open chrome://extensions, turn on Developer mode and choose Load unpacked. The install page shows each step, and can copy the steps for your AI assistant to do with you.',
   'q.5': 'How long can a sound sticker be?',
   'a.5':
-    'Up to 30 seconds, but 10 seconds or less works best: WhatsApp’s own sound stickers are that long, and a shorter part fits the 1 MB limit with a sharper picture.',
+    'Up to 30 seconds, but 10 seconds or less works best: WhatsApp’s own sound stickers are that long, and a shorter part fits the 500 KB limit with a sharper picture.',
   'q.6': 'Which browsers does it work in?',
   'a.6':
     'Chrome and other Chromium browsers such as Edge and Brave, on a computer. The online maker needs a recent Chrome or Edge too, because it uses the browser’s built-in video and audio encoders.',
@@ -176,8 +171,8 @@ const en = {
   'maker.link.go': 'Import',
   'maker.link.from': 'From',
   'maker.link.length': 'Length',
-  'maker.link.need': 'Link import works with the extension’s GitHub version installed.',
-  'maker.link.get': 'Get it on GitHub',
+  'maker.link.need': 'Link import works when the extension is installed.',
+  'maker.link.get': 'Install it',
   'maker.link.bad': 'That isn’t a YouTube or TikTok link.',
   'maker.link.recording': 'Recording the clip…',
   'maker.link.fetching': 'Getting the video…',
@@ -191,7 +186,7 @@ const en = {
   'err.no-picture': 'This file has no picture. Choose a video, GIF or image.',
   'err.audio-out-of-range': 'The chosen part is outside the sound. Move the handles back.',
   'err.too-long': 'Choose a shorter part: 30 seconds at most.',
-  'err.too-large': 'It doesn’t fit in WhatsApp’s 1 MB limit. Choose a shorter part.',
+  'err.too-large': 'It doesn’t fit in WhatsApp’s 500 KB limit. Choose a shorter part.',
   'err.timeout': 'That took too long. Try again, or choose a shorter part.',
   'err.aborted': 'Cancelled.',
   'err.unknown': 'Something went wrong. Try again.',
@@ -214,10 +209,10 @@ const en = {
   'install.copied': 'Copied — paste it into your AI assistant',
   'install.honest': 'Your AI can download and unzip it for you; Chrome asks you to do the last click yourself.',
   'install.prompt':
-    "Install the Sound Sticker Maker Chrome extension for me (it makes WhatsApp stickers that play sound).\nIf you can run commands on my computer, do steps 1–3 yourself:\n1. Download the newest release zip whose name ends in -github.zip from https://github.com/haythamasalama/sound-sticker-maker/releases/latest (on macOS/Linux: curl -L -o ~/Downloads/sound-sticker-maker.zip \"$(curl -s https://api.github.com/repos/haythamasalama/sound-sticker-maker/releases/latest | grep -o 'https://[^\"]*-github.zip' | head -1)\"; on Windows use PowerShell Invoke-WebRequest the same way).\n2. Unzip it into a folder that will stay put: ~/SoundStickerMaker (Windows: %USERPROFILE%\\SoundStickerMaker).\n3. Open chrome://extensions in my browser (Chrome, Edge, Brave, Arc or Dia).\nThen guide me through the last two clicks, one at a time, in simple words, waiting for me after each: turn on 'Developer mode' (top right), click 'Load unpacked' and choose the SoundStickerMaker folder. Chrome only lets a person do these two clicks; if you can control my mouse and screen, you may do them.\nIf you can't run commands, guide me through every step the same way, one at a time.\nFinally tell me to open https://web.whatsapp.com and click the round orange sticker button at the bottom right.\nHelp page: https://sound-sticker-maker.haythamasalama.me/install/",
+    "Install the Sound Sticker Maker Chrome extension for me (it makes WhatsApp stickers that play sound).\nIf you can run commands on my computer, do steps 1–3 yourself:\n1. Download the newest release file named sound-sticker-maker-<version>.zip from https://github.com/haythamasalama/sound-sticker-maker/releases/latest (on macOS/Linux: curl -L -o ~/Downloads/sound-sticker-maker.zip \"$(curl -s https://api.github.com/repos/haythamasalama/sound-sticker-maker/releases/latest | grep -o 'https://[^\"]*/sound-sticker-maker-[^\"]*\\.zip' | head -1)\"; on Windows use PowerShell Invoke-WebRequest the same way).\n2. Unzip it into a folder that will stay put: ~/SoundStickerMaker (Windows: %USERPROFILE%\\SoundStickerMaker).\n3. Open chrome://extensions in my browser (Chrome, Edge, Brave, Arc or Dia).\nThen guide me through the last two clicks, one at a time, in simple words, waiting for me after each: turn on 'Developer mode' (top right), click 'Load unpacked' and choose the SoundStickerMaker folder. Chrome only lets a person do these two clicks; if you can control my mouse and screen, you may do them.\nIf you can't run commands, guide me through every step the same way, one at a time.\nFinally tell me to pin the extension (puzzle-piece icon in the toolbar, then the pin next to Sound Sticker Maker), open https://web.whatsapp.com and click the Sound Sticker Maker icon in the toolbar.\nHelp page: https://sound-sticker-maker.haythamasalama.me/install/",
   'install.manual': 'Or do it yourself',
   'install.s1t': 'Download the file',
-  'install.s1b': 'On the Releases page, click the file whose name ends in github.zip.',
+  'install.s1b': 'On the Releases page, click the file named sound-sticker-maker-<version>.zip.',
   'install.s2t': 'Unzip it',
   'install.s2b': 'Double-click the file. You get a folder with the same name.',
   'install.s3t': 'Open the extensions page',
@@ -227,7 +222,8 @@ const en = {
   'install.s5t': 'Click Load unpacked',
   'install.s5b': 'Then choose the folder you unzipped. The extension appears in the list.',
   'install.s6t': 'Open WhatsApp Web',
-  'install.s6b': 'Go to web.whatsapp.com and click the round orange button at the bottom right.',
+  'install.s6b':
+    'Pin the extension from the puzzle-piece icon in the toolbar, go to web.whatsapp.com and click the Sound Sticker Maker icon in the toolbar.',
   'install.dev': 'Developer mode',
   'install.load': 'Load unpacked',
   'install.pack': 'Pack extension',
@@ -253,7 +249,6 @@ const ar: Record<Key, string> = {
   'nav.download': 'تحميل',
 
   'cta.github': 'حمّلها من GitHub',
-  'cta.store': 'أضفها إلى Chrome',
   'cta.try': 'جرّبها على الموقع',
   'hero.title': 'ملصقات تتكلّم.',
   'hero.lead': 'اختر مقطع فيديو أو GIF أو صورة، وأضف أي صوت، وأرسله ملصقاً صوتياً في واتساب. يُصنع في متصفحك خلال ثوانٍ.',
@@ -271,9 +266,9 @@ const ar: Record<Key, string> = {
   'how.3b': 'يُصنع الملصق في ثوانٍ ويُرسل إلى المحادثة المفتوحة.',
 
   'feat.title': 'ملف صغير وصوت حقيقي',
-  'f.fit.t': 'أقل من ١ ميغابايت دائماً',
+  'f.fit.t': 'أقل من ٥٠٠ كيلوبايت دائماً',
   'f.fit.b':
-    'واتساب يرفض الملصقات الأكبر من ١ ميغابايت. يجرّب الصانع المقاسات وعدد الإطارات والجودة حتى يدخل الملصق في الحد، ويحتفظ بأوضح نتيجة.',
+    'واتساب يرفض الملصقات الأكبر من ٥٠٠ كيلوبايت. يجرّب الصانع المقاسات وعدد الإطارات والجودة حتى يدخل الملصق في الحد، ويحتفظ بأوضح نتيجة.',
   'f.any.t': 'أي صورة وأي صوت',
   'f.any.b': 'فيديو أو GIF أو PNG أو JPG، مع MP3 أو M4A أو WAV أو صوت فيديو آخر.',
   'f.lang.t': 'بالعربية والإنجليزية',
@@ -287,10 +282,8 @@ const ar: Record<Key, string> = {
   'try.body':
     'الصانع على الموقع يصنع ملف الملصق وملف الصوت نفسيهما في هذه الصفحة. نزّلهما لتحتفظ بهما، أو ثبّت الإضافة لترسلهما ملصقاً صوتياً.',
   'try.cta': 'افتح الصانع',
-  'links.title': 'روابط YouTube وTikTok',
-  'links.tag': 'نسخة GitHub',
-  'links.body':
-    'نسخة GitHub تبدأ أيضاً من رابط YouTube أو TikTok: الصق الرابط واختر الجزء، فيُصنع الملصق من ذلك المقطع. نسخة متجر Chrome تعمل مع الملفات فقط.',
+  'links.title': 'ابدأ من رابط YouTube أو TikTok',
+  'links.body': 'الصق رابط YouTube أو TikTok واختر الجزء، فيُصنع الملصق من ذلك المقطع، في الإضافة أو في الصانع على الموقع.',
 
   'faq.title': 'أسئلة',
   'q.1': 'هل سيسمعه أصدقائي؟',
@@ -302,14 +295,11 @@ const ar: Record<Key, string> = {
   'q.3': 'هل ترفع ملفاتي؟',
   'a.3':
     'لا. تُقرأ الصور والأصوات ويُصنع الملصق على جهازك. لا تتصل الإضافة إلا بـ web.whatsapp.com لإرسال الملصق، والصانع على الموقع لا يرسل ملفاتك إلى أي مكان.',
-  'q.4': 'لماذا GitHub وليس متجر Chrome؟',
+  'q.4': 'كيف أثبّتها؟',
   'a.4':
-    'صفحة المتجر لم تُنشر بعد. إلى أن تُنشر، حمّل آخر إصدار من GitHub وفك ضغطه، ثم افتح chrome://extensions وفعّل وضع المطوّر واختر «تحميل إضافة غير مضغوطة».',
-  'q.4Live': 'أي نسخة أثبّت؟',
-  'a.4Live':
-    'نسخة متجر Chrome تُثبَّت بنقرة وتحدّث نفسها. نسخة GitHub تبدأ أيضاً من روابط YouTube وTikTok؛ حمّلها من إصدارات GitHub وثبّتها من chrome://extensions بعد تفعيل وضع المطوّر.',
+    'نزّل أحدث ملف zip من GitHub وفك ضغطه، ثم افتح chrome://extensions وفعّل وضع المطوّر واختر «تحميل إضافة غير مضغوطة». صفحة التثبيت تعرض كل خطوة، ويمكنها نسخ الخطوات لمساعد الذكاء الاصطناعي لينفّذها معك.',
   'q.5': 'كم يمكن أن يطول الملصق الصوتي؟',
-  'a.5': 'حتى ٣٠ ثانية، لكن ١٠ ثوانٍ أو أقل أفضل: هذا طول ملصقات واتساب الصوتية نفسها، والجزء الأقصر يدخل في حد ١ ميغابايت بصورة أوضح.',
+  'a.5': 'حتى ٣٠ ثانية، لكن ١٠ ثوانٍ أو أقل أفضل: هذا طول ملصقات واتساب الصوتية نفسها، والجزء الأقصر يدخل في حد ٥٠٠ كيلوبايت بصورة أوضح.',
   'q.6': 'على أي متصفح تعمل؟',
   'a.6':
     'على Chrome ومتصفحات Chromium الأخرى مثل Edge وBrave على الكمبيوتر. والصانع على الموقع يحتاج أيضاً إلى نسخة حديثة من Chrome أو Edge لأنه يستخدم أدوات الفيديو والصوت المدمجة في المتصفح.',
@@ -410,8 +400,8 @@ const ar: Record<Key, string> = {
   'maker.link.go': 'استيراد',
   'maker.link.from': 'من',
   'maker.link.length': 'المدة',
-  'maker.link.need': 'استيراد الروابط يعمل حين تكون نسخة GitHub من الإضافة مثبّتة.',
-  'maker.link.get': 'حمّلها من GitHub',
+  'maker.link.need': 'استيراد الروابط يعمل حين تكون الإضافة مثبّتة.',
+  'maker.link.get': 'ثبّتها',
   'maker.link.bad': 'هذا ليس رابط YouTube أو TikTok.',
   'maker.link.recording': 'جارٍ تسجيل المقطع…',
   'maker.link.fetching': 'جارٍ جلب الفيديو…',
@@ -425,7 +415,7 @@ const ar: Record<Key, string> = {
   'err.no-picture': 'هذا الملف بلا صورة. اختر فيديو أو GIF أو صورة.',
   'err.audio-out-of-range': 'الجزء المختار خارج الصوت. أعد الطرفين إلى داخله.',
   'err.too-long': 'اختر جزءاً أقصر: ٣٠ ثانية كحد أقصى.',
-  'err.too-large': 'الملصق أكبر من حد واتساب (١ ميغابايت). اختر جزءاً أقصر.',
+  'err.too-large': 'الملصق أكبر من حد واتساب (٥٠٠ كيلوبايت). اختر جزءاً أقصر.',
   'err.timeout': 'استغرق وقتاً طويلاً. حاول مرة أخرى أو اختر جزءاً أقصر.',
   'err.aborted': 'تم الإلغاء.',
   'err.unknown': 'حدث خطأ. حاول مرة أخرى.',
@@ -448,10 +438,10 @@ const ar: Record<Key, string> = {
   'install.copied': 'تم النسخ — الصقها في مساعد الذكاء الاصطناعي',
   'install.honest': 'يستطيع مساعدك تنزيل الملف وفك ضغطه عنك؛ أما النقرة الأخيرة فيطلب Chrome أن تنفّذها بنفسك.',
   'install.prompt':
-    'ثبّت لي إضافة Chrome المسماة Sound Sticker Maker (تصنع ملصقات واتساب بصوت).\nإن كنت تستطيع تشغيل أوامر على جهازي، فنفّذ الخطوات 1–3 بنفسك:\n1. نزّل أحدث ملف zip ينتهي اسمه بـ ‎-github.zip من https://github.com/haythamasalama/sound-sticker-maker/releases/latest (على macOS/Linux: curl -L -o ~/Downloads/sound-sticker-maker.zip "$(curl -s https://api.github.com/repos/haythamasalama/sound-sticker-maker/releases/latest | grep -o \'https://[^"]*-github.zip\' | head -1)"؛ وعلى Windows استخدم PowerShell Invoke-WebRequest بالطريقة نفسها).\n2. فك ضغطه في مجلد يبقى في مكانه: ~/SoundStickerMaker (على Windows: %USERPROFILE%\\SoundStickerMaker).\n3. افتح chrome://extensions في متصفحي (Chrome أو Edge أو Brave أو Arc أو Dia).\nثم أرشدني إلى النقرتين الأخيرتين، واحدة واحدة، بكلمات بسيطة، وانتظرني بعد كل منهما: فعّل «وضع المطوّر» (Developer mode) في الأعلى، ثم اضغط «تحميل إضافة غير مضغوطة» (Load unpacked) واختر مجلد SoundStickerMaker. Chrome لا يسمح بهاتين النقرتين إلا لشخص؛ وإن كنت تستطيع التحكم في الفأرة والشاشة فلك أن تنفّذهما.\nإن لم تكن تستطيع تشغيل الأوامر، فأرشدني إلى كل الخطوات بالطريقة نفسها، خطوة خطوة.\nوفي النهاية قل لي أن أفتح https://web.whatsapp.com وأضغط زر الملصق البرتقالي الدائري في أسفل الشاشة.\nصفحة المساعدة: https://sound-sticker-maker.haythamasalama.me/ar/install/',
+    'ثبّت لي إضافة Chrome المسماة Sound Sticker Maker (تصنع ملصقات واتساب بصوت).\nإن كنت تستطيع تشغيل أوامر على جهازي، فنفّذ الخطوات 1–3 بنفسك:\n1. نزّل أحدث ملف إصدار اسمه sound-sticker-maker-<version>.zip من https://github.com/haythamasalama/sound-sticker-maker/releases/latest (على macOS/Linux: curl -L -o ~/Downloads/sound-sticker-maker.zip "$(curl -s https://api.github.com/repos/haythamasalama/sound-sticker-maker/releases/latest | grep -o \'https://[^"]*/sound-sticker-maker-[^"]*\\.zip\' | head -1)"؛ وعلى Windows استخدم PowerShell Invoke-WebRequest بالطريقة نفسها).\n2. فك ضغطه في مجلد يبقى في مكانه: ~/SoundStickerMaker (على Windows: %USERPROFILE%\\SoundStickerMaker).\n3. افتح chrome://extensions في متصفحي (Chrome أو Edge أو Brave أو Arc أو Dia).\nثم أرشدني إلى النقرتين الأخيرتين، واحدة واحدة، بكلمات بسيطة، وانتظرني بعد كل منهما: فعّل «وضع المطوّر» (Developer mode) في الأعلى، ثم اضغط «تحميل إضافة غير مضغوطة» (Load unpacked) واختر مجلد SoundStickerMaker. Chrome لا يسمح بهاتين النقرتين إلا لشخص؛ وإن كنت تستطيع التحكم في الفأرة والشاشة فلك أن تنفّذهما.\nإن لم تكن تستطيع تشغيل الأوامر، فأرشدني إلى كل الخطوات بالطريقة نفسها، خطوة خطوة.\nوفي النهاية قل لي أن أثبّت الإضافة في شريط الأدوات (أيقونة قطعة البازل ثم الدبوس بجانب Sound Sticker Maker)، وأفتح https://web.whatsapp.com وأضغط أيقونة Sound Sticker Maker في شريط الأدوات.\nصفحة المساعدة: https://sound-sticker-maker.haythamasalama.me/ar/install/',
   'install.manual': 'أو نفّذها بنفسك',
   'install.s1t': 'نزّل الملف',
-  'install.s1b': 'في صفحة الإصدارات، اضغط الملف الذي ينتهي اسمه بـ github.zip.',
+  'install.s1b': 'في صفحة الإصدارات، اضغط الملف المسمّى sound-sticker-maker-<version>.zip.',
   'install.s2t': 'فك ضغطه',
   'install.s2b': 'افتح الملف بنقرتين. ستحصل على مجلد بالاسم نفسه.',
   'install.s3t': 'افتح صفحة الإضافات',
@@ -461,7 +451,8 @@ const ar: Record<Key, string> = {
   'install.s5t': 'اضغط «تحميل إضافة غير مضغوطة»',
   'install.s5b': 'ثم اختر المجلد الذي فككته. ستظهر الإضافة في القائمة.',
   'install.s6t': 'افتح واتساب ويب',
-  'install.s6b': 'ادخل web.whatsapp.com واضغط الزر البرتقالي الدائري في أسفل الزاوية.',
+  'install.s6b':
+    'ثبّت الإضافة في شريط الأدوات من أيقونة قطعة البازل، ثم ادخل web.whatsapp.com واضغط أيقونة Sound Sticker Maker في شريط الأدوات.',
   'install.dev': 'وضع المطوّر',
   'install.load': 'تحميل إضافة غير مضغوطة',
   'install.pack': 'حزم الإضافة',

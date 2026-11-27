@@ -9,7 +9,7 @@ export interface FrameSlot {
   durationMs: number
 }
 
-/** Frame rate to capture at, by sticker length: what can still fit in 1 MB. */
+/** Frame rate to capture at, by sticker length: what can still fit in 500 KB. */
 export function captureFpsFor(seconds: number): number {
   if (seconds <= 10) return 30
   if (seconds <= 20) return 20

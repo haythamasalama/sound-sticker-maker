@@ -14,7 +14,6 @@ export const es: Record<Key, string> = {
   'nav.download': 'Descargar',
 
   'cta.github': 'Descargar de GitHub',
-  'cta.store': 'Añadir a Chrome',
   'cta.try': 'Probar en línea',
   'hero.title': 'Stickers que hablan.',
   'hero.lead':
@@ -31,11 +30,12 @@ export const es: Record<Key, string> = {
   'how.2b': 'El sonido del propio vídeo o cualquier archivo de audio. Arrastra los extremos para quedarte con la parte que quieras.',
   'how.3t': 'Créalo y envíalo',
   'how.3b': 'El sticker se crea en unos segundos y se envía al chat abierto.',
+  'how.name': 'Cómo hacer un sticker de WhatsApp con sonido',
 
   'feat.title': 'Un archivo pequeño con sonido de verdad',
-  'f.fit.t': 'Siempre por debajo de 1 MB',
+  'f.fit.t': 'Siempre por debajo de 500 KB',
   'f.fit.b':
-    'WhatsApp rechaza los stickers de más de 1 MB. El creador prueba tamaños, fotogramas por segundo y calidad hasta que el sticker cabe, y se queda con el más nítido.',
+    'WhatsApp rechaza los stickers de más de 500 KB. El creador prueba tamaños, fotogramas por segundo y calidad hasta que el sticker cabe, y se queda con el más nítido.',
   'f.any.t': 'Cualquier imagen, cualquier sonido',
   'f.any.b': 'Vídeo, GIF, PNG o JPG, con MP3, M4A, WAV o el sonido de otro vídeo.',
   'f.lang.t': 'En árabe y en inglés',
@@ -49,10 +49,9 @@ export const es: Record<Key, string> = {
   'try.body':
     'El creador en línea genera los mismos archivos de sticker y de sonido en esta página. Descárgalos para guardarlos, o instala la extensión para enviarlos como sticker con sonido.',
   'try.cta': 'Abrir el creador',
-  'links.title': 'Enlaces de YouTube y TikTok',
-  'links.tag': 'Versión de GitHub',
+  'links.title': 'Empieza desde un enlace de YouTube o TikTok',
   'links.body':
-    'La versión de GitHub también puede partir de un enlace de YouTube o TikTok: pégalo, elige la parte y el sticker se hace con ese clip. La versión de Chrome Web Store solo trabaja con archivos.',
+    'Pega un enlace de YouTube o TikTok, elige la parte y el sticker se hace con ese clip, en la extensión o en el creador en línea.',
 
   'faq.title': 'Preguntas',
   'q.1': '¿Lo oirán mis amigos?',
@@ -64,15 +63,12 @@ export const es: Record<Key, string> = {
   'q.3': '¿Sube mis archivos?',
   'a.3':
     'No. Las imágenes y los sonidos se leen y se codifican en tu ordenador. La extensión solo se comunica con web.whatsapp.com para enviar el sticker, y el creador en línea no envía tus archivos a ningún sitio.',
-  'q.4': '¿Por qué GitHub y no Chrome Web Store?',
+  'q.4': '¿Cómo la instalo?',
   'a.4':
-    'La ficha de la tienda aún no está publicada. Mientras tanto, descarga la última versión de GitHub, descomprímela, abre chrome://extensions, activa el modo de desarrollador y elige «Cargar descomprimida».',
-  'q.4Live': '¿Qué versión instalo?',
-  'a.4Live':
-    'La versión de Chrome Web Store se instala con un clic y se actualiza sola. La versión de GitHub también acepta enlaces de YouTube y TikTok; descárgala de GitHub Releases y cárgala desde chrome://extensions con el modo de desarrollador activado.',
+    'Descarga el zip más reciente de GitHub, descomprímelo, abre chrome://extensions, activa el modo de desarrollador y elige «Cargar descomprimida». La página de instalación muestra cada paso y puede copiar los pasos para que tu asistente de IA los haga contigo.',
   'q.5': '¿Cuánto puede durar un sticker con sonido?',
   'a.5':
-    'Hasta 30 segundos, pero 10 o menos funciona mejor: es lo que duran los stickers con sonido del propio WhatsApp, y una parte más corta cabe en 1 MB con una imagen más nítida.',
+    'Hasta 30 segundos, pero 10 o menos funciona mejor: es lo que duran los stickers con sonido del propio WhatsApp, y una parte más corta cabe en 500 KB con una imagen más nítida.',
   'q.6': '¿En qué navegadores funciona?',
   'a.6':
     'En Chrome y otros navegadores Chromium, como Edge y Brave, en un ordenador. El creador en línea también necesita un Chrome o Edge reciente, porque usa los codificadores de vídeo y audio que trae el navegador.',
@@ -174,8 +170,8 @@ export const es: Record<Key, string> = {
   'maker.link.go': 'Importar',
   'maker.link.from': 'Desde',
   'maker.link.length': 'Duración',
-  'maker.link.need': 'Importar enlaces funciona con la versión de GitHub de la extensión instalada.',
-  'maker.link.get': 'Consíguela en GitHub',
+  'maker.link.need': 'Importar enlaces funciona con la extensión instalada.',
+  'maker.link.get': 'Instalarla',
   'maker.link.bad': 'Eso no es un enlace de YouTube ni de TikTok.',
   'maker.link.recording': 'Grabando el clip…',
   'maker.link.fetching': 'Obteniendo el vídeo…',
@@ -189,7 +185,7 @@ export const es: Record<Key, string> = {
   'err.no-picture': 'Este archivo no tiene imagen. Elige un vídeo, un GIF o una imagen.',
   'err.audio-out-of-range': 'La parte elegida queda fuera del sonido. Mueve los extremos hacia dentro.',
   'err.too-long': 'Elige una parte más corta: 30 segundos como máximo.',
-  'err.too-large': 'No cabe en el límite de 1 MB de WhatsApp. Elige una parte más corta.',
+  'err.too-large': 'No cabe en el límite de 500 KB de WhatsApp. Elige una parte más corta.',
   'err.timeout': 'Ha tardado demasiado. Inténtalo de nuevo o elige una parte más corta.',
   'err.aborted': 'Cancelado.',
   'err.unknown': 'Algo ha fallado. Inténtalo de nuevo.',
@@ -199,6 +195,7 @@ export const es: Record<Key, string> = {
   'nf.h1': 'Página no encontrada',
   'nf.lead': 'Esta página no existe o se ha movido. Estos enlaces te devuelven al sitio.',
   'nf.home': 'Inicio',
+
   'install.nav': 'Instalar',
   'install.seo.title': 'Cómo instalar Sound Sticker Maker en Chrome, paso a paso | Sound Sticker Maker',
   'install.seo.desc':
@@ -212,10 +209,10 @@ export const es: Record<Key, string> = {
   'install.copied': 'Copiado: pégalo en tu asistente de IA',
   'install.honest': 'Tu IA puede descargarla y descomprimirla por ti; Chrome te pide que el último clic lo hagas tú.',
   'install.prompt':
-    'Instálame la extensión de Chrome Sound Sticker Maker (hace stickers de WhatsApp con sonido).\nSi puedes ejecutar comandos en mi ordenador, haz tú los pasos 1–3:\n1. Descarga el zip más reciente cuyo nombre termina en -github.zip desde https://github.com/haythamasalama/sound-sticker-maker/releases/latest (en macOS/Linux: curl -L -o ~/Downloads/sound-sticker-maker.zip "$(curl -s https://api.github.com/repos/haythamasalama/sound-sticker-maker/releases/latest | grep -o \'https://[^"]*-github.zip\' | head -1)"; en Windows usa PowerShell Invoke-WebRequest de la misma forma).\n2. Descomprímelo en una carpeta que no se vaya a mover: ~/SoundStickerMaker (Windows: %USERPROFILE%\\SoundStickerMaker).\n3. Abre chrome://extensions en mi navegador (Chrome, Edge, Brave, Arc o Dia).\nDespués guíame en los dos últimos clics, de uno en uno, con palabras sencillas y esperándome después de cada uno: activa el «Modo de desarrollador» (Developer mode, arriba a la derecha), haz clic en «Cargar descomprimida» (Load unpacked) y elige la carpeta SoundStickerMaker. Chrome solo deja que esos dos clics los haga una persona; si puedes controlar mi ratón y mi pantalla, puedes hacerlos tú.\nSi no puedes ejecutar comandos, guíame en todos los pasos igual, de uno en uno.\nAl final dime que abra https://web.whatsapp.com y haga clic en el botón redondo naranja del sticker, abajo a la derecha.\nPágina de ayuda: https://sound-sticker-maker.haythamasalama.me/es/install/',
+    'Instálame la extensión de Chrome Sound Sticker Maker (hace stickers de WhatsApp con sonido).\nSi puedes ejecutar comandos en mi ordenador, haz tú los pasos 1–3:\n1. Descarga el archivo más reciente llamado sound-sticker-maker-<versión>.zip desde https://github.com/haythamasalama/sound-sticker-maker/releases/latest (en macOS/Linux: curl -L -o ~/Downloads/sound-sticker-maker.zip "$(curl -s https://api.github.com/repos/haythamasalama/sound-sticker-maker/releases/latest | grep -o \'https://[^"]*/sound-sticker-maker-[^"]*\\.zip\' | head -1)"; en Windows usa PowerShell Invoke-WebRequest de la misma forma).\n2. Descomprímelo en una carpeta que no se vaya a mover: ~/SoundStickerMaker (Windows: %USERPROFILE%\\SoundStickerMaker).\n3. Abre chrome://extensions en mi navegador (Chrome, Edge, Brave, Arc o Dia).\nDespués guíame en los dos últimos clics, de uno en uno, con palabras sencillas y esperándome después de cada uno: activa el «Modo de desarrollador» (Developer mode, arriba a la derecha), haz clic en «Cargar descomprimida» (Load unpacked) y elige la carpeta SoundStickerMaker. Chrome solo deja que esos dos clics los haga una persona; si puedes controlar mi ratón y mi pantalla, puedes hacerlos tú.\nSi no puedes ejecutar comandos, guíame en todos los pasos igual, de uno en uno.\nAl final dime que fije la extensión (icono de la pieza de puzle en la barra de herramientas y luego la chincheta junto a Sound Sticker Maker), abra https://web.whatsapp.com y haga clic en el icono de Sound Sticker Maker en la barra de herramientas.\nPágina de ayuda: https://sound-sticker-maker.haythamasalama.me/es/install/',
   'install.manual': 'O hazlo tú',
   'install.s1t': 'Descarga el archivo',
-  'install.s1b': 'En la página de versiones, haz clic en el archivo cuyo nombre termina en github.zip.',
+  'install.s1b': 'En la página de versiones, haz clic en el archivo sound-sticker-maker-<versión>.zip.',
   'install.s2t': 'Descomprímelo',
   'install.s2b': 'Haz doble clic en el archivo. Aparece una carpeta con el mismo nombre.',
   'install.s3t': 'Abre la página de extensiones',
@@ -225,12 +222,12 @@ export const es: Record<Key, string> = {
   'install.s5t': 'Haz clic en «Cargar descomprimida»',
   'install.s5b': 'Y elige la carpeta que descomprimiste. La extensión aparece en la lista.',
   'install.s6t': 'Abre WhatsApp Web',
-  'install.s6b': 'Entra en web.whatsapp.com y haz clic en el botón redondo naranja de abajo a la derecha.',
+  'install.s6b':
+    'Fija la extensión desde el icono de la pieza de puzle, entra en web.whatsapp.com y haz clic en el icono de Sound Sticker Maker en la barra de herramientas.',
   'install.dev': 'Modo de desarrollador',
   'install.load': 'Cargar descomprimida',
   'install.pack': 'Empaquetar extensión',
   'install.update': 'Actualizar',
   'install.source': 'Código fuente (zip)',
   'install.ext': 'Extensiones',
-  'how.name': 'Cómo hacer un sticker de WhatsApp con sonido',
 }

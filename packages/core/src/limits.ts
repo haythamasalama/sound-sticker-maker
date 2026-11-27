@@ -1,11 +1,11 @@
 /** WhatsApp shows stickers at 512×512; bigger sizes only add weight. */
 export const STICKER_SIDE = 512
 
-/** WhatsApp's server rejects sticker uploads above 1 MB (HTTP 413). */
-export const MAX_STICKER_BYTES = 1_000_000
+/** WhatsApp's sticker guidelines cap animated stickers at 500 KB. */
+export const MAX_STICKER_BYTES = 500_000
 
-/** Aim below the hard limit so the full encode rarely needs a second pass. */
-export const TARGET_STICKER_BYTES = 900_000
+/** Aim below the limit so the full encode rarely needs a second pass. */
+export const TARGET_STICKER_BYTES = 460_000
 
 export const MAX_AUDIO_BYTES = 1_000_000
 

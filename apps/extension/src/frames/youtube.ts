@@ -1,10 +1,13 @@
 /**
- * Runs in YouTube embeds. Acts only in the hidden player the panel creates, which carries the request in
- * its URL hash (#ssm=<id>:<start>:<duration>), and records that part straight from the player.
+ * Runs in YouTube embeds the extension or its website opens, which carry the request in the URL hash:
+ * - #ssm=<id>:watch          the user watches and picks the part; this talks to the panel through the player page.
+ * - #ssm=<id>:<start>:<len>  records that part straight away (used by the website's maker).
+ * Recording comes straight from the player, so nothing is downloaded.
  */
-import { base64FromBuffer, type ClipErrorCode, type RuntimeMessage } from '../lib/messages'
+import { base64FromBuffer, type ClipErrorCode, type PlayerAction, type RuntimeMessage } from '../lib/messages'
 
 const request = location.hash.match(/ssm=([\w-]+):([\d.]+):([\d.]+)/)
+const watch = location.hash.match(/ssm=([\w-]+):watch/)
 
 class ClipError extends Error {
   constructor(readonly code: ClipErrorCode) {
@@ -75,6 +78,11 @@ async function record(start: number, duration: number): Promise<Blob> {
     await video.play().catch(() => undefined)
   })
   if (!(await playing) && video.paused) throw new ClipError('no-play')
+  // A video that had not started yet may begin from its own start instead of the part's.
+  if (Math.abs(video.currentTime - start) > 1) {
+    video.currentTime = start
+    await once(video, 'seeked', 15000)
+  }
   recorder.start(250)
   // Keep buffering stalls out of the clip: pause while the player waits for data.
   video.addEventListener('waiting', () => recorder.state === 'recording' && recorder.pause())
@@ -97,22 +105,23 @@ async function record(start: number, duration: number): Promise<Blob> {
   return blob
 }
 
-if (request) {
-  const [, requestId, start, duration] = request
-  const send = (message: RuntimeMessage) => chrome.runtime.sendMessage(message).catch(() => undefined)
-  record(Number(start), Number(duration))
+const send = (message: RuntimeMessage) => chrome.runtime.sendMessage(message).catch(() => undefined)
+const title = () => document.title.replace(/\s*-\s*YouTube\s*$/, '') || 'youtube'
+
+function recordAndSend(requestId: string, start: number, duration: number, deliver: (message: RuntimeMessage) => unknown = send) {
+  return record(start, duration)
     .then(async (blob) =>
-      send({
+      deliver({
         type: 'clip',
         requestId: requestId!,
         ok: true,
         base64: base64FromBuffer(await blob.arrayBuffer()),
         mime: 'video/webm',
-        title: document.title.replace(/\s*-\s*YouTube\s*$/, '') || 'youtube',
+        title: title(),
       }),
     )
     .catch((error: unknown) =>
-      send({
+      deliver({
         type: 'clip',
         requestId: requestId!,
         ok: false,
@@ -120,4 +129,77 @@ if (request) {
         detail: String((error as Error)?.message ?? error),
       }),
     )
+}
+
+if (request) {
+  const [, requestId, start, duration] = request
+  recordAndSend(requestId!, Number(start), Number(duration))
+}
+
+if (watch) {
+  const requestId = watch[1]!
+  let recording = false
+  // Straight to the panel through the player page, so nothing waits on the extension's background.
+  const toPanel = (message: RuntimeMessage) => window.parent.postMessage(message, chrome.runtime.getURL('').slice(0, -1))
+  const player = () => document.querySelector<HTMLVideoElement>('video.html5-main-video, video')
+  const report = (error?: ClipErrorCode) => {
+    const video = player()
+    const ready = !!video && !adShowing() && Number.isFinite(video.duration) && video.duration > 0
+    toPanel({
+      type: 'yt-state',
+      requestId,
+      ready: ready && !recording,
+      duration: ready ? video!.duration : 0,
+      time: video?.currentTime ?? 0,
+      paused: video?.paused ?? true,
+      title: title(),
+      ...(error ? { error } : document.querySelector('.ytp-error') ? { error: 'blocked' as const } : {}),
+    })
+  }
+  // The embed only loads the video once it plays, so it starts muted, stops at once and gets its sound back.
+  let primed = false
+  let unmuteTries = 0
+  const prime = () => {
+    const video = player()
+    if (!video || adShowing()) return
+    if (!primed) {
+      if (video.paused || !(video.duration > 0)) return
+      primed = true
+      video.pause()
+    }
+    // YouTube re-applies its own mute after a moment, so check for a short while.
+    if (unmuteTries < 12 && !recording) {
+      unmuteTries++
+      if (video.muted) {
+        document.querySelector<HTMLElement>('.ytp-mute-button')?.click()
+        video.muted = false
+      }
+      video.volume = 1
+    }
+  }
+  setInterval(() => (prime(), report()), 250)
+  window.addEventListener('message', (event) => {
+    const message = event.data as RuntimeMessage | undefined
+    if (event.source !== window.parent || message?.type !== 'yt-command' || message.requestId !== requestId) return
+    const video = player()
+    const command = message as PlayerAction
+    if (command.action === 'record') {
+      if (recording) return
+      recording = true
+      recordAndSend(requestId, command.start, command.length, toPanel).finally(() => {
+        recording = false
+        const after = player()
+        if (after) after.volume = 1
+      })
+      return
+    }
+    if (!video) return
+    if (command.action === 'play')
+      video
+        .play()
+        // Without a click inside the player, the browser may only allow it to play muted.
+        .catch(() => ((video.muted = true), video.play()))
+        .catch(() => report('no-play'))
+    else video.pause()
+  })
 }

@@ -6,3 +6,5 @@ pnpm-lock.yaml
 .astro
 apps/extension/src/components/ui
 apps/site/public
+packages/mcp/bundle
+*.mcpb

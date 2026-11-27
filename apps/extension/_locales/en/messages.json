@@ -1,0 +1,7 @@
+{
+  "name": { "message": "Sound Sticker Maker – Audio Stickers for WhatsApp Web" },
+  "description": {
+    "message": "Make WhatsApp stickers that play sound. Turn any video, GIF or picture plus a sound into a sound sticker, right in WhatsApp Web."
+  },
+  "action": { "message": "Make a sound sticker" }
+}

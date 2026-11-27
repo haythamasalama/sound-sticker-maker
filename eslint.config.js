@@ -22,7 +22,7 @@ export default tseslint.config(
   {
     files: ['**/*.{ts,vue}'],
     languageOptions: {
-      globals: { ...globals.browser, chrome: 'readonly' },
+      globals: { ...globals.browser, chrome: 'readonly', __LINKS__: 'readonly' },
       parserOptions: { parser: tseslint.parser },
     },
     rules: {
@@ -32,5 +32,7 @@ export default tseslint.config(
     },
   },
   { files: ['**/*.config.{js,ts}', '**/scripts/**/*.mjs'], languageOptions: { globals: globals.node } },
+  // Parts of the end-to-end script are serialised into the page and run in the browser.
+  { files: ['scripts/e2e.mjs'], languageOptions: { globals: { ...globals.node, ...globals.browser } } },
   prettier,
 )

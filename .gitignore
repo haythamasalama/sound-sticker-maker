@@ -5,5 +5,3 @@ coverage
 .playwright-mcp
 .DS_Store
 .astro
-packages/mcp/bundle
-*.mcpb

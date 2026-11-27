@@ -8,8 +8,6 @@ const FILES = [
   'apps/extension/package.json',
   'apps/site/package.json',
   'packages/core/package.json',
-  'packages/mcp/package.json',
-  'packages/mcp/manifest.json',
 ]
 
 const version = process.argv[2]

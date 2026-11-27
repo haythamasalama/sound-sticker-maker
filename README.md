@@ -44,18 +44,6 @@ Works in Chrome, Edge, Brave, Arc, Dia and other Chromium browsers (version 120 
 **From the Chrome Web Store:** coming soon. That version leaves out YouTube and TikTok links, because the store doesn't
 allow saving media from other sites.
 
-## 🤖 Use it with AI
-
-Ask Claude or any AI assistant to make sound stickers for you, from files on your computer.
-
-- **Claude Desktop:** download `sound-sticker-maker.mcpb` from the [latest release](https://github.com/haythamasalama/sound-sticker-maker/releases/latest) and double-click it.
-- **Claude Code:** `claude mcp add sound-sticker-maker -- npx -y sound-sticker-maker-mcp`
-- **Cursor, Windsurf, Codex and others:** add `{"mcpServers":{"sound-sticker-maker":{"command":"npx","args":["-y","sound-sticker-maker-mcp"]}}}` to the MCP settings.
-- **Skill:** copy [`skills/sound-sticker-maker`](skills/sound-sticker-maker) into your agent's skills folder.
-
-Then ask: _"Make a sound sticker from ~/Downloads/goal.mp4, seconds 3 to 8."_ Ready-to-copy prompts are on the
-[Use with AI](https://haythamasalama.github.io/sound-sticker-maker/ai/) page.
-
 ## 🔊 Will my friends hear it?
 
 Sound stickers are new in WhatsApp (rolling out since November 2026). Friends whose WhatsApp supports them hear the

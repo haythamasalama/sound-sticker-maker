@@ -8,7 +8,6 @@ export default tseslint.config(
   {
     ignores: [
       '**/dist',
-      'packages/mcp/bundle',
       'apps/site/public',
       '**/.astro',
       '**/node_modules',

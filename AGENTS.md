@@ -18,7 +18,6 @@ node scripts/e2e.mjs  # end-to-end run of the GitHub build on WhatsApp Web (no s
 - The sticker engine lives in `packages/core`: no Vue and no `chrome`. Pure parts (formats, planning, links) are tested
   in Node under `packages/core/tests`; browser parts are checked with `scripts/e2e.mjs`.
 - Extension feature code goes in `apps/extension/src/features/<feature>`, tests in `apps/extension/tests`.
-- The MCP server (`packages/mcp`) runs in Node: it may use the engine's `format`, `limits` and `links` exports only.
 - Anything that touches WhatsApp's internal modules stays in `apps/extension/src/page/whatsapp.ts`.
 - YouTube and TikTok code must stay out of the store build: guard it with `__LINKS__` or keep it in files only the
   GitHub build includes. Check with `grep -ci "youtube\|tiktok" apps/extension/dist/store/*.js` (must be 0).

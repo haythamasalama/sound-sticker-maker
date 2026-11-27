@@ -2,8 +2,6 @@
 
 ```
 packages/core      The sticker engine (TypeScript source, no build step)
-packages/mcp       MCP server for AI assistants (npm: sound-sticker-maker-mcp, Claude Desktop: .mcpb)
-skills             Agent skill that teaches assistants to use the MCP server
 apps/extension     The Chrome extension (Vue 3, Tailwind 4, shadcn-vue, Vite)
 apps/site          The website and online maker (Astro), deployed to GitHub Pages
 scripts            Release helpers and the end-to-end check
@@ -67,11 +65,3 @@ store build, `LinkImport.vue` is replaced by an empty component, and link string
 - `node scripts/e2e.mjs github`: loads the built extension in Chromium, opens WhatsApp Web, makes a sticker from a
   video, imports a YouTube and a TikTok link, and switches to Arabic. Sending needs a signed-in account and is tested by
   hand.
-
-## The MCP server (`packages/mcp`)
-
-AI assistants run tools on the user's computer, not in a browser, so the server makes stickers with ffmpeg and reuses
-the engine's format code (`@sound-sticker-maker/core/format`) for the WhatsApp metadata and still-picture stickers. It
-uses `FFMPEG_BIN`, else a system ffmpeg that has `libwebp_anim` and `libopus`, else downloads a portable ffmpeg once into
-the user's cache folder. Sizes are tried from 512 px at 20 fps down until the WebP fits 1 MB. Tools: `make_sound_sticker`
-and `inspect_media`. `pnpm --filter sound-sticker-maker-mcp bundle` builds the self-contained Claude Desktop installer.

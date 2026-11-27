@@ -19,15 +19,8 @@ Updates: upload the new store zip on the same item; Chrome updates everyone auto
 
 ## GitHub (the full version, with YouTube and TikTok)
 
-Pushing a `v*` tag runs the **Release** workflow: it builds both zips and the Claude Desktop installer
-(`sound-sticker-maker.mcpb`) and attaches them to a GitHub release. People install the GitHub zip with **Load unpacked**
+Pushing a `v*` tag runs the **Release** workflow: it builds both zips and attaches them to a GitHub release. People install the GitHub zip with **Load unpacked**
 (steps in the README and on the website).
-
-## npm (the MCP server for AI assistants)
-
-1. Create an account on [npmjs.com](https://www.npmjs.com/) and an **Automation** access token.
-2. Add it to the GitHub repository as the secret `NPM_TOKEN` (Settings → Secrets and variables → Actions).
-3. The next tagged release publishes `sound-sticker-maker-mcp`, so `npx -y sound-sticker-maker-mcp` works everywhere.
 
 ## Website
 
@@ -39,5 +32,4 @@ GitHub Actions. For your own subdomain, see the end of [RELEASING.md](RELEASING.
 - The site has full SEO and answer-engine data (JSON-LD, sitemap, hreflang in six languages, `llms.txt`).
 - Submit the sitemap in [Google Search Console](https://search.google.com/search-console) and
   [Bing Webmaster Tools](https://www.bing.com/webmasters).
-- List the MCP server in the [MCP registry](https://github.com/modelcontextprotocol/registry) and the skill in skill
-  directories, and add the repository topics `whatsapp`, `stickers`, `sound-stickers`, `chrome-extension`, `mcp`.
+- Add the repository topics `whatsapp`, `stickers`, `sound-stickers`, `chrome-extension`.

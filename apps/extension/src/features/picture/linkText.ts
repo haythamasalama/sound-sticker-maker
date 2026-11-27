@@ -1,23 +1,27 @@
 import { computed } from 'vue'
-import { useI18n } from '@/lib/i18n'
+import { useI18n, type Locale } from '@/lib/i18n'
 
-const text = {
-  en: {
-    orLink: 'Or paste a link',
-    linkPlaceholder: 'YouTube or TikTok link',
-    getClip: 'Get clip',
-    recordingYoutube: 'Recording from YouTube… this takes as long as the clip.',
-    downloadingTiktok: 'Downloading from TikTok…',
-    badLink: "That isn't a YouTube or TikTok video link.",
+interface LinkText {
+  linkPlaceholder: string
+  getClip: string
+  badLink: string
+}
+
+const text: Record<Locale, LinkText> = {
+  en: { linkPlaceholder: 'YouTube or TikTok link', getClip: 'Get clip', badLink: "That isn't a YouTube or TikTok video link." },
+  ar: { linkPlaceholder: 'رابط يوتيوب أو تيك توك', getClip: 'اجلب المقطع', badLink: 'هذا ليس رابط فيديو من يوتيوب أو تيك توك.' },
+  es: {
+    linkPlaceholder: 'Enlace de YouTube o TikTok',
+    getClip: 'Traer clip',
+    badLink: 'Eso no es un enlace de video de YouTube o TikTok.',
   },
-  ar: {
-    orLink: 'أو الصق رابطاً',
-    linkPlaceholder: 'رابط يوتيوب أو تيك توك',
-    getClip: 'اجلب المقطع',
-    recordingYoutube: 'يتم تسجيل المقطع من يوتيوب… يستغرق بقدر مدة المقطع.',
-    downloadingTiktok: 'يتم التنزيل من تيك توك…',
-    badLink: 'هذا ليس رابط فيديو من يوتيوب أو تيك توك.',
+  pt: {
+    linkPlaceholder: 'Link do YouTube ou TikTok',
+    getClip: 'Pegar trecho',
+    badLink: 'Isso não é um link de vídeo do YouTube ou TikTok.',
   },
+  id: { linkPlaceholder: 'Tautan YouTube atau TikTok', getClip: 'Ambil klip', badLink: 'Itu bukan tautan video YouTube atau TikTok.' },
+  hi: { linkPlaceholder: 'YouTube या TikTok लिंक', getClip: 'क्लिप लाएँ', badLink: 'यह YouTube या TikTok वीडियो लिंक नहीं है।' },
 }
 
 /** Kept apart from the shared strings so the Chrome Web Store build carries no link-import text. */

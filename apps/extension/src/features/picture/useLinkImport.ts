@@ -23,17 +23,17 @@ function toFile(result: ClipResult, fallbackName: string): File {
 }
 
 /**
- * Plays the part in a hidden YouTube player inside this page and waits for its recording.
+ * Plays the part in a YouTube player inside the panel and waits for its recording. The player must be on
+ * screen: Chrome stops drawing videos it can't see, which would record sound over a black picture.
  * `credentialless` lets the frame load under WhatsApp's cross-origin isolation.
  */
-function recordYouTube(id: string, start: number, length: number): Promise<ClipResult> {
+function recordYouTube(id: string, start: number, length: number, host: HTMLElement): Promise<ClipResult> {
   const requestId = crypto.randomUUID()
   const frame = document.createElement('iframe')
   frame.setAttribute('credentialless', '')
   frame.allow = 'autoplay; encrypted-media'
-  frame.setAttribute('aria-hidden', 'true')
   frame.tabIndex = -1
-  frame.style.cssText = 'position:fixed;left:-10000px;top:0;width:640px;height:360px;opacity:0;pointer-events:none;border:0'
+  frame.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;border:0;pointer-events:none'
   frame.src = chrome.runtime.getURL(`player.html#${requestId}:${id}:${start}:${length}`)
 
   return new Promise((resolve) => {
@@ -48,7 +48,7 @@ function recordYouTube(id: string, start: number, length: number): Promise<ClipR
     }
     const timer = setTimeout(() => finish({ ok: false, error: 'timeout' }), length * 1000 + 120_000)
     chrome.runtime.onMessage.addListener(onMessage)
-    document.body.append(frame)
+    host.append(frame)
   })
 }
 
@@ -58,7 +58,7 @@ export function useLinkImport() {
   let cancelled = false
   onScopeDispose(() => (cancelled = true))
 
-  async function importLink(text: string, start: number, length: number): Promise<File | null> {
+  async function importLink(text: string, start: number, length: number, host: HTMLElement): Promise<File | null> {
     error.value = null
     const link = parseVideoLink(text)
     if (!link) {
@@ -69,7 +69,7 @@ export function useLinkImport() {
     try {
       const result =
         link.site === 'youtube'
-          ? await recordYouTube(link.id, start, length)
+          ? await recordYouTube(link.id, start, length, host)
           : ((await chrome.runtime.sendMessage({ type: 'tiktok', url: link.url } satisfies RuntimeMessage)) as ClipResult)
       if (cancelled) return null
       return toFile(result, link.site)

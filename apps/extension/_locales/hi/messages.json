@@ -1,0 +1,11 @@
+{
+  "name": {
+    "message": "Sound Sticker Maker – WhatsApp Web के लिए आवाज़ वाले स्टिकर"
+  },
+  "description": {
+    "message": "आवाज़ वाले WhatsApp स्टिकर बनाएँ। किसी भी वीडियो, GIF या तस्वीर को आवाज़ के साथ स्टिकर बनाएँ, सीधे WhatsApp Web में।"
+  },
+  "action": {
+    "message": "आवाज़ वाला स्टिकर बनाएँ"
+  }
+}

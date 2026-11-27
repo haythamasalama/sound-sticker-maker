@@ -21,14 +21,44 @@ chrome.action.onClicked.addListener(async (tab) => {
 
 if (__LINKS__) {
   allowYouTubeEmbeds()
+
+  // The website's online maker records YouTube clips through the extension; it waits on a port per request.
+  const sitePorts = new Map<string, chrome.runtime.Port>()
+
   chrome.runtime.onMessage.addListener((message: RuntimeMessage, sender, sendResponse) => {
     if (message.type === 'tiktok') {
       fetchTikTok(message.url).then(sendResponse)
       return true
     }
-    // The YouTube recorder runs in a hidden frame inside the WhatsApp tab; hand its clip to that tab's panel.
-    if (message.type === 'clip' && sender.tab?.id !== undefined) {
+    if (message.type !== 'clip') return
+    const port = sitePorts.get(message.requestId)
+    if (port) {
+      port.postMessage(message)
+      sitePorts.delete(message.requestId)
+    } else if (sender.tab?.id !== undefined) {
+      // The recorder runs in a frame inside the WhatsApp tab; hand the clip to that tab's panel.
       chrome.tabs.sendMessage(sender.tab.id, message, { frameId: 0 }).catch(() => undefined)
     }
+  })
+
+  chrome.runtime.onMessageExternal.addListener((message: { type?: string; url?: string }, _sender, sendResponse) => {
+    if (message?.type === 'ping') {
+      sendResponse({ ok: true, version: chrome.runtime.getManifest().version })
+      return
+    }
+    if (message?.type === 'tiktok' && typeof message.url === 'string') {
+      fetchTikTok(message.url).then(sendResponse)
+      return true
+    }
+  })
+
+  chrome.runtime.onConnectExternal.addListener((port) => {
+    if (port.name !== 'clip') return
+    port.onMessage.addListener((message: { type?: string; requestId?: string }) => {
+      if (message?.type === 'watch' && typeof message.requestId === 'string') sitePorts.set(message.requestId, port)
+    })
+    port.onDisconnect.addListener(() => {
+      for (const [id, open] of sitePorts) if (open === port) sitePorts.delete(id)
+    })
   })
 }

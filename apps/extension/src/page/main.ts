@@ -1,11 +1,13 @@
 import { listen, post, type FromPage, type ToPage } from '../lib/bridge'
-import { WhatsAppError, loaderReady, missingModules, sendSoundSticker } from './whatsapp'
+import { REQUIRED_COUNT, WhatsAppError, loaderReady, missingModules, sendSoundSticker } from './whatsapp'
 
 let busy = false
 
 listen<ToPage>('page', async (message) => {
   if (message.kind === 'status') {
-    const missing = missingModules()
+    // Before sign-in none of the modules are loaded yet; only a partial set means WhatsApp renamed something.
+    const found = missingModules()
+    const missing = found.length < REQUIRED_COUNT ? found : []
     post<FromPage>('content', { kind: 'status', id: message.id, status: { ready: loaderReady() && missing.length === 0, missing } })
     return
   }

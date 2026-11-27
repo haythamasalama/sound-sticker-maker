@@ -1,4 +1,5 @@
 {
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAu5UvVJhXodHNDNZvyQvqysFwgOwAnKf9FiXfxxn3/NRt8ice/G8lYH923D493J91Ii3Am1HnAYH21qxXPQ1GnE7ats556vix7RqrvLVYSqHF6QetWzOciusclqgy6PAMbIybfe4lv1VDPHocmzwESc33xSZM/SrGKeIlCfALcX6cvlToT6FET24px3mIA8oU54JXwL+5vojvRggh2LN84LzZ+eR/eZjJk3j1batY7dTq+O8zQ/8mJetNLnJygxI0o6u5gaxyB0F4Z+YRmrmwTBkUY305jSq/8MT21eWoifrFXPJ552w80S4/g9XsXM3OO+JOAZmwniSEEkHFkjVJgwIDAQAB",
   "permissions": ["declarativeNetRequestWithHostAccess"],
   "host_permissions": ["https://www.youtube-nocookie.com/*", "https://*.tiktok.com/*"],
   "content_scripts": [
@@ -9,5 +10,13 @@
       "run_at": "document_idle"
     }
   ],
-  "web_accessible_resources": [{ "resources": ["player.html"], "matches": ["https://web.whatsapp.com/*"] }]
+  "web_accessible_resources": [
+    {
+      "resources": ["player.html"],
+      "matches": ["https://web.whatsapp.com/*"]
+    }
+  ],
+  "externally_connectable": {
+    "matches": ["https://haythamasalama.github.io/*", "http://localhost/*"]
+  }
 }

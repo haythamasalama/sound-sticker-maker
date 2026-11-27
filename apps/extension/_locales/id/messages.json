@@ -1,0 +1,11 @@
+{
+  "name": {
+    "message": "Sound Sticker Maker – Stiker bersuara untuk WhatsApp Web"
+  },
+  "description": {
+    "message": "Buat stiker WhatsApp yang bersuara. Ubah video, GIF, atau gambar apa pun dengan suara menjadi stiker bersuara, langsung di WhatsApp Web."
+  },
+  "action": {
+    "message": "Buat stiker bersuara"
+  }
+}

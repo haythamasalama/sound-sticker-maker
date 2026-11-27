@@ -76,6 +76,9 @@ async function record(start: number, duration: number): Promise<Blob> {
   })
   if (!(await playing) && video.paused) throw new ClipError('no-play')
   recorder.start(250)
+  // Keep buffering stalls out of the clip: pause while the player waits for data.
+  video.addEventListener('waiting', () => recorder.state === 'recording' && recorder.pause())
+  video.addEventListener('playing', () => recorder.state === 'paused' && recorder.resume())
 
   const deadline = Date.now() + (end - start) * 1000 + 20000
   while (video.currentTime < end - 0.05 && !video.ended) {

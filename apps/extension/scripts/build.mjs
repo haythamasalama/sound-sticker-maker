@@ -65,6 +65,9 @@ if (links) {
   manifest.host_permissions = [...manifest.host_permissions, ...extra.host_permissions]
   manifest.content_scripts = [...manifest.content_scripts, ...extra.content_scripts]
   manifest.web_accessible_resources = extra.web_accessible_resources
+  manifest.externally_connectable = extra.externally_connectable
+  // A fixed key keeps the same extension ID wherever the folder is loaded from, so the website can reach it.
+  manifest.key = extra.key
 }
 writeFileSync(`${outDir}/manifest.json`, `${JSON.stringify(manifest, null, 2)}\n`)
 cpSync(`${root}icons`, `${outDir}/icons`, { recursive: true })

@@ -15,7 +15,8 @@ mkdirSync(out, { recursive: true })
 const context = await chromium.launchPersistentContext(mkdtempSync(join(tmpdir(), 'ssm-')), {
   channel: 'chromium',
   headless: true,
-  viewport: { width: 1280, height: 860 },
+  viewport: { width: 1280, height: 900 },
+  locale: 'en-US',
   args: [`--disable-extensions-except=${extension}`, `--load-extension=${extension}`],
 })
 const page = context.pages()[0] ?? (await context.newPage())
@@ -30,27 +31,30 @@ const step = async (name, fn) => {
   }
 }
 const panel = page.locator('#sound-sticker-maker aside')
+const shot = (name) => panel.screenshot({ path: `${out}/${name}.png` })
+const pictureName = () =>
+  page.evaluate(
+    () =>
+      document.querySelector('#sound-sticker-maker')?.shadowRoot?.querySelector('[data-testid=picture-name]')?.textContent?.trim() ?? '',
+  )
 
 await step('open', async () => {
   await page.goto('https://web.whatsapp.com/', { waitUntil: 'domcontentloaded' })
-  await page
-    .locator(
-      '#sound-sticker-maker button[aria-label="Sound Sticker Maker"], #sound-sticker-maker button[aria-label="صانع الملصقات الصوتية"]',
-    )
-    .click({ timeout: 30000 })
+  await page.locator('#sound-sticker-maker button[aria-label="Sound Sticker Maker"]').click({ timeout: 30000 })
   await panel.waitFor()
-  await page.screenshot({ path: `${out}/1-panel.png` })
+  await shot('1-empty')
   return {}
 })
 
 await step('create-from-video', async () => {
   await panel.locator('input[type=file]').first().setInputFiles(video)
   await panel.locator('canvas').waitFor({ timeout: 30000 })
-  await page.screenshot({ path: `${out}/2-trimmer.png` })
-  await panel.getByRole('button', { name: /Create sticker|اصنع الملصق/ }).click()
-  await panel.locator('section img').waitFor({ timeout: 60000 })
-  await page.screenshot({ path: `${out}/3-created.png` })
-  return { details: await panel.locator('section span[dir=ltr]').innerText() }
+  await page.waitForTimeout(600)
+  await shot('2-chosen')
+  await panel.getByRole('button', { name: 'Create sticker' }).click()
+  await panel.locator('[data-testid=result]').waitFor({ timeout: 60000 })
+  await shot('3-created')
+  return { picture: await pictureName() }
 })
 
 if (target === 'github') {
@@ -59,41 +63,49 @@ if (target === 'github') {
     ['tiktok', 'https://www.tiktok.com/@scout2015/video/6718335390845095173'],
   ]) {
     await step(name, async () => {
+      const before = await pictureName()
+      if (!(await panel.locator('input[inputmode=url]').isVisible())) await panel.getByRole('button', { name: 'Paste a link' }).click()
       const input = panel.locator('input[inputmode=url]')
       await input.fill(link)
       await input.dispatchEvent('input')
       if (name === 'youtube') await panel.locator('input[type=number]').first().fill('4')
-      await panel.getByRole('button', { name: /Get clip|اجلب المقطع/ }).click()
-      const chosenName = () =>
-        page.evaluate(
-          () => document.querySelector('#sound-sticker-maker')?.shadowRoot?.querySelector('aside button span.truncate')?.textContent ?? '',
-        )
-      const before = await chosenName()
+      await panel.getByRole('button', { name: 'Get clip' }).click()
+      if (name === 'youtube') {
+        await page.waitForTimeout(4000)
+        await shot('4-youtube-recording')
+      }
       await page.waitForFunction(
         (previous) => {
           const root = document.querySelector('#sound-sticker-maker')?.shadowRoot
-          const name = root?.querySelector('aside button span.truncate')?.textContent ?? ''
+          const name = root?.querySelector('[data-testid=picture-name]')?.textContent?.trim() ?? ''
           return (name !== previous && /\.(webm|mp4)$/.test(name)) || root?.querySelector('form [role=alert]')
         },
         before,
         { timeout: 120000 },
       )
+      await page.waitForTimeout(800)
+      await shot(`5-${name}`)
       const alert = await panel
-        .locator('[role=alert]')
+        .locator('form [role=alert]')
         .first()
-        .textContent()
+        .textContent({ timeout: 500 })
         .catch(() => null)
-      await page.screenshot({ path: `${out}/4-${name}.png` })
-      return { chosen: await chosenName(), alert }
+      return { picture: await pictureName(), alert }
     })
   }
 }
 
-await step('arabic', async () => {
-  await panel.getByRole('button', { name: 'ع' }).click()
-  await page.screenshot({ path: `${out}/5-arabic.png` })
-  return { dir: await panel.locator('xpath=..').getAttribute('dir') }
-})
+for (const [code, file] of [
+  ['ar', '6-arabic'],
+  ['hi', '7-hindi'],
+]) {
+  await step(code, async () => {
+    await panel.locator('select').selectOption(code)
+    await page.waitForTimeout(300)
+    await shot(file)
+    return { dir: await panel.locator('xpath=..').getAttribute('dir') }
+  })
+}
 
 console.log(JSON.stringify(results, null, 2))
 await context.close()

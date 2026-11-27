@@ -1,0 +1,46 @@
+name: Site
+
+on:
+  push:
+    branches: [main]
+    paths: ['apps/site/**', 'packages/core/**', 'brand/**', '.github/workflows/site.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      # Set SITE_URL and SITE_BASE as repository variables when the site moves to its own subdomain.
+      - run: pnpm --filter @sound-sticker-maker/site build
+        env:
+          SITE_URL: ${{ vars.SITE_URL || 'https://haythamasalama.github.io' }}
+          SITE_BASE: ${{ vars.SITE_BASE || '/sound-sticker-maker' }}
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: apps/site/dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5

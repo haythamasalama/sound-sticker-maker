@@ -17,6 +17,6 @@
     }
   ],
   "externally_connectable": {
-    "matches": ["https://haythamasalama.github.io/*", "http://localhost/*"]
+    "matches": ["https://sound-sticker-maker.haythamasalama.me/*", "http://localhost/*"]
   }
 }

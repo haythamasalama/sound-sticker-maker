@@ -25,7 +25,7 @@ Make WhatsApp stickers that play sound, without leaving WhatsApp Web.
 
 Sound stickers play for friends whose WhatsApp supports them; others see the moving sticker.
 
-Free and open source: https://github.com/haythamasalama/sound-sticker-maker
+Free and open source: https://sound-sticker-maker.haythamasalama.me
 
 ## Detailed description (Arabic)
 

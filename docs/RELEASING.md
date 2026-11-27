@@ -15,7 +15,6 @@
 
 ## Website
 
-The **Site** workflow deploys `apps/site` to GitHub Pages on every push to `main` that touches it. To serve it on a
-subdomain, add a `CNAME` file in `apps/site/public` with the host name, point a DNS `CNAME` record at
-`haythamasalama.github.io`, and set the repository variables `SITE_URL` (for example `https://stickers.example.com`)
-and `SITE_BASE` (`/`).
+The **Site** workflow deploys `apps/site` to GitHub Pages at https://sound-sticker-maker.haythamasalama.me on every push
+to `main` that touches it. The domain is set by `apps/site/public/CNAME` and a DNS `CNAME` record for
+`sound-sticker-maker` pointing at `haythamasalama.github.io`.

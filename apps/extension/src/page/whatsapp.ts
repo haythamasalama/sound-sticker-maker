@@ -36,8 +36,6 @@ const REQUIRED = [
   'react',
 ]
 
-export const REQUIRED_COUNT = REQUIRED.length
-
 export class WhatsAppError extends Error {
   constructor(
     readonly code: 'no-open-chat' | 'no-own-chat' | 'upload-failed' | 'send-failed' | 'whatsapp-changed',

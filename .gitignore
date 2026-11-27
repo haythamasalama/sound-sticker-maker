@@ -1,0 +1,7 @@
+node_modules
+dist
+coverage
+*.zip
+.playwright-mcp
+.DS_Store
+.astro

@@ -1,0 +1,8 @@
+dist
+node_modules
+coverage
+pnpm-lock.yaml
+.playwright-mcp
+.astro
+apps/extension/src/components/ui
+apps/site/public

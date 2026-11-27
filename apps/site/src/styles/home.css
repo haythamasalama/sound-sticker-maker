@@ -70,7 +70,7 @@ main > section:not(.hero) {
   margin-top: -64px;
 }
 .hero-sky {
-  padding: 132px var(--gutter) clamp(40px, 6vw, 88px);
+  padding: 156px var(--gutter) clamp(40px, 6vw, 88px);
 }
 .hero-head {
   display: flex;
@@ -380,4 +380,28 @@ main > section:not(.hero) {
 }
 .hero-try {
   font-size: 14.5px;
+}
+
+.hero-btns {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+.hero-btns .btn {
+  height: 52px;
+  padding: 0 26px;
+  font-size: 17px;
+}
+.btn-soft {
+  background: color-mix(in oklab, var(--bg) 72%, transparent);
+  color: var(--ink);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 0 0 0.5px rgba(128, 128, 128, 0.35);
+}
+.btn-soft:hover {
+  background: var(--bg);
+}
+.close-sky .hero-btns {
+  margin-top: 8px;
 }

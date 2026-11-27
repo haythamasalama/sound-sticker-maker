@@ -11,20 +11,25 @@ const out = resolve('media')
 const work = mkdtempSync(join(tmpdir(), 'ssm-capture-'))
 mkdirSync(out, { recursive: true })
 
-// A short colourful clip with sound, so the stage and the waveform have something to show.
-const clip = join(work, 'party.mp4')
-execFileSync('ffmpeg', [
+// A short "Yalla!" clip with sound, the same sticker the website's chat shows. Needs an ffmpeg with drawtext
+// (set FFMPEG to its path if the system one lacks it).
+const ffmpeg = process.env.FFMPEG ?? 'ffmpeg'
+const clip = join(work, 'yalla.mp4')
+const font = '/System/Library/Fonts/Supplemental/Arial Black.ttf'
+execFileSync(ffmpeg, [
   '-v',
   'error',
   '-y',
   '-f',
   'lavfi',
   '-i',
-  'mandelbrot=size=720x720:rate=30,trim=duration=8',
+  'gradients=s=720x720:c0=0xffe7dc:c1=0xffc2ad:x0=0:y0=0:x1=720:y1=720:speed=0.01:rate=30,trim=duration=8',
   '-f',
   'lavfi',
   '-i',
   'aevalsrc=0.6*sin(2*PI*220*t)*abs(sin(2*PI*1.3*t))+0.3*sin(2*PI*330*t)*abs(sin(2*PI*0.7*t)):d=8',
+  '-vf',
+  `drawtext=fontfile='${font}':text='Yalla!':fontsize=190:fontcolor=0xe0461f:borderw=16:bordercolor=white:x=(w-text_w)/2:y=(h-text_h)/2+26*sin(2*PI*t*1.4)`,
   '-c:v',
   'libx264',
   '-pix_fmt',
@@ -109,7 +114,7 @@ for (const [name, dark] of [
     [...captions[name], dark],
   )
   await page.screenshot({ path: join(out, `${name}@2x.png`) })
-  execFileSync('ffmpeg', ['-v', 'error', '-y', '-i', join(out, `${name}@2x.png`), '-vf', 'scale=1280:800', join(out, `${name}.png`)])
+  execFileSync(ffmpeg, ['-v', 'error', '-y', '-i', join(out, `${name}@2x.png`), '-vf', 'scale=1280:800', join(out, `${name}.png`)])
 }
 
 await context.close()

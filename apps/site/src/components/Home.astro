@@ -4,7 +4,6 @@ import '../styles/drawn.css'
 import { RELEASES_URL, STORE_URL } from '../config'
 import { href, pageIn, panelLang, useT, type Key, type Lang } from '../i18n'
 import Chat from './Chat.astro'
-import InstallPrompt from './InstallPrompt.astro'
 import Icon from './Icon.astro'
 import Panel from './Panel.astro'
 import Sticker from './Sticker.astro'
@@ -35,19 +34,28 @@ const SOUNDS = ['MP3', 'M4A', 'WAV']
         <h1 class="rise">{t('hero.title')}</h1>
         <p class="hero-lead rise">{t('hero.lead')}</p>
         <div class="hero-act rise">
-          <a class="btn btn-store" href={STORE_URL || install}
-            ><Icon name={STORE_URL ? 'plus' : 'download'} />{t(STORE_URL ? 'cta.store' : 'nav.download')}</a
-          >
-          <p>{t('hero.meta')}</p>
-          <div class="hero-more">
-            <InstallPrompt lang={lang} id="install-prompt-hero" />
-            <a class="hero-try" href={maker}>{t('cta.try')}<Icon name="arrow" size={15} class="flip" /></a>
+          <div class="hero-btns">
+            <a class="btn btn-store" href={STORE_URL || install}
+              ><Icon name={STORE_URL ? 'plus' : 'download'} />{t(STORE_URL ? 'cta.store' : 'nav.download')}</a
+            >
+            <a class="btn btn-line btn-soft" href={maker}>{t('cta.try')}<Icon name="arrow" size={16} class="flip" /></a>
           </div>
+          <p>{t('hero.meta')}</p>
         </div>
       </div>
       <div class="hero-stage rise" role="img" aria-label={t('hero.alt')}>
         <Chat lang={lang} />
-        <Panel lang={ext} word={t('mock.word')} />
+        <div class="hero-shot">
+          <img class="shot shot-light" src={href(`shots/panel-ready${ext === 'ar' ? '-ar' : ''}.webp`)} width="360" height="768" alt="" />
+          <img
+            class="shot shot-dark"
+            src={href(`shots/panel-ready-dark${ext === 'ar' ? '-ar' : ''}.webp`)}
+            width="360"
+            height="768"
+            alt=""
+            loading="lazy"
+          />
+        </div>
       </div>
     </div>
   </section>
@@ -202,14 +210,13 @@ const SOUNDS = ['MP3', 'M4A', 'WAV']
     <div class="sky close-sky">
       <img class="rise" src={href('icon.svg')} width="84" height="84" alt="" loading="lazy" />
       <h2 class="h2 rise">{t('close.title')}</h2>
-      <a class="btn btn-store rise" href={STORE_URL || install}
-        ><Icon name={STORE_URL ? 'plus' : 'download'} />{t(STORE_URL ? 'cta.store' : 'nav.download')}</a
-      >
-      <p class="rise">{t('hero.meta')}</p>
-      <div class="hero-more rise">
-        <InstallPrompt lang={lang} id="install-prompt-close" />
-        <a class="hero-try" href={maker}>{t('cta.try')}<Icon name="arrow" size={15} class="flip" /></a>
+      <div class="hero-btns rise">
+        <a class="btn btn-store" href={STORE_URL || install}
+          ><Icon name={STORE_URL ? 'plus' : 'download'} />{t(STORE_URL ? 'cta.store' : 'nav.download')}</a
+        >
+        <a class="btn btn-line btn-soft" href={maker}>{t('cta.try')}<Icon name="arrow" size={16} class="flip" /></a>
       </div>
+      <p class="rise">{t('hero.meta')}</p>
     </div>
   </section>
 </main>

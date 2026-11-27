@@ -7,12 +7,12 @@
   --pn-soft: #f4f4f5;
   --pn-primary: #18181b;
   --pn-primary-fg: #fafafa;
-  --chat-bg: #fbf8f6;
-  --chat-head: #ffffff;
+  --chat-bg: #efeae2;
+  --chat-head: #f0f2f5;
   --chat-in: #ffffff;
-  --chat-out: #f1e6e0;
-  --chat-ink: #18181b;
-  --chat-muted: #7a6f6a;
+  --chat-out: #d9fdd3;
+  --chat-ink: #111b21;
+  --chat-muted: #667781;
   --stk-ink: #e0461f;
   --lift: 0 24px 50px -24px rgba(60, 20, 8, 0.45);
 }
@@ -24,12 +24,12 @@
   --pn-soft: #1a1a1d;
   --pn-primary: #fafafa;
   --pn-primary-fg: #18181b;
-  --chat-bg: #121113;
-  --chat-head: #1a191b;
-  --chat-in: #1f1e21;
-  --chat-out: #2c2421;
-  --chat-ink: #f4f4f5;
-  --chat-muted: #a39a96;
+  --chat-bg: #0b141a;
+  --chat-head: #202c33;
+  --chat-in: #202c33;
+  --chat-out: #005c4b;
+  --chat-ink: #e9edef;
+  --chat-muted: #8696a0;
   --lift: 0 24px 50px -24px rgba(0, 0, 0, 0.8);
 }
 @media (prefers-color-scheme: dark) {
@@ -41,12 +41,12 @@
     --pn-soft: #1a1a1d;
     --pn-primary: #fafafa;
     --pn-primary-fg: #18181b;
-    --chat-bg: #121113;
-    --chat-head: #1a191b;
-    --chat-in: #1f1e21;
-    --chat-out: #2c2421;
-    --chat-ink: #f4f4f5;
-    --chat-muted: #a39a96;
+    --chat-bg: #0b141a;
+    --chat-head: #202c33;
+    --chat-in: #202c33;
+    --chat-out: #005c4b;
+    --chat-ink: #e9edef;
+    --chat-muted: #8696a0;
     --lift: 0 24px 50px -24px rgba(0, 0, 0, 0.8);
   }
 }
@@ -164,7 +164,7 @@
   }
 }
 
-/* A plain chat window: no app's colours or logo */
+/* A chat window in WhatsApp Web's colours, without its logo */
 .chat {
   display: flex;
   flex-direction: column;
@@ -210,6 +210,8 @@
 }
 .chat-body {
   flex: 1;
+  background-image: radial-gradient(color-mix(in srgb, var(--chat-muted) 14%, transparent) 1.2px, transparent 1.6px);
+  background-size: 18px 18px;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -237,6 +239,12 @@
   background: var(--chat-out);
   border-end-end-radius: 4px;
 }
+.tick {
+  display: inline-block;
+  margin-inline-start: 3px;
+  vertical-align: -2px;
+  color: #53bdeb;
+}
 .chat time {
   margin-inline-start: 10px;
   font-size: 11px;
@@ -252,6 +260,7 @@
   margin-top: 6px;
 }
 .chat-input {
+  background: var(--chat-head);
   display: flex;
   align-items: center;
   gap: 10px;
@@ -264,7 +273,7 @@
   align-items: center;
   padding-inline: 16px;
   border-radius: 999px;
-  background: var(--chat-head);
+  background: var(--chat-in);
   color: var(--chat-muted);
   font-size: 13.5px;
   box-shadow: 0 0 0 0.5px color-mix(in srgb, var(--chat-muted) 30%, transparent);
@@ -275,8 +284,8 @@
   width: 38px;
   height: 38px;
   border-radius: 50%;
-  background: var(--chat-ink);
-  color: var(--chat-bg);
+  background: #00a884;
+  color: #ffffff;
 }
 .chat-input i svg {
   transform: translateX(-1px);
@@ -771,4 +780,32 @@
 }
 .chat:dir(rtl) time {
   margin-inline: 0 10px;
+}
+
+/* The real extension panel, captured from the build (light, dark, English or Arabic) */
+.shot {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+  box-shadow:
+    0 0 0 0.5px rgba(0, 0, 0, 0.14),
+    var(--lift);
+}
+.shot-dark {
+  display: none;
+}
+:root[data-theme='dark'] .shot-light {
+  display: none;
+}
+:root[data-theme='dark'] .shot-dark {
+  display: block;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .shot-light {
+    display: none;
+  }
+  :root:not([data-theme='light']) .shot-dark {
+    display: block;
+  }
 }

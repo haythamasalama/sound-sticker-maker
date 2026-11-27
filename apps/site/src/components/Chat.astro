@@ -17,7 +17,15 @@ const t = useT(lang)
   </div>
   <div class="chat-body">
     <p class="bub in">{t('mock.msg1')}<time dir="ltr">21:02</time></p>
-    <p class="bub out">{t('mock.msg2')}<time dir="ltr">21:03</time></p>
+    <p class="bub out">
+      {t('mock.msg2')}<time dir="ltr"
+        >21:03<svg class="tick" width="16" height="11" viewBox="0 0 16 11" aria-hidden="true"
+          ><path
+            d="M11.07.66 4.7 7.04 1.93 4.27.66 5.54 4.7 9.58 12.34 1.93zM14.4.66 8.02 7.04l-.62-.62-1.27 1.27 1.89 1.89 7.64-7.65z"
+            fill="currentColor"></path></svg
+        ></time
+      >
+    </p>
     <div class="chat-stk">
       <Sticker word={t('mock.word')} sound />
       <time dir="ltr">21:03</time>

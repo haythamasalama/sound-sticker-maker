@@ -1,0 +1,20 @@
+{
+  "name": "@sound-sticker-maker/core",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "The sticker engine: turns a video, GIF or picture plus a sound into a WhatsApp sticker (animated WebP) and its Ogg Opus audio, in the browser.",
+  "author": "Haytham A. Salama (https://haythamasalama.me/)",
+  "license": "MIT",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "typescript": "~6.0.3",
+    "vitest": "^5.1.0"
+  }
+}

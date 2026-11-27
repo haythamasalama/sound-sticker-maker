@@ -31,5 +31,11 @@
     "typescript": "~6.0.3",
     "typescript-eslint": "^8.72.2",
     "vue-eslint-parser": "^10.4.2"
+  },
+  "pnpm": {
+    "overrides": {
+      "js-beautify>glob": "^14.0.4",
+      "editorconfig>minimatch": "^11.0.6"
+    }
   }
 }

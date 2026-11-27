@@ -43,6 +43,11 @@ await step('open', async () => {
   await page.locator('#sound-sticker-maker button[aria-label="Sound Sticker Maker"]').click({ timeout: 30000 })
   await panel.waitFor()
   await shot('1-empty')
+  if (target === 'github') {
+    await panel.getByRole('tab', { name: 'From a link' }).click()
+    await shot('1-link-tab')
+    await panel.getByRole('tab', { name: 'From your device' }).click()
+  }
   return {}
 })
 
@@ -64,12 +69,12 @@ if (target === 'github') {
   ]) {
     await step(name, async () => {
       const before = await pictureName()
-      if (!(await panel.locator('input[inputmode=url]').isVisible())) await panel.getByRole('button', { name: 'Paste a link' }).click()
+      await panel.getByRole('tab', { name: 'From a link' }).click()
       const input = panel.locator('input[inputmode=url]')
       await input.fill(link)
       await input.dispatchEvent('input')
       if (name === 'youtube') await panel.locator('input[type=number]').first().fill('4')
-      await panel.getByRole('button', { name: 'Get clip' }).click()
+      await panel.getByRole('button', { name: 'Get the video' }).click()
       if (name === 'youtube') {
         await page.waitForTimeout(4000)
         await shot('4-youtube-recording')

@@ -1,0 +1,30 @@
+---
+import { useT, type Lang } from '../i18n'
+import Icon from './Icon.astro'
+import Sticker from './Sticker.astro'
+
+interface Props {
+  lang: Lang
+}
+const { lang } = Astro.props
+const t = useT(lang)
+---
+
+<div class="chat" dir={lang === 'ar' ? 'rtl' : 'ltr'}>
+  <div class="chat-head">
+    <span class="chat-av">{t('mock.chat').slice(0, 1)}</span>
+    <span class="chat-who"><b>{t('mock.chat')}</b><span>{t('mock.status')}</span></span>
+  </div>
+  <div class="chat-body">
+    <p class="bub in">{t('mock.msg1')}<time dir="ltr">21:02</time></p>
+    <p class="bub out">{t('mock.msg2')}<time dir="ltr">21:03</time></p>
+    <div class="chat-stk">
+      <Sticker word={t('mock.word')} sound />
+      <time dir="ltr">21:03</time>
+    </div>
+  </div>
+  <div class="chat-input">
+    <span>{t('mock.message')}</span>
+    <i><Icon name="send" size={15} /></i>
+  </div>
+</div>

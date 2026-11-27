@@ -1,0 +1,131 @@
+---
+import '../styles/global.css'
+import Chrome from '../components/Chrome.astro'
+import { HTML_LANG, LANGS, OG_LOCALE, SITE, absolute, dirOf, href, pageIn, type Lang } from '../i18n'
+import { AUTHOR_URL } from '../config'
+import { authorNode } from '../lib/seo'
+
+interface Props {
+  lang: Lang
+  /** The page path without the base or the language, such as `maker/`. */
+  page: string
+  title: string
+  description: string
+  graph?: object[]
+  notFound?: boolean
+}
+const { lang, page, title, description, graph = [], notFound = false } = Astro.props
+const url = absolute(pageIn(lang, page))
+const og = absolute('og.png')
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      '@id': `${SITE}/#site`,
+      name: 'Sound Sticker Maker',
+      url: absolute(),
+      inLanguage: [...LANGS],
+      publisher: { '@id': `${AUTHOR_URL}/#person` },
+    },
+    authorNode,
+    ...(notFound
+      ? []
+      : [
+          {
+            '@type': 'WebPage',
+            '@id': `${url}#page`,
+            url,
+            name: title,
+            description,
+            inLanguage: lang,
+            isPartOf: { '@id': `${SITE}/#site` },
+            about: { '@id': `${SITE}/#app` },
+          },
+        ]),
+    ...graph,
+  ],
+}
+
+const ARABIC = 'U+0600-06FF, U+0750-077F, U+0870-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FEFC'
+const LATIN =
+  'U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD'
+const LATIN_EXT =
+  'U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF'
+const face = (family: string, weight: string, file: string, range: string) =>
+  `@font-face{font-family:"${family}";font-style:normal;font-weight:${weight};font-display:swap;src:url("${href(`fonts/${file}`)}") format("woff2");unicode-range:${range}}`
+// Built here rather than in global.css so the font and picture URLs carry the base path the site is served under.
+const assetCss = [
+  face('Plus Jakarta Sans', '400 700', 'plus-jakarta-sans-latin.woff2', LATIN),
+  face('Plus Jakarta Sans', '400 700', 'plus-jakarta-sans-latin-ext.woff2', LATIN_EXT),
+  ...['400', '500', '600', '700'].map((w) => face('IBM Plex Sans Arabic', w, `ibm-plex-sans-arabic-${w}.woff2`, ARABIC)),
+  `:root{--sky-day-img:url("${href('art/sky-day.svg')}");--sky-night-img:url("${href('art/sky-night.svg')}")}`,
+].join('')
+const isEnglishHome = lang === 'en' && page === ''
+---
+
+<!doctype html>
+<html lang={HTML_LANG[lang]} dir={dirOf(lang)}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content={notFound ? 'noindex, follow' : 'index, follow, max-image-preview:large, max-snippet:-1'} />
+    <meta name="application-name" content="Sound Sticker Maker" />
+    {!notFound && <link rel="canonical" href={url} />}
+    {!notFound && LANGS.map((l) => <link rel="alternate" hreflang={HTML_LANG[l]} href={absolute(pageIn(l, page))} />)}
+    {!notFound && <link rel="alternate" hreflang="x-default" href={absolute(pageIn('en', page))} />}
+    <link rel="alternate" type="text/plain" href={href('llms.txt')} title="LLM-friendly summary" />
+    <link rel="alternate" type="text/plain" href={href('llms-full.txt')} title="Full text for AI assistants" />
+    <link rel="sitemap" href={href('sitemap-index.xml')} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Sound Sticker Maker" />
+    <meta property="og:locale" content={OG_LOCALE[lang]} />
+    {LANGS.filter((l) => l !== lang).map((l) => <meta property="og:locale:alternate" content={OG_LOCALE[l]} />)}
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={url} />
+    <meta property="og:image" content={og} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={title} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:creator" content="@haythamasalama" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={og} />
+    <link rel="icon" href={href('favicon.ico')} sizes="48x48" />
+    <link rel="icon" href={href('favicon.svg')} type="image/svg+xml" />
+    <link rel="icon" href={href('favicon-192.png')} type="image/png" sizes="192x192" />
+    <link rel="apple-touch-icon" href={href('apple-touch-icon.png')} />
+    <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0A0A0B" media="(prefers-color-scheme: dark)" />
+    <link rel="preload" href={href('fonts/plus-jakarta-sans-latin.woff2')} as="font" type="font/woff2" crossorigin />
+    {lang === 'ar' && <link rel="preload" href={href('fonts/ibm-plex-sans-arabic-400.woff2')} as="font" type="font/woff2" crossorigin />}
+    <style is:inline set:html={assetCss}></style>
+    <script is:inline define:vars={{ redirect: isEnglishHome, home: href(), langs: LANGS.filter((l) => l !== 'en') }}>
+      // First visit to the English home: open the page in the browser's language if the site has it. A language picked in the footer wins.
+      try {
+        var saved = localStorage.getItem('ssm-lang')
+        var want = saved || ((navigator.languages && navigator.languages[0]) || navigator.language || 'en').slice(0, 2).toLowerCase()
+        if (redirect && langs.indexOf(want) !== -1) location.replace(home + want + '/' + location.search + location.hash)
+      } catch (e) {}
+    </script>
+    <script is:inline>
+      document.documentElement.classList.add('js')
+      try {
+        var t = localStorage.getItem('ssm-theme')
+        if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t
+      } catch (e) {}
+    </script>
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </head>
+  <body>
+    <Chrome lang={lang} page={page}><slot /></Chrome>
+    <script>
+      import '../scripts/site.ts'
+    </script>
+  </body>
+</html>

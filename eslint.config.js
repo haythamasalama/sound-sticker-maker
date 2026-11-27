@@ -33,6 +33,6 @@ export default tseslint.config(
   },
   { files: ['**/*.config.{js,ts}', '**/scripts/**/*.mjs'], languageOptions: { globals: globals.node } },
   // Parts of the end-to-end script are serialised into the page and run in the browser.
-  { files: ['scripts/e2e.mjs'], languageOptions: { globals: { ...globals.node, ...globals.browser } } },
+  { files: ['scripts/e2e.mjs', 'scripts/capture.mjs'], languageOptions: { globals: { ...globals.node, ...globals.browser } } },
   prettier,
 )

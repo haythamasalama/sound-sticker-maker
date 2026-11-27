@@ -1,0 +1,23 @@
+---
+import Base from '../layouts/Base.astro'
+import Home from './Home.astro'
+import { absolute, pageIn, useT, type Key, type Lang } from '../i18n'
+import { appNode, faqNode, howToNode } from '../lib/seo'
+
+interface Props {
+  lang: Lang
+}
+const { lang } = Astro.props
+const t = useT(lang)
+const faq = [1, 2, 3, 4, 5, 6].map((n) => ({ q: t(`q.${n}` as Key), a: t(`a.${n}` as Key) }))
+---
+
+<Base
+  lang={lang}
+  page=""
+  title={t('seo.title')}
+  description={t('seo.desc')}
+  graph={[appNode(lang), howToNode(lang), faqNode(absolute(pageIn(lang)), lang, faq)]}
+>
+  <Home lang={lang} />
+</Base>

@@ -1,0 +1,25 @@
+---
+import Icon from './Icon.astro'
+
+interface Props {
+  word: string
+  size?: 'lg' | 'sm' | 'xs'
+  /** Shows the ring and the sound badge a sound sticker has in a chat. */
+  sound?: boolean
+}
+const { word, size = 'lg', sound = false } = Astro.props
+---
+
+<span class={`stk stk-${size}`}>
+  <span class="stk-word">{word}</span>
+  {
+    sound && (
+      <>
+        <span class="stk-ring" />
+        <span class="stk-badge">
+          <Icon name="wave" size={14} />
+        </span>
+      </>
+    )
+  }
+</span>

@@ -1,0 +1,78 @@
+---
+import Base from '../layouts/Base.astro'
+import { absolute, href, pageIn, useT, type Lang } from '../i18n'
+import { PRIVACY } from '../i18n/legal'
+import { breadcrumbNode } from '../lib/seo'
+import Icon from './Icon.astro'
+import type { IconName } from '../lib/icons'
+
+interface Props {
+  lang: Lang
+}
+const { lang } = Astro.props
+const p = PRIVACY[lang]
+const page = 'privacy/'
+const graph = [
+  breadcrumbNode(absolute(pageIn(lang, page)), [
+    { name: 'Sound Sticker Maker', path: pageIn(lang) },
+    { name: p.h1, path: pageIn(lang, page) },
+  ]),
+]
+const brand = useT(lang)('mock.title')
+---
+
+<Base lang={lang} page={page} title={p.title} description={p.description} graph={graph}>
+  <main class="doc legal" id="main">
+    <div class="wrap doc-layout">
+      <div class="doc-main">
+        <nav class="crumbs reveal" aria-label="Breadcrumb">
+          <ol>
+            <li><a href={href(pageIn(lang))}>{brand}</a></li>
+            <li><span aria-current="page">{p.h1}</span></li>
+          </ol>
+        </nav>
+        <header class="doc-head reveal">
+          <h1>{p.h1}</h1>
+          <p class="doc-lead" set:html={p.lead} />
+          <p class="doc-meta"><span class="pill-tag">{p.date}</span></p>
+        </header>
+        <ul class={`legal-summary n${p.summary.length} reveal`}>
+          {
+            p.summary.map((s) => (
+              <li>
+                <Icon name={s.icon as IconName} size={22} />
+                <strong>{s.t}</strong>
+                <span>{s.b}</span>
+              </li>
+            ))
+          }
+        </ul>
+        {
+          p.sections.map((s) => (
+            <section class="doc-section reveal" id={s.id} aria-labelledby={`${s.id}-h`}>
+              <h2 id={`${s.id}-h`}>
+                <a class="anchor" href={`#${s.id}`} aria-hidden="true">
+                  #
+                </a>
+                {s.h2}
+              </h2>
+              <div class="prose" set:html={s.html} />
+            </section>
+          ))
+        }
+      </div>
+      <aside class="doc-toc" aria-label={p.toc}>
+        <p>{p.toc}</p>
+        <ol>
+          {
+            p.sections.map((s) => (
+              <li>
+                <a href={`#${s.id}`}>{s.h2}</a>
+              </li>
+            ))
+          }
+        </ol>
+      </aside>
+    </div>
+  </main>
+</Base>

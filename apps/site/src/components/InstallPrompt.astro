@@ -1,0 +1,17 @@
+---
+import { useT, type Lang } from '../i18n'
+import Icon from './Icon.astro'
+
+interface Props {
+  lang: Lang
+  /** Unique on the page, since a page can carry more than one of these buttons. */
+  id: string
+  class?: string
+}
+const { lang, id, class: className = 'copy-link' } = Astro.props
+const t = useT(lang)
+---
+
+<button type="button" class={`${className} copy-prompt`} data-copy={id} data-done={t('install.copied')}
+  ><Icon name="copy" size={15} /><span>{t('install.copy')}</span></button
+><span class="sr-only" id={id} aria-hidden="true">{t('install.prompt')}</span>

@@ -1,0 +1,241 @@
+---
+import '../styles/drawn.css'
+import '../styles/maker.css'
+import Base from '../layouts/Base.astro'
+import Icon from './Icon.astro'
+import { EXTENSION_ID, RELEASES_URL, STORE_URL } from '../config'
+import { UI } from '../i18n/ui'
+import { absolute, pageIn, useT, type Lang } from '../i18n'
+import { breadcrumbNode } from '../lib/seo'
+
+interface Props {
+  lang: Lang
+}
+const { lang } = Astro.props
+const t = useT(lang)
+const page = 'maker/'
+// Only the maker's own words go to the page script.
+const strings = Object.fromEntries(Object.entries(UI[lang]).filter(([k]) => k.startsWith('maker.') || k.startsWith('err.')))
+const config = { extensionId: EXTENSION_ID }
+const graph = [
+  breadcrumbNode(absolute(pageIn(lang, page)), [
+    { name: 'Sound Sticker Maker', path: pageIn(lang) },
+    { name: t('maker.h1'), path: pageIn(lang, page) },
+  ]),
+  {
+    '@type': 'WebApplication',
+    name: t('maker.h1'),
+    url: absolute(pageIn(lang, page)),
+    applicationCategory: 'MultimediaApplication',
+    browserRequirements: 'A recent Chrome or Edge with WebCodecs',
+    isAccessibleForFree: true,
+    inLanguage: lang,
+  },
+]
+---
+
+<Base lang={lang} page={page} title={t('maker.seo.title')} description={t('maker.seo.desc')} graph={graph}>
+  <main class="mk-page" id="main">
+    <header class="mk-head">
+      <h1 class="reveal">{t('maker.h1')}</h1>
+      <p class="reveal">{t('maker.lead')}</p>
+    </header>
+
+    <p class="mk-alert" data-mk="unsupported" role="alert" hidden>{t('err.unsupported-browser')}</p>
+
+    <div class="mk" data-mk="root">
+      <div class="mk-stage" data-mk="stage">
+        <input type="file" data-mk="picture-input" accept="video/*,image/*,.gif,.webp,.mp4,.mov,.webm,.m4v" hidden />
+
+        <div class="mk-empty" data-mk="empty">
+          <span class="mk-empty-ic"><Icon name="image" size={22} /></span>
+          <p class="mk-empty-t">{t('maker.pictureHint')}</p>
+          <button type="button" class="btn btn-dark mk-choose" data-mk="picture-choose">{t('maker.choose')}</button>
+          <p class="mk-empty-s">{t('maker.drop')}</p>
+          <div class="mk-or" aria-hidden="true"><span>{t('maker.or')}</span></div>
+          <form class="mk-linkform" data-mk="link-form" novalidate>
+            <label class="sr-only" for="mk-link">{t('maker.link.ph')}</label>
+            <div class="mk-linkrow">
+              <span class="mk-linkic"><Icon name="link" size={16} /></span>
+              <input
+                id="mk-link"
+                class="mk-input mk-link"
+                data-mk="link"
+                type="url"
+                inputmode="url"
+                autocomplete="off"
+                placeholder={t('maker.link.ph')}
+                dir="ltr"
+              />
+            </div>
+            <div class="mk-linkopts">
+              <label class="mk-mini"
+                ><span>{t('maker.link.from')}</span><input
+                  class="mk-input"
+                  data-mk="link-from"
+                  value="0:00"
+                  inputmode="numeric"
+                  dir="ltr"
+                /></label
+              >
+              <label class="mk-mini"
+                ><span>{t('maker.link.length')}</span><input
+                  class="mk-input"
+                  data-mk="link-length"
+                  type="number"
+                  min="1"
+                  max="30"
+                  step="1"
+                  value="10"
+                  dir="ltr"
+                /></label
+              >
+              <button type="submit" class="mk-btn" data-mk="link-go">{t('maker.link.go')}</button>
+            </div>
+            <p class="mk-linkneed" data-mk="link-need" hidden>
+              {t('maker.link.need')}
+              <a href={RELEASES_URL}>{t('maker.link.get')}</a>
+            </p>
+          </form>
+          <p class="mk-error" data-mk="link-error" role="alert" hidden></p>
+        </div>
+
+        <div class="mk-view" data-mk="view" hidden></div>
+        <div class="mk-rec" data-mk="rec" hidden>
+          <div class="mk-rec-frame" data-mk="rec-frame"></div>
+          <p class="mk-rec-bar">
+            <i></i><span data-mk="rec-text"></span><button type="button" class="mk-link" data-mk="rec-cancel">{t('maker.cancel')}</button>
+          </p>
+        </div>
+        <button type="button" class="mk-result" data-mk="result" hidden>
+          <img data-mk="result-img" alt={t('maker.result')} width="512" height="512" />
+          <span class="mk-result-badge"><Icon name="play" size={12} /></span>
+        </button>
+        <audio data-mk="result-audio" preload="auto"></audio>
+
+        <div class="mk-chip" data-mk="picture-row" hidden>
+          <span class="mk-file"><b data-mk="picture-name" dir="auto"></b><span data-mk="picture-kind"></span></span>
+          <button type="button" class="mk-chipbtn" data-mk="picture-replace"><Icon name="replace" size={14} />{t('maker.replace')}</button>
+        </div>
+        <div class="mk-tabs" data-mk="tabs" role="group" hidden>
+          <button type="button" data-view="picture" aria-pressed="false">{t('maker.picture')}</button>
+          <button type="button" data-view="result" aria-pressed="true">{t('maker.result')}</button>
+        </div>
+      </div>
+      <p class="mk-error mk-center" data-mk="picture-error" role="alert" hidden></p>
+
+      <section class="mk-block" data-mk="sound-card" aria-labelledby="mk-sound-h" hidden>
+        <div class="mk-row">
+          <h2 id="mk-sound-h" class="mk-label">{t('maker.sound')}</h2>
+          <div class="mk-seg" data-mk="sound-modes" role="radiogroup" aria-labelledby="mk-sound-h">
+            <label><input type="radio" name="mk-sound" value="own" checked /><span>{t('maker.own')}</span></label>
+            <label><input type="radio" name="mk-sound" value="other" /><span>{t('maker.other')}</span></label>
+          </div>
+        </div>
+        <p class="mk-hint" data-mk="sound-note" hidden></p>
+        <input type="file" data-mk="sound-input" accept="audio/*,video/*,.mp3,.m4a,.aac,.ogg,.opus,.wav,.flac,.mp4,.mov,.webm" hidden />
+        <div class="mk-pick" data-mk="sound-empty" hidden>
+          <span class="mk-pick-ic"><Icon name="music" size={18} /></span>
+          <span class="mk-pick-text"><b>{t('maker.soundHint')}</b><span>{t('maker.drop')}</span></span>
+          <button type="button" class="mk-btn" data-mk="sound-choose">{t('maker.chooseSound')}</button>
+        </div>
+        <div class="mk-pick" data-mk="sound-row" hidden>
+          <span class="mk-pick-ic"><Icon name="music" size={18} /></span>
+          <span class="mk-pick-text"><b data-mk="sound-name" dir="auto"></b><span data-mk="sound-kind"></span></span>
+          <button type="button" class="mk-btn" data-mk="sound-replace"><Icon name="replace" size={14} />{t('maker.replace')}</button>
+        </div>
+        <p class="mk-hint" data-mk="sound-busy" hidden>{t('maker.reading')}</p>
+        <p class="mk-error" data-mk="sound-error" role="alert" hidden></p>
+
+        <div class="mk-trim" data-mk="clip-card" hidden>
+          <div class="mk-track" dir="ltr">
+            <canvas data-mk="wave" aria-hidden="true"></canvas>
+            <div class="mk-range">
+              <input type="range" data-mk="start" min="0" step="0.01" aria-label={t('maker.from')} />
+              <input type="range" data-mk="end" min="0" step="0.01" aria-label={t('maker.to')} />
+            </div>
+          </div>
+          <div class="mk-clip-row">
+            <button type="button" class="mk-play" data-mk="play" aria-label={t('maker.play')}>
+              <span data-mk="play-icon"><Icon name="play" size={14} /></span><span data-mk="pause-icon" hidden
+                ><Icon name="pause" size={14} /></span
+              >
+            </button>
+            <span class="mk-times" dir="ltr"><span data-mk="start-text"></span> – <span data-mk="end-text"></span></span>
+            <span class="mk-badge" data-mk="clip-length" dir="ltr"></span>
+          </div>
+          <p class="mk-hint" data-mk="clip-hint">{t('maker.trimHint')}</p>
+        </div>
+      </section>
+
+      <details class="mk-block mk-details" data-mk="details" hidden>
+        <summary>{t('maker.details')}<Icon name="chevron" size={16} /></summary>
+        <div class="mk-details-in">
+          <div class="mk-row">
+            <span class="mk-sublabel" id="mk-shape-l">{t('maker.shape')}</span>
+            <div class="mk-seg" role="radiogroup" aria-labelledby="mk-shape-l">
+              <label><input type="radio" name="mk-shape" value="contain" checked /><span>{t('maker.whole')}</span></label>
+              <label><input type="radio" name="mk-shape" value="cover" /><span>{t('maker.fill')}</span></label>
+            </div>
+          </div>
+          <div class="mk-pair">
+            <label class="mk-field"
+              ><span class="mk-sublabel">{t('maker.pack')}</span><input
+                class="mk-input"
+                data-mk="pack"
+                maxlength="128"
+                placeholder={t('maker.packPh')}
+              /></label
+            >
+            <label class="mk-field"
+              ><span class="mk-sublabel">{t('maker.author')}</span><input
+                class="mk-input"
+                data-mk="author"
+                maxlength="128"
+                placeholder={t('maker.authorPh')}
+              /></label
+            >
+          </div>
+        </div>
+      </details>
+
+      <div class="mk-act" data-mk="act" hidden>
+        <div class="mk-progress" data-mk="progress" hidden>
+          <div class="mk-bar"><i data-mk="bar"></i></div>
+          <div class="mk-progress-row">
+            <span role="status" data-mk="stage-text"></span><button type="button" class="mk-link" data-mk="cancel"
+              >{t('maker.cancel')}</button
+            >
+          </div>
+        </div>
+        <button type="button" class="btn btn-dark mk-create" data-mk="create"
+          ><Icon name="sparkle" /><span data-mk="create-label">{t('maker.create')}</span></button
+        >
+        <p class="mk-error" data-mk="create-error" role="alert" hidden></p>
+        <p class="mk-error" data-mk="stale" hidden>{t('maker.stale')}</p>
+
+        <div class="mk-done" data-mk="downloads" hidden>
+          <p class="mk-meta" data-mk="result-meta" dir="ltr"></p>
+          <div class="mk-downloads">
+            <a class="btn btn-store mk-dl" data-mk="dl-webp" download="sound-sticker.webp"
+              ><Icon name="download" size={16} />{t('maker.dlWebp')}</a
+            >
+            <a class="btn btn-line mk-dl" data-mk="dl-ogg" download="sound-sticker.ogg"
+              ><Icon name="download" size={16} />{t('maker.dlOgg')}</a
+            >
+          </div>
+          <p class="mk-note">
+            {t('maker.note')}
+            <a href={STORE_URL || RELEASES_URL}>{t('maker.getExt')}</a>
+          </p>
+        </div>
+      </div>
+      <p class="mk-private"><Icon name="lock" size={14} />{t('maker.privacy')}</p>
+    </div>
+    <script type="application/json" id="mk-strings" set:html={JSON.stringify(strings)} />
+    <script type="application/json" id="mk-config" set:html={JSON.stringify(config)} />
+  </main>
+  <script>
+    import '../scripts/maker.ts'
+  </script>
+</Base>

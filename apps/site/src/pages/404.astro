@@ -1,0 +1,44 @@
+---
+import Base from '../layouts/Base.astro'
+import { HTML_LANG, LANGS, LANG_NAMES, dirOf, href, pageIn, useT } from '../i18n'
+
+const t = useT('en')
+const groups = LANGS.map((lang) => {
+  const tl = useT(lang)
+  return {
+    lang,
+    links: [
+      { name: tl('nf.home'), path: pageIn(lang) },
+      { name: tl('nav.maker'), path: pageIn(lang, 'maker/') },
+      { name: tl('foot.privacy'), path: pageIn(lang, 'privacy/') },
+    ],
+  }
+})
+---
+
+<Base lang="en" page="" title={t('nf.title')} description={t('nf.desc')} notFound>
+  <main class="doc" id="main">
+    <div class="wrap narrow-doc">
+      <header class="doc-head">
+        <h1>{t('nf.h1')}</h1>
+        <p class="doc-lead">{t('nf.lead')}</p>
+      </header>
+      <div class="map-groups">
+        {
+          groups.map((g) => (
+            <section class="map-group" lang={HTML_LANG[g.lang]} dir={dirOf(g.lang)}>
+              <h2>{LANG_NAMES[g.lang]}</h2>
+              <ul>
+                {g.links.map((l) => (
+                  <li>
+                    <a href={href(l.path)}>{l.name}</a>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ))
+        }
+      </div>
+    </div>
+  </main>
+</Base>

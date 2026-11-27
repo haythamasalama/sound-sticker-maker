@@ -1,0 +1,156 @@
+---
+import { AUTHOR_NAME, AUTHOR_URL, ISSUES_URL, LICENSE_URL, RELEASES_URL, REPO_URL, STORE_URL } from '../config'
+import { HTML_LANG, LANGS, LANG_NAMES, href, pageIn, useT, type Lang } from '../i18n'
+import Icon from './Icon.astro'
+import { SIBLINGS_LABEL, SIBLING_APPS } from '../i18n/siblings'
+import signature from '../lib/haythamasalama-signature.svg?raw'
+
+interface Props {
+  lang: Lang
+  page: string
+}
+const { lang, page } = Astro.props
+const t = useT(lang)
+const home = href(pageIn(lang))
+const maker = href(pageIn(lang, 'maker/'))
+const privacy = href(pageIn(lang, 'privacy/'))
+---
+
+<a class="skip" href="#main">{t('skip')}</a>
+<header class="top">
+  <div class="nav">
+    <a class="brand wm" href={home} dir="ltr"
+      ><img src={href('icon.svg')} width="30" height="30" alt="" /><span>Sound <span class="s">Sticker Maker</span></span></a
+    >
+    <nav class="links" aria-label={t('foot.product')}>
+      <a class="nav-2" href={home + '#how'}>{t('nav.how')}</a>
+      <a class="nav-2" href={home + '#features'}>{t('nav.features')}</a>
+      <a href={maker} aria-current={page === 'maker/' ? 'page' : undefined}>{t('nav.maker')}</a>
+      <a class="nav-2" href={home + '#faq'}>{t('nav.faq')}</a>
+    </nav>
+    <div class="tools">
+      <a class="btn btn-store" href={STORE_URL || href(pageIn(lang, 'install/'))}
+        ><Icon name={STORE_URL ? 'plus' : 'download'} />{t('nav.download')}</a
+      >
+    </div>
+  </div>
+</header>
+
+<slot />
+
+<footer class="site-foot">
+  <div class="foot-in">
+    <div class="foot-head">
+      <div class="foot-brand">
+        <a class="brand wm" href={home} dir="ltr"
+          ><img src={href('icon.svg')} width="30" height="30" alt="" loading="lazy" /><span>Sound <span class="s">Sticker Maker</span></span
+          ></a
+        >
+        <p>{t('foot.about')}</p>
+      </div>
+      <a class="btn btn-store" href={STORE_URL || href(pageIn(lang, 'install/'))}
+        ><Icon name={STORE_URL ? 'plus' : 'download'} />{t(STORE_URL ? 'cta.store' : 'nav.download')}</a
+      >
+    </div>
+    <nav class="foot-cols" aria-label={t('foot.product')}>
+      <div>
+        <h2>{t('foot.product')}</h2>
+        <ul>
+          <li><a href={home + '#how'}>{t('nav.how')}</a></li>
+          <li><a href={home + '#features'}>{t('nav.features')}</a></li>
+          <li><a href={maker}>{t('nav.maker')}</a></li>
+          <li><a href={home + '#faq'}>{t('nav.faq')}</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>{t('foot.project')}</h2>
+        <ul>
+          <li><a href={href(pageIn(lang, 'install/'))}>{t('install.nav')}</a></li>
+          <li><a href={RELEASES_URL}>{t('foot.releases')}</a></li>
+          <li><a href={REPO_URL}>{t('foot.source')}</a></li>
+          <li><a href={ISSUES_URL}>{t('foot.issues')}</a></li>
+          <li><a href={LICENSE_URL}>{t('foot.license')}</a></li>
+        </ul>
+      </div>
+    </nav>
+    <div class="foot-row">
+      <p>{t('foot.ask')} <a href={ISSUES_URL} dir="ltr">GitHub</a>.</p>
+      <div class="foot-end">
+        <div class="theme-pick" role="group" aria-label={t('theme.label')}>
+          <button type="button" data-theme-choice="system" aria-pressed="true" title={t('theme.system')} aria-label={t('theme.system')}
+            ><Icon name="system" size={15} /></button
+          >
+          <button type="button" data-theme-choice="light" aria-pressed="false" title={t('theme.light')} aria-label={t('theme.light')}
+            ><Icon name="sun" size={15} /></button
+          >
+          <button type="button" data-theme-choice="dark" aria-pressed="false" title={t('theme.dark')} aria-label={t('theme.dark')}
+            ><Icon name="moon" size={15} /></button
+          >
+        </div>
+        <details class="lang foot-lang">
+          <summary class="chip-btn" aria-label={t('lang.label')}>
+            <Icon name="globe" size={15} />
+            <span>{LANG_NAMES[lang]}</span>
+            <svg
+              width="10"
+              height="10"
+              viewBox="0 0 10 10"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.6"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"><path d="M2 6.5 5 3.5l3 3"></path></svg
+            >
+          </summary>
+          <ul class="lang-menu">
+            {
+              LANGS.map((l) => (
+                <li>
+                  <a
+                    href={href(pageIn(l, page))}
+                    hreflang={HTML_LANG[l]}
+                    lang={HTML_LANG[l]}
+                    data-lang={l}
+                    aria-current={l === lang ? 'page' : undefined}
+                  >
+                    {LANG_NAMES[l]} <small>{l.toUpperCase()}</small>
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </details>
+      </div>
+    </div>
+    <div class="foot-row foot-apps">
+      <p>{SIBLINGS_LABEL[lang]}</p>
+      <ul>
+        {
+          SIBLING_APPS.map((app) => (
+            <li>
+              <a href={app.url}>
+                <span class="app-logo" set:html={app.logo.replace('<svg ', '<svg aria-hidden="true" width="36" height="36" ')} />
+                <span class="app-text">
+                  <b dir="ltr">{app.name}</b>
+                  <span>{app.about[lang]}</span>
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+    <div class="foot-row">
+      <p set:html={t('foot.copy')} />
+      <nav class="foot-legal" aria-label={t('foot.project')}>
+        <a href={privacy}>{t('foot.privacy')}</a>
+        <a href={LICENSE_URL}>{t('foot.license')}</a>
+        <span class="foot-icons">
+          <a class="foot-icon" href={REPO_URL} aria-label="GitHub" title="GitHub"><Icon name="github" size={15} /></a>
+          <a class="foot-sig" href={AUTHOR_URL} rel="author noopener" aria-label={AUTHOR_NAME} title={AUTHOR_NAME} set:html={signature} />
+        </span>
+      </nav>
+    </div>
+  </div>
+</footer>

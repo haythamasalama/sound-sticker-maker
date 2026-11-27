@@ -1,0 +1,29 @@
+{
+  "name": "@sound-sticker-maker/site",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "The Sound Sticker Maker website and online sticker maker.",
+  "author": "Haytham A. Salama (https://haythamasalama.me/)",
+  "license": "MIT",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "typecheck": "astro check",
+    "test": "node --test tests/",
+    "format": "prettier --plugin=prettier-plugin-astro --ignore-path ../../.prettierignore --write .",
+    "format:check": "prettier --plugin=prettier-plugin-astro --ignore-path ../../.prettierignore --check ."
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.4",
+    "@sound-sticker-maker/core": "workspace:*",
+    "astro": "^7.4.4",
+    "motion": "^14.9.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.6",
+    "prettier-plugin-astro": "^0.14.1",
+    "typescript": "~6.0.3"
+  }
+}

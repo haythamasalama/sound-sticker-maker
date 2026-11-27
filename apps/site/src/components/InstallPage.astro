@@ -1,0 +1,122 @@
+---
+import '../styles/install.css'
+import Base from '../layouts/Base.astro'
+import Icon from './Icon.astro'
+import InstallPrompt from './InstallPrompt.astro'
+import { RELEASES_URL, STORE_URL } from '../config'
+import { absolute, pageIn, useT, type Key, type Lang } from '../i18n'
+import { breadcrumbNode } from '../lib/seo'
+
+interface Props {
+  lang: Lang
+}
+const { lang } = Astro.props
+const t = useT(lang)
+const page = 'install/'
+const STEPS = [1, 2, 3, 4, 5, 6] as const
+const graph = [
+  breadcrumbNode(absolute(pageIn(lang, page)), [
+    { name: 'Sound Sticker Maker', path: pageIn(lang) },
+    { name: t('install.nav'), path: pageIn(lang, page) },
+  ]),
+  {
+    '@type': 'HowTo',
+    '@id': `${absolute(pageIn(lang, page))}#howto`,
+    name: t('install.seo.title').split(' | ')[0],
+    inLanguage: lang,
+    totalTime: 'PT3M',
+    step: STEPS.map((n) => ({ '@type': 'HowToStep', position: n, name: t(`install.s${n}t` as Key), text: t(`install.s${n}b` as Key) })),
+  },
+]
+---
+
+<Base lang={lang} page={page} title={t('install.seo.title')} description={t('install.seo.desc')} graph={graph}>
+  <main class="inst" id="main">
+    <header class="inst-head">
+      <h1 class="reveal">{t('install.h1')}</h1>
+      <p class="reveal">{t('install.lead')}</p>
+    </header>
+
+    {
+      STORE_URL && (
+        <a class="btn btn-store inst-store reveal" href={STORE_URL}>
+          <Icon name="plus" />
+          {t('cta.store')}
+        </a>
+      )
+    }
+    <section class="inst-ai reveal" aria-labelledby="inst-ai-h">
+      <div>
+        <h2 id="inst-ai-h">{t('install.ai.t')}</h2>
+        <p>{t('install.ai.b')}</p>
+      </div>
+      <div class="inst-ai-act">
+        <InstallPrompt lang={lang} id="install-prompt-page" class="btn btn-dark" />
+        <p class="inst-honest">{t('install.honest')}</p>
+      </div>
+    </section>
+
+    <h2 class="inst-manual">{t('install.manual')}</h2>
+    <ol class="inst-steps">
+      <li class="reveal">
+        <div class="inst-art" aria-hidden="true">
+          <div class="ia-win ia-assets" dir="ltr">
+            <p class="on"><Icon name="download" size={14} /><b>sound-sticker-maker-0.1.0-github.zip</b></p>
+            <p><Icon name="download" size={14} /><span>sound-sticker-maker-0.1.0-store.zip</span></p>
+            <p><Icon name="code" size={14} /><span>{t('install.source')}</span></p>
+          </div>
+        </div>
+        <h3>{t('install.s1t')}</h3>
+        <p>{t('install.s1b')} <a href={RELEASES_URL}>GitHub Releases</a></p>
+      </li>
+      <li class="reveal">
+        <div class="inst-art" aria-hidden="true">
+          <div class="ia-unzip" dir="ltr">
+            <span class="ia-file"><i>ZIP</i></span>
+            <Icon name="arrow" size={20} />
+            <span class="ia-folder"></span>
+          </div>
+        </div>
+        <h3>{t('install.s2t')}</h3>
+        <p>{t('install.s2b')}</p>
+      </li>
+      <li class="reveal">
+        <div class="inst-art" aria-hidden="true">
+          <div class="ia-bar" dir="ltr"><Icon name="lock" size={13} /><b>chrome://extensions</b><i></i></div>
+        </div>
+        <h3>{t('install.s3t')}</h3>
+        <p>{t('install.s3b')}</p>
+      </li>
+      <li class="reveal">
+        <div class="inst-art" aria-hidden="true">
+          <div class="ia-win ia-ext">
+            <b>{t('install.ext')}</b>
+            <span class="ia-dev">{t('install.dev')}<i class="ia-toggle"></i></span>
+          </div>
+        </div>
+        <h3>{t('install.s4t')}</h3>
+        <p>{t('install.s4b')}</p>
+      </li>
+      <li class="reveal">
+        <div class="inst-art" aria-hidden="true">
+          <div class="ia-win ia-btns">
+            <span class="on">{t('install.load')}</span><span>{t('install.pack')}</span><span>{t('install.update')}</span>
+          </div>
+        </div>
+        <h3>{t('install.s5t')}</h3>
+        <p>{t('install.s5b')}</p>
+      </li>
+      <li class="reveal">
+        <div class="inst-art" aria-hidden="true">
+          <div class="ia-win ia-wa">
+            <p class="ia-bub"></p>
+            <p class="ia-bub out"></p>
+            <span class="ia-fab"><Icon name="wave" size={18} /></span>
+          </div>
+        </div>
+        <h3>{t('install.s6t')}</h3>
+        <p>{t('install.s6b')}</p>
+      </li>
+    </ol>
+  </main>
+</Base>

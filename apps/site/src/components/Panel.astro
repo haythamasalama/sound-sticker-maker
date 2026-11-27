@@ -1,0 +1,139 @@
+---
+import { href, useT, type Lang } from '../i18n'
+import Icon from './Icon.astro'
+import Sticker from './Sticker.astro'
+
+interface Props {
+  lang: Lang
+  part?: 'full' | 'media' | 'clip' | 'result' | 'head'
+  /** The word on the drawn sticker, in the page's language. */
+  word?: string
+}
+const { lang, part = 'full', word: pageWord } = Astro.props
+const t = useT(lang)
+const word = pageWord ?? t('mock.word')
+const full = part === 'full'
+
+// A fixed, hand-shaped waveform so every render of the drawing is the same.
+const BARS = Array.from({ length: 46 }, (_, i) => {
+  const v = 0.28 + 0.4 * Math.abs(Math.sin(i * 0.9)) * Math.abs(Math.cos(i * 0.31)) + 0.3 * Math.abs(Math.sin(i * 2.3 + 1))
+  return Math.min(1, v)
+})
+const FROM = 9
+const TO = 31
+---
+
+<div class={`pn pn-${part}`} dir={lang === 'ar' ? 'rtl' : 'ltr'} lang={lang}>
+  {
+    (full || part === 'head') && (
+      <div class="pn-head">
+        <img src={href('icon.svg')} width="22" height="22" alt="" loading="lazy" />
+        <b>{t('mock.title')}</b>
+        <span class="pn-ic">
+          <Icon name="globe" size={15} />
+        </span>
+        <span class="pn-ic">
+          <Icon name="close" size={15} />
+        </span>
+      </div>
+    )
+  }
+  <div class="pn-body">
+    {
+      (full || part === 'media') && (
+        <div class="pn-media">
+          <span class="pn-thumb">
+            <Sticker word={word} size="xs" />
+          </span>
+          <span class="pn-file">
+            <b dir="ltr">{t('mock.file')}</b>
+            <span class="pn-badge">{t('mock.kind')}</span>
+          </span>
+          <span class="pn-btn">
+            <Icon name="replace" size={13} />
+            {t('mock.replace')}
+          </span>
+        </div>
+      )
+    }
+    {
+      full && (
+        <div class="pn-field">
+          <span class="pn-label">{t('mock.sound')}</span>
+          <div class="pn-radios">
+            <span class="pn-radio on">
+              <i />
+              {t('mock.own')}
+            </span>
+            <span class="pn-radio">
+              <i />
+              {t('mock.other')}
+            </span>
+          </div>
+        </div>
+      )
+    }
+    {
+      (full || part === 'clip') && (
+        <div class="pn-card pn-clip">
+          <div class="pn-preview">
+            <Sticker word={word} size="sm" />
+          </div>
+          <div class="pn-wave" dir="ltr">
+            {BARS.map((v, i) => (
+              <i class={i >= FROM && i <= TO ? 'on' : undefined} style={`--h:${v.toFixed(2)}`} />
+            ))}
+          </div>
+          <div class="pn-range" dir="ltr" style={`--a:${(FROM / BARS.length) * 100}%;--b:${((TO + 1) / BARS.length) * 100}%`}>
+            <i class="pn-fill" />
+            <i class="pn-thumb-a" />
+            <i class="pn-thumb-b" />
+          </div>
+          <div class="pn-row">
+            <span class="pn-play">
+              <Icon name="play" size={12} />
+            </span>
+            <span class="pn-badge">{t('mock.len')}</span>
+          </div>
+        </div>
+      )
+    }
+    {
+      full && (
+        <div class="pn-collapse">
+          {t('mock.details')}
+          <Icon name="chevron" size={15} />
+        </div>
+      )
+    }
+    {
+      part === 'result' && (
+        <div class="pn-result">
+          <span class="pn-stk">
+            <Sticker word={word} size="xs" sound />
+          </span>
+          <span class="pn-file">
+            <b>{t('mock.ready')}</b>
+            <span class="pn-meta" dir="ltr">
+              {t('mock.size')}
+            </span>
+          </span>
+          <span class="pn-primary pn-sm">
+            <Icon name="send" size={13} />
+            {t('mock.send')}
+          </span>
+          <span class="pn-icbtn">
+            <Icon name="download" size={15} />
+          </span>
+        </div>
+      )
+    }
+  </div>
+  {
+    full && (
+      <div class="pn-foot">
+        <span class="pn-primary">{t('mock.create')}</span>
+      </div>
+    )
+  }
+</div>

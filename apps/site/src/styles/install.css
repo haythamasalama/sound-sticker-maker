@@ -1,0 +1,349 @@
+/* Install: one prompt for an AI, then six numbered steps, each with a small drawing of the screen it happens on. */
+.inst {
+  max-width: calc(1040px + 2 * var(--gutter));
+  margin-inline: auto;
+  padding: 48px var(--gutter) 24px;
+}
+.inst-head {
+  max-width: 40em;
+}
+.inst-head h1 {
+  font-size: clamp(32px, 4.6vw, 50px);
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+}
+:root[dir='rtl'] .inst-head h1,
+:root[lang='hi'] .inst-head h1 {
+  line-height: 1.3;
+  letter-spacing: 0;
+}
+.inst-head p {
+  margin: 14px 0 0;
+  font-size: clamp(17px, 1.7vw, 19px);
+  line-height: 1.6;
+  color: var(--muted);
+}
+.inst-ai {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px 28px;
+  margin-top: 32px;
+  padding: clamp(20px, 3vw, 30px);
+  border-radius: 18px;
+  background: var(--surface);
+}
+.inst-ai > div {
+  flex: 1 1 22em;
+}
+.inst-ai h2 {
+  font-size: 21px;
+}
+.inst-ai p {
+  margin: 6px 0 0;
+  color: var(--muted);
+  line-height: 1.55;
+  max-width: 38em;
+}
+.inst-ai .btn {
+  font-weight: 600;
+}
+.inst-manual {
+  margin: 56px 0 20px;
+  font-size: 22px;
+}
+.inst-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 28px 16px;
+  counter-reset: step;
+}
+@media (max-width: 900px) {
+  .inst-steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 560px) {
+  .inst-steps {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+.inst-steps li {
+  counter-increment: step;
+}
+.inst-steps h3 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 16px;
+  font-size: 17px;
+}
+.inst-steps h3::before {
+  content: counter(step);
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--bg);
+  font-size: 13px;
+  font-weight: 700;
+}
+.inst-steps li > p {
+  margin: 6px 0 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+.inst-steps li > p a {
+  color: var(--accent-ink);
+  font-weight: 600;
+  text-underline-offset: 3px;
+}
+
+/* The drawings */
+.inst-art {
+  display: grid;
+  place-items: center;
+  height: 190px;
+  padding: 0 18px;
+  border-radius: 16px;
+  background: var(--surface);
+}
+.ia-win {
+  width: 100%;
+  max-width: 300px;
+  padding: 12px;
+  border-radius: 12px;
+  background: var(--card);
+  box-shadow:
+    0 0 0 1px var(--line),
+    0 12px 26px -16px rgba(40, 16, 8, 0.35);
+  font-size: 13px;
+}
+.ia-assets {
+  display: grid;
+  gap: 4px;
+}
+.ia-assets p {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  padding: 7px 8px;
+  border-radius: 8px;
+  color: var(--muted);
+  overflow: hidden;
+  white-space: nowrap;
+}
+.ia-assets p.on {
+  background: var(--accent-soft);
+  color: var(--accent-ink);
+}
+.ia-assets b {
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.ia-unzip {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  color: var(--muted);
+}
+.ia-file {
+  position: relative;
+  display: grid;
+  place-items: end center;
+  width: 58px;
+  height: 72px;
+  padding-bottom: 10px;
+  border-radius: 8px;
+  background: var(--card);
+  box-shadow: 0 0 0 1px var(--line2);
+}
+.ia-file::before {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  width: 8px;
+  height: 30px;
+  translate: -50% 0;
+  background: repeating-linear-gradient(var(--ink2) 0 4px, transparent 4px 8px);
+}
+.ia-file i {
+  font-style: normal;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--ink2);
+}
+.ia-folder {
+  position: relative;
+  width: 84px;
+  height: 62px;
+  border-radius: 4px 10px 10px 10px;
+  background: var(--accent);
+}
+.ia-folder::before {
+  content: '';
+  position: absolute;
+  top: -9px;
+  left: 0;
+  width: 34px;
+  height: 12px;
+  border-radius: 6px 6px 0 0;
+  background: var(--accent);
+}
+.ia-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  max-width: 300px;
+  height: 42px;
+  padding: 0 14px;
+  border-radius: 999px;
+  background: var(--card);
+  box-shadow:
+    0 0 0 1px var(--line),
+    0 12px 26px -16px rgba(40, 16, 8, 0.35);
+  color: var(--muted);
+  font-size: 14px;
+}
+.ia-bar b {
+  color: var(--ink);
+  font-weight: 600;
+}
+.ia-bar i {
+  width: 1.5px;
+  height: 18px;
+  background: var(--accent);
+  animation: ia-caret 1s steps(1) infinite;
+}
+@keyframes ia-caret {
+  50% {
+    opacity: 0;
+  }
+}
+.ia-ext {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 14px;
+}
+.ia-ext b {
+  font-size: 15px;
+  font-weight: 600;
+}
+.ia-dev {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  border-radius: 10px;
+  box-shadow: 0 0 0 2px var(--accent);
+  color: var(--ink);
+  font-weight: 500;
+  white-space: nowrap;
+}
+.ia-toggle {
+  position: relative;
+  width: 32px;
+  height: 18px;
+  border-radius: 99px;
+  background: var(--accent-fill);
+}
+.ia-toggle::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  inset-inline-end: 2px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #ffffff;
+}
+.ia-btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.ia-btns span {
+  padding: 6px 10px;
+  border-radius: 8px;
+  box-shadow: 0 0 0 1px var(--line2);
+  color: var(--muted);
+  white-space: nowrap;
+}
+.ia-btns span.on {
+  box-shadow: 0 0 0 2px var(--accent);
+  color: var(--accent-ink);
+  font-weight: 600;
+}
+.ia-wa {
+  position: relative;
+  display: grid;
+  gap: 8px;
+  height: 140px;
+  align-content: start;
+  background: var(--surface2);
+}
+.ia-bub {
+  width: 60%;
+  height: 26px;
+  margin: 0;
+  border-radius: 10px;
+  background: var(--card);
+}
+.ia-bub.out {
+  justify-self: end;
+  width: 46%;
+  background: var(--surface3);
+}
+.ia-fab {
+  position: absolute;
+  inset-inline-end: 12px;
+  bottom: 12px;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--accent-fill);
+  color: #ffffff;
+  box-shadow:
+    0 0 0 4px color-mix(in srgb, var(--accent) 25%, transparent),
+    0 8px 16px -8px rgba(184, 54, 15, 0.8);
+}
+@media (prefers-reduced-motion: reduce) {
+  .ia-bar i {
+    animation: none;
+  }
+}
+
+.inst-store {
+  margin-top: 28px;
+  height: 52px;
+  padding: 0 28px;
+  font-size: 17px;
+}
+.inst-ai-act {
+  display: grid;
+  justify-items: start;
+  gap: 8px;
+  max-width: 22em;
+}
+.inst-honest {
+  margin: 0;
+  font-size: 13.5px;
+  line-height: 1.45;
+  color: var(--muted);
+}

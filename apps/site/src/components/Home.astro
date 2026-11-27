@@ -1,0 +1,215 @@
+---
+import '../styles/home.css'
+import '../styles/drawn.css'
+import { RELEASES_URL, STORE_URL } from '../config'
+import { href, pageIn, panelLang, useT, type Key, type Lang } from '../i18n'
+import Chat from './Chat.astro'
+import InstallPrompt from './InstallPrompt.astro'
+import Icon from './Icon.astro'
+import Panel from './Panel.astro'
+import Sticker from './Sticker.astro'
+
+interface Props {
+  lang: Lang
+}
+const { lang } = Astro.props
+const t = useT(lang)
+const ext = panelLang(lang)
+const maker = href(pageIn(lang, 'maker/'))
+const install = href(pageIn(lang, 'install/'))
+const FAQ = [1, 2, 3, 4, 5, 6]
+const TRIES = [
+  { line: '512 px · 30 fps · 1.42 MB', ok: false, w: 94.7 },
+  { line: '512 px · 25 fps · 1.08 MB', ok: false, w: 72 },
+  { line: '512 px · 20 fps · 846 KB', ok: true, w: 56.4 },
+]
+const PICTURES = ['MP4', 'MOV', 'GIF', 'PNG']
+const SOUNDS = ['MP3', 'M4A', 'WAV']
+---
+
+<main id="main">
+  <section class="hero">
+    <div class="sky hero-sky">
+      <div class="hero-head">
+        <img class="hero-icon rise" src={href('icon.svg')} width="84" height="84" alt={t('icon.alt')} fetchpriority="high" />
+        <h1 class="rise">{t('hero.title')}</h1>
+        <p class="hero-lead rise">{t('hero.lead')}</p>
+        <div class="hero-act rise">
+          <a class="btn btn-store" href={STORE_URL || install}
+            ><Icon name={STORE_URL ? 'plus' : 'download'} />{t(STORE_URL ? 'cta.store' : 'nav.download')}</a
+          >
+          <p>{t('hero.meta')}</p>
+          <div class="hero-more">
+            <InstallPrompt lang={lang} id="install-prompt-hero" />
+            <a class="hero-try" href={maker}>{t('cta.try')}<Icon name="arrow" size={15} class="flip" /></a>
+          </div>
+        </div>
+      </div>
+      <div class="hero-stage rise" role="img" aria-label={t('hero.alt')}>
+        <Chat lang={lang} />
+        <Panel lang={ext} word={t('mock.word')} />
+      </div>
+    </div>
+  </section>
+
+  <section class="flow" id="how" aria-labelledby="how-h">
+    <div class="sec-head">
+      <h2 class="h2 rise" id="how-h">{t('how.title')}</h2>
+      <p class="rise">{t('how.sub')}</p>
+    </div>
+    <div class="flow-grid">
+      <article class="rise">
+        <div class="sky tile-art" aria-hidden="true">
+          <div class="tile-in"><Panel lang={ext} part="media" word={t('mock.word')} /></div>
+        </div>
+        <h3>{t('how.1t')}</h3>
+        <p>{t('how.1b')}</p>
+      </article>
+      <article class="rise">
+        <div class="sky tile-art" aria-hidden="true"><div class="tile-in"><Panel lang={ext} part="clip" word={t('mock.word')} /></div></div>
+        <h3>{t('how.2t')}</h3>
+        <p>{t('how.2b')}</p>
+      </article>
+      <article class="rise">
+        <div class="sky tile-art" aria-hidden="true">
+          <div class="tile-in tile-sent">
+            <div class="tile-stk"><Sticker word={t('mock.word')} sound /></div>
+            <Panel lang={ext} part="result" word={t('mock.word')} />
+          </div>
+        </div>
+        <h3>{t('how.3t')}</h3>
+        <p>{t('how.3b')}</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="more" id="features" aria-labelledby="feat-h">
+    <div class="sec-head">
+      <h2 class="h2 rise" id="feat-h">{t('feat.title')}</h2>
+    </div>
+    <div class="more-grid">
+      <article class="rise m4">
+        <div class="more-art plain" aria-hidden="true">
+          <div class="fa-fit" dir="ltr">
+            {
+              TRIES.map((x) => (
+                <div class:list={['fa-try', { ok: x.ok }]}>
+                  <span class="fa-mark">
+                    <Icon name={x.ok ? 'check' : 'close'} size={13} />
+                  </span>
+                  <span class="fa-line">{x.line}</span>
+                  <span class="fa-bar" style={`--w:${x.w}%`}>
+                    <i />
+                  </span>
+                </div>
+              ))
+            }
+            <div class="fa-limit"><span>1 MB</span></div>
+          </div>
+        </div>
+        <h3>{t('f.fit.t')}</h3>
+        <p>{t('f.fit.b')}</p>
+      </article>
+      <article class="rise m2">
+        <div class="sky more-art" aria-hidden="true">
+          <div class="fa-files" dir="ltr">
+            <div>
+              {
+                PICTURES.map((f) => (
+                  <span class="fa-file">
+                    <Icon name={f === 'PNG' ? 'image' : 'film'} size={14} />
+                    {f}
+                  </span>
+                ))
+              }
+            </div>
+            <span class="fa-plus"><Icon name="plus" size={16} /></span>
+            <div>
+              {
+                SOUNDS.map((f) => (
+                  <span class="fa-file">
+                    <Icon name="music" size={14} />
+                    {f}
+                  </span>
+                ))
+              }
+            </div>
+          </div>
+        </div>
+        <h3>{t('f.any.t')}</h3>
+        <p>{t('f.any.b')}</p>
+      </article>
+      <article class="rise m2">
+        <div class="sky more-art" aria-hidden="true">
+          <div class="fa-langs">
+            <Panel lang="en" part="head" word={t('mock.word')} />
+            <Panel lang="ar" part="head" />
+          </div>
+        </div>
+        <h3>{t('f.lang.t')}</h3>
+        <p>{t('f.lang.b')}</p>
+      </article>
+      <article class="rise m4">
+        <div class="more-art plain" aria-hidden="true">
+          <div class="fa-priv">
+            <span class="fa-chip"><Icon name="film" size={15} /><span dir="ltr">goal.mp4</span></span>
+            <span class="fa-to"><Icon name="arrow" size={16} class="flip" /></span>
+            <span class="fa-chip fa-here"><Icon name="lock" size={15} />{t('f.priv.line')}</span>
+            <span class="fa-to"><Icon name="arrow" size={16} class="flip" /></span>
+            <span class="fa-chip"><Sticker word={t('mock.word')} size="xs" /><span dir="ltr">.webp + .ogg</span></span>
+            <span class="fa-none"><Icon name="cloud" size={15} />{t('f.priv.none')}</span>
+          </div>
+        </div>
+        <h3>{t('f.priv.t')}</h3>
+        <p>{t('f.priv.b')}</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="try" aria-labelledby="try-h">
+    <div class="try-main rise">
+      <div>
+        <h2 class="h2" id="try-h">{t('try.title')}</h2>
+        <p>{t('try.body')}</p>
+      </div>
+      <a class="btn btn-dark" href={maker}>{t('try.cta')}<Icon name="arrow" class="flip" /></a>
+    </div>
+    <div class="try-links rise">
+      <span class="pill-tag"><Icon name="github" size={14} />{t('links.tag')}</span>
+      <h3>{t('links.title')}</h3>
+      <p>{t('links.body')}</p>
+      <a class="try-link" href={RELEASES_URL}>{t('foot.releases')}<Icon name="arrow" size={15} class="flip" /></a>
+    </div>
+  </section>
+
+  <section class="ask" id="faq">
+    <div class="ask-h">
+      <h2 class="h2">{t('faq.title')}</h2>
+    </div>
+    <div class="faq">
+      {
+        FAQ.map((i) => (
+          <details class="rise" name="faq" open={i === 1}>
+            <summary>{t(`q.${i}` as Key)}</summary>
+            <p>{t(`a.${i}` as Key)}</p>
+          </details>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="close" id="get">
+    <div class="sky close-sky">
+      <img class="rise" src={href('icon.svg')} width="84" height="84" alt="" loading="lazy" />
+      <h2 class="h2 rise">{t('close.title')}</h2>
+      <a class="btn btn-store rise" href={STORE_URL || install}
+        ><Icon name={STORE_URL ? 'plus' : 'download'} />{t(STORE_URL ? 'cta.store' : 'nav.download')}</a
+      >
+      <p class="rise">{t('hero.meta')}</p>
+      <div class="hero-more rise">
+        <InstallPrompt lang={lang} id="install-prompt-close" />
+        <a class="hero-try" href={maker}>{t('cta.try')}<Icon name="arrow" size={15} class="flip" /></a>
+      </div>
+    </div>
+  </section>
+</main>

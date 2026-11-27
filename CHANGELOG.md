@@ -2,9 +2,9 @@
 
 ## Unreleased
 
-## 0.1.0 - 2026-11-27
+## 0.1.1 - 2026-11-27
 
-The first release: make WhatsApp stickers that play sound, right inside WhatsApp Web.
+The first public release: make WhatsApp stickers that play sound, right inside WhatsApp Web.
 
 ### Added
 
@@ -18,3 +18,8 @@ The first release: make WhatsApp stickers that play sound, right inside WhatsApp
 - Six languages: English, Arabic, Spanish, Portuguese, Indonesian and Hindi, in light and dark.
 - Website with an online maker that runs in your browser, an install guide with steps to copy into any AI assistant,
   and full search data in six languages.
+
+### Fixed
+
+- Security: updated `glob` and `minimatch` in the development tools to patched versions.
+- Releases now attach the extension zips.

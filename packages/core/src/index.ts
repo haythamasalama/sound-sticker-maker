@@ -9,3 +9,4 @@ export { createSoundSticker, type AudioSource, type SoundSticker, type Stage, ty
 export { buildStickerMetadata, readStickerExif, stickerExif, type StickerMetadata } from './format/sticker-metadata'
 export { readWebpChunks, replaceWebpExif } from './format/webp'
 export { sha256Base64 } from './format/bytes'
+export { formatClock, parseClock, parseVideoLink, type VideoLink } from './links'
